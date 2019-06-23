@@ -1,0 +1,97 @@
+<app-header></app-header>
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label for="sel1">Issue Cateogry:</label>
+            <select class="form-control" id="sel1">
+              <option hidden selected disabled>--Select--</option>
+              <option>Data Recovery</option>
+              <option>Email</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label for="priority">Priority:</label>
+            <select class="form-control" id="priority">
+              <option hidden selected disabled>--Select--</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Issue Description">
+          </mat-form-field>
+
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Company" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
+                <span>{{state.name}}</span> |
+                <small>Population: {{state.population}}</small>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Asset Tag">
+          </mat-form-field>
+
+
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Parts Used">
+          </mat-form-field>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+          <mat-form-field class="w-100">
+            <input matInput [matDatepicker]="picker" placeholder="Requested Comp Date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="w-100">
+            <input matInput [matDatepicker]="picker2" placeholder="Estimated Comp Date">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="w-100">
+            <mat-label>Contact Person</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let state of states" [value]="state.population">
+                {{state.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="w-100">
+            <mat-label>Assigned To:</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let food of states" [value]="food.population">
+                {{food.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button mat-flat-button color="primary">Submit</button>
+    </div>
+  </div>
+</div>

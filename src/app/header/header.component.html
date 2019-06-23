@@ -1,0 +1,38 @@
+<nav class="navbar navbar-dark bg-secondary navbar-expand-md mat-elevation-z1">
+  <!-- Navbar content -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" [routerLink]="['/']" routerLinkActive="active">
+        <a class="nav-link">Dashboard</a>
+      </li>
+      <li class="nav-item" [routerLink]="['/add-ticket']" routerLinkActive="active">
+        <a class="nav-link">New Ticket</a>
+      </li>
+      <li class="nav-item" [routerLink]="['/tickets']" routerLinkActive="router-link-active">
+        <a class="nav-link">Tickets</a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" (click)="showDropDown = !showDropDown" id="navbardrop"
+          data-toggle="dropdown">
+          Admin
+        </a>
+        <div [class.disp]="showDropDown" class="dropdown-menu">
+          <a class="dropdown-item" (click)="showDropDown = false" [routerLink]="['/contact-detail']">
+            Contact Detail</a>
+          <a class="dropdown-item" [routerLink]="['/add-company']" routerLinkActive="router-link-active">Add Company</a>
+          <a class="dropdown-item" [routerLink]="['/add-user']" routerLinkActive="router-link-active">Add User</a>
+          <a class="dropdown-item" [routerLink]="['/users']" routerLinkActive="router-link-active">Users</a>
+          <a class="dropdown-item" (click)="logout()">logOut</a>
+        </div>
+      </li>
+      <li class="nav-item" [routerLink]="['/home/contacts']" routerLinkActive="active">
+        <a class="nav-link">Contacts</a>
+      </li>
+    </ul>
+  </div>
+</nav>

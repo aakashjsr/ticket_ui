@@ -1,0 +1,19 @@
+<div class="container d-flex justify-content-center align-items-center">
+  <mat-card class="mat-elevation-z1">
+    <mat-card-content>
+      <h3 class="text-center text-warning">Login</h3>
+      <mat-form-field class="w-100 my-1">
+        <input matInput placeholder="username">
+      </mat-form-field>
+      <mat-form-field class="w-100 my-1">
+        <input matInput placeholder="password">
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions class="d-flex justify-content-between w-100">
+      <button (click)="submitForm()" routerLinkActive="router-link-active" mat-stroked-button
+        color="primary">Sigin</button>
+      <button mat-stroked-button>Signup</button>
+      <button mat-button>Forgot password?</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

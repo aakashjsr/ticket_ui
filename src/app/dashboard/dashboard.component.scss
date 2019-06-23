@@ -1,0 +1,66 @@
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.bg-light-yellow {
+  background-color: #ffe393!important;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.dateField1 {
+  max-width: 289px;
+}
+
+.dateField2 {
+  max-width: 264px;
+}
+
+.grid-box {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+}
+
+.cust-list {
+  border-right: 1px solid lightgrey;
+  min-height: 80vh;
+}
+
+.list-group-item {
+  padding: .5rem !important;
+  border: none !important;
+}
+
+.text-small {
+  font-size: .9rem;
+}
+
+.margin-top {
+  margin-top: 5%;
+}
+
+mat-sidenav{
+  top: 56px !important;
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}

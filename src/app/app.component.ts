@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ticket-management';
+
+  constructor(private router: Router) { }
+
+  async checkAuthentication() {
+    if (await localStorage.getItem('token')) {
+      this.router.navigate(["/login"])
+    } else {
+      this.router.navigate(["/"]);
+    }
+  }
 }
