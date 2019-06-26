@@ -1,209 +1,83 @@
-<app-header></app-header>
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="!(isHandset$ | async)">
-    <mat-toolbar class="border-bottom">Client List</mat-toolbar>
-    <mat-nav-list>
-      <ng-container *ngFor="let user of clients">
-        <a mat-list-item routerLink="/">{{user.first_name}}</a>
-      </ng-container>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-      *ngIf="isHandset$ | async">
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
-    <!-- Add Content Here -->
-    <div class="w-100">
+<div class="full-width-container w-100 h-100">
+  <app-header></app-header>
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+      <mat-toolbar class="border-bottom">Client List</mat-toolbar>
+      <mat-nav-list>
+        <ng-container *ngFor="let user of clients">
+          <a mat-list-item (click)="currentUser = user"
+            [class.active]="currentUser._id == user._id">{{user.first_name}}</a>
+        </ng-container>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <!-- Add Content Here -->
+      <div class="w-100">
+        <div class="d-flex justify-content-between align-items-center border rounded-sm p-2 bg-white">
+          <div class="d-inline-flex">
+            <button mat-flat-button [matMenuTriggerFor]="menu">Add
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button routerLink="/add-user" mat-menu-item>Users</button>
+              <button mat-menu-item>Devices</button>
+              <button mat-menu-item>Vendors</button>
+              <button mat-menu-item>Network</button>
+              <button mat-menu-item>Client Sites</button>
+            </mat-menu>
+            <button mat-flat-button [class.active]="showCurrentUserInfoType == 'userinfo'"
+              (click)="showCurrentUserInfoType = 'userinfo'" class="mx-2">Users</button>
+            <button mat-flat-button [class.active]="showCurrentUserInfoType == 'devices'"
+              (click)="showCurrentUserInfoType = 'devices'" class="mx-2">Devices</button>
+            <button mat-flat-button [class.active]="showCurrentUserInfoType == 'vendor'"
+              (click)="showCurrentUserInfoType = 'vendor'" class="mx-2">Vendors</button>
+            <button mat-flat-button [class.active]="showCurrentUserInfoType == 'network'"
+              (click)="showCurrentUserInfoType = 'network'" class="mx-2">Network</button>
+            <button mat-flat-button [class.active]="showCurrentUserInfoType == 'vendor'"
+              (click)="showCurrentUserInfoType = 'vendor'" class="mx-2">Client Sites</button>
+          </div>
 
-
-      <div class="d-flex justify-content-between align-items-center border rounded-sm p-2">
-        <div class="d-inline-flex">
-          <button mat-button [matMenuTriggerFor]="menu">Add
-            <mat-icon>keyboard_arrow_down</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button routerLink="/add-user" mat-menu-item>Users</button>
-            <button mat-menu-item>Devices</button>
-            <button mat-menu-item>Vendors</button>
-            <button mat-menu-item>Network</button>
-            <button mat-menu-item>Client Sites</button>
-          </mat-menu>
-          <button mat-flat-button>Users</button>
-          <button mat-flat-button>Devices</button>
-          <button mat-flat-button>Vendors</button>
-          <button mat-flat-button>Network</button>
-          <button mat-flat-button>Client Sites</button>
-        </div>
-
-        <div class="form-check mr-3">
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" value="">Inactive
-          </label>
+          <div class="form-check mr-3">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" value="">Inactive
+            </label>
+          </div>
         </div>
       </div>
 
-      <mat-divider></mat-divider>
+      <div [ngSwitch]="showCurrentUserInfoType">
+        <mat-card *ngSwitchCase="'network'">
+          <mat-card-content>
+            <network-table class="w-100"></network-table>
+          </mat-card-content>
+        </mat-card>
+        <mat-card *ngSwitchCase="'devices'">
+          <mat-card-content>
+            <devices-table class="w-100"></devices-table>
+          </mat-card-content>
+        </mat-card>
+        <mat-card *ngSwitchCase="'vendor'">
+          <mat-card-content>
+            <vendors-table class="w-100"></vendors-table>
+          </mat-card-content>
+        </mat-card>
+        <mat-card *ngSwitchCase="'userinfo'">
+          <mat-card-content>
+            <users-table class="w-100"></users-table>
+          </mat-card-content>
+        </mat-card>
 
-
-      <div class="row justify-content-center align-items-center margin-top">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10">
-          <div class="card border-0">
-            <div class="card-body">
-              <div class="row border">
-                <div class="col-4">
-                  <h6 class="mb-0 mt-1 text-secondary">User Selected</h6>
-                </div>
-                <div class="col-6 border-left border-right">
-                  <p class="text-warning mt-1 mb-0">Fields to show</p>
-                </div>
-                <div class="col-2">
-
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-1 border-left"></div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">User Name
-                </div>
-                <div class="col-3 text-small border-left border-right border-bottom p-1">User Office
-                  Phone</div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">User Cell
-                  Phone
-                </div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">User Email
-                </div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">UserNotes
-                </div>
-              </div>
-
-
-
-              <div class="row border">
-                <div class="col-4">
-                  <h6 class="mb-1 mt-1 text-secondary">Devices Selected</h6>
-                </div>
-                <div class="col-6 border-left">
-                  <!-- <p class="text-warning mt-1 mb-0">Fields to show</p> -->
-                </div>
-                <div class="col-2">
-
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-1 border-left"></div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">User Name
-                </div>
-                <div class="col-3 text-small border-left border-right border-bottom p-1">User Office
-                  Phone</div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">User Cell
-                  Phone
-                </div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">User Email
-                </div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">UserNotes
-                </div>
-              </div>
-
-
-
-
-              <div class="row border">
-                <div class="col-4">
-                  <h6 class="mb-1 mt-1 text-secondary">Vendor Selected</h6>
-                </div>
-                <div class="col-6 border-left">
-                  <!-- <p class="text-warning mt-1 mb-0">Fields to show</p> -->
-                </div>
-                <div class="col-2">
-
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-1 border-left"></div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">User Name
-                </div>
-                <div class="col-3 text-small border-left border-right border-bottom p-1">User Office
-                  Phone</div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">User Cell
-                  Phone
-                </div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">User Email
-                </div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">UserNotes
-                </div>
-              </div>
-
-
-              <div class="row border">
-                <div class="col-4">
-                  <h6 class="mb-1 mt-1 text-secondary">Network Selected</h6>
-                </div>
-                <div class="col-6 border-left">
-                  <!-- <p class="text-warning mt-1 mb-0">Fields to show</p> -->
-                </div>
-                <div class="col-2">
-
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-1 border-left border-bottom"></div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">User Name
-                </div>
-                <div class="col-3 text-small border-left border-right border-bottom p-1">User Office
-                  Phone</div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">User Cell
-                  Phone
-                </div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">User Email
-                </div>
-                <div class="col-2 text-small border-left border-right border-bottom p-1">UserNotes
-                </div>
-              </div>
-
-
-            </div>
-            <!-- card-body -->
-          </div>
-          <div *ngIf="currentUser" class="row border-top mt-4">
-            <div class="col-12">
-              <table class="table table-borderless">
-                <thead>
-                  <tr>
-                    <th>Vendor Name</th>
-                    <th>Vendor Phone</th>
-                    <th>Vendor Account</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                  </tr>
-                  <tr>
-                    <td>Mary</td>
-                    <td>Moe</td>
-                    <td>mary@example.com</td>
-                  </tr>
-                  <tr>
-                    <td>July</td>
-                    <td>Dooley</td>
-                    <td>july@example.com</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-        </div>
+        <div *ngSwitchDefault>output2</div>
       </div>
 
-    </div>
+      <!-- end content here -->
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 
-
-
-    <!-- end content here -->
-  </mat-sidenav-content>
-</mat-sidenav-container>
+</div>

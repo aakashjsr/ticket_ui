@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiIntercepterService } from '../services/api-intercepter.service';
 
 @Component({
   selector: 'app-header',
@@ -9,11 +10,13 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   showDropDown = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private apiService: ApiIntercepterService) { }
 
   logout() {
-    localStorage.clear();
-    this.router.navigate(["/login"]);
+    this.apiService.post("accounts/logout/").subscribe((value) => {
+      localStorage.clear();
+      this.router.navigate(["/login"]);
+    });
   }
 
   ngOnInit() {

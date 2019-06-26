@@ -22,7 +22,7 @@ const routes: Routes = [
     path: "", component: DashboardComponent,
     canActivate: [AuthGuardService],
     data: {
-      expectedRoles: [UserRoles.ADMIN]
+      expectedRoles: [UserRoles.ADMIN, UserRoles.CLIENT_ADMIN, UserRoles.CLIENT_USER, UserRoles.SUPER_ADMIN, UserRoles.TECH]
     }
   },
   {

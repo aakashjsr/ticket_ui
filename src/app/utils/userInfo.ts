@@ -1,19 +1,34 @@
 export interface IUserInfo {
-  _id: number;
+  _id: string;
   first_name: string;
   last_name: string;
   email: string;
-  work_phone: string;
-  cell_phone: string;
+  work_phone?: string;
+  cell_phone?: string;
   phone_ext: string;
   user_type: string;
   primary_contact: string;
   notes: string;
   client_id: string;
-  user_group: string;
-  bussiness_id: string;
+  user_group?: string;
+  bussiness_id?: string;
+  [key: string]: string;
 }
 
+
+export interface IAdminInfo {
+  cell_phone: string,
+  email: string,
+  first_name: string,
+  is_primary_contact: boolean,
+  last_name: string,
+  notes: string,
+  phone_ext: string,
+  token: string,
+  user_type: string,
+  username: string,
+  work_phone: string,
+}
 
 export interface IBussinessInfo {
   _id: string;

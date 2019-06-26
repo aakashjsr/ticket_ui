@@ -11,7 +11,7 @@ import {
   MatButtonModule, MatInputModule, MatCardModule,
   MatDatepickerModule, MatNativeDateModule, MatIconModule,
   MatDividerModule, MatChipsModule, MatSidenavModule, MatToolbarModule,
-  MatListModule, MatSelectModule, MatAutocompleteModule, MatMenuModule, MatRadioModule, MatSnackBarModule
+  MatListModule, MatSelectModule, MatAutocompleteModule, MatMenuModule, MatRadioModule, MatSnackBarModule, MatTableModule, MatPaginatorModule
 } from '@angular/material';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
@@ -21,6 +21,14 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { ContactCardComponent } from './contact-card/contact-card.component';
 import { TicketsComponent } from './tickets/tickets.component';
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import { VendorsTableComponent } from './dashboard/vendors-table/vendors-table.component';
+import { UsersTableComponent } from './dashboard/users-table/users-table.component';
+import { DevicesTableComponent } from './dashboard/devices-table/devices-table.component';
+import { NetworkTableComponent } from './dashboard/network-table/network-table.component';
+import { HttpClientModule } from '@angular/common/http';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,12 +41,17 @@ import { TicketsComponent } from './tickets/tickets.component';
     AddUserComponent,
     UsersListComponent,
     ContactCardComponent,
-    TicketsComponent
+    TicketsComponent,
+    VendorsTableComponent,
+    UsersTableComponent,
+    DevicesTableComponent,
+    NetworkTableComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -47,7 +60,8 @@ import { TicketsComponent } from './tickets/tickets.component';
     MatSidenavModule,
     MatMenuModule,
     MatCardModule,
-    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -61,6 +75,14 @@ import { TicketsComponent } from './tickets/tickets.component';
     MatDividerModule,
     MatToolbarModule,
     MatListModule,
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.threeBounce,
+      backdropBackgroundColour: 'rgba(0,0,0,0.1)',
+      backdropBorderRadius: '4px',
+      primaryColour: '#ffffff',
+      secondaryColour: '#ffffff',
+      tertiaryColour: '#ffffff'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

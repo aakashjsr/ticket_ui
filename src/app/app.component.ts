@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { UtilsService } from './services/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,11 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'ticket-management';
+  loading = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private utils: UtilsService) {
+    this.utils.showLoader.subscribe(value => this.loading = value);
+  }
 
   async checkAuthentication() {
     if (await localStorage.getItem('token')) {
