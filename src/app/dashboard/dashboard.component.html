@@ -7,8 +7,7 @@
       <mat-toolbar class="border-bottom">Client List</mat-toolbar>
       <mat-nav-list>
         <ng-container *ngFor="let user of clients">
-          <a mat-list-item (click)="currentUser = user"
-            [class.active]="currentUser._id == user._id">{{user.first_name}}</a>
+          <a mat-list-item (click)="currentUser = user" [class.active]="currentUser.id == user.id">{{user.name}}</a>
         </ng-container>
       </mat-nav-list>
     </mat-sidenav>
@@ -39,8 +38,8 @@
               (click)="showCurrentUserInfoType = 'vendor'" class="mx-2">Vendors</button>
             <button mat-flat-button [class.active]="showCurrentUserInfoType == 'network'"
               (click)="showCurrentUserInfoType = 'network'" class="mx-2">Network</button>
-            <button mat-flat-button [class.active]="showCurrentUserInfoType == 'vendor'"
-              (click)="showCurrentUserInfoType = 'vendor'" class="mx-2">Client Sites</button>
+            <button mat-flat-button [class.active]="showCurrentUserInfoType == 'client_sites'"
+              (click)="showCurrentUserInfoType = 'client_sites'" class="mx-2">Client Sites</button>
           </div>
 
           <div class="form-check mr-3">
@@ -54,25 +53,29 @@
       <div [ngSwitch]="showCurrentUserInfoType">
         <mat-card *ngSwitchCase="'network'">
           <mat-card-content>
-            <network-table class="w-100"></network-table>
+            <network-table [id]="currentUser.id" class="w-100"></network-table>
           </mat-card-content>
         </mat-card>
         <mat-card *ngSwitchCase="'devices'">
           <mat-card-content>
-            <devices-table class="w-100"></devices-table>
+            <devices-table [id]="currentUser.id" class="w-100"></devices-table>
           </mat-card-content>
         </mat-card>
         <mat-card *ngSwitchCase="'vendor'">
           <mat-card-content>
-            <vendors-table class="w-100"></vendors-table>
+            <vendors-table [id]="currentUser.id" class="w-100"></vendors-table>
           </mat-card-content>
         </mat-card>
         <mat-card *ngSwitchCase="'userinfo'">
           <mat-card-content>
-            <users-table class="w-100"></users-table>
+            <users-table [id]="currentUser.id" class="w-100"></users-table>
           </mat-card-content>
         </mat-card>
-
+        <mat-card *ngSwitchCase="'client_sites'">
+          <mat-card-content>
+            <app-client-sites [id]="currentUser.id" class="w-100"></app-client-sites>
+          </mat-card-content>
+        </mat-card>
         <div *ngSwitchDefault>output2</div>
       </div>
 

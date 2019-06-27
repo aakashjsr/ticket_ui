@@ -12,7 +12,11 @@ export class AppComponent {
   loading = false;
 
   constructor(private router: Router, private utils: UtilsService) {
-    this.utils.showLoader.subscribe(value => this.loading = value);
+    this.utils.showLoader.subscribe(value => {
+      setTimeout(() => {
+        this.loading = value
+      }, 0);
+    });
   }
 
   async checkAuthentication() {

@@ -23,12 +23,13 @@ export class LoginComponent implements OnInit {
 
   submitForm() {
     this.apiService.post("accounts/login/", {
-      username: "aakash",
-      password: "aakash"
+      username: "admin",
+      password: "admin"
     }).subscribe((value: IAdminInfo) => {
       console.log(value);
-      localStorage.setItem('role', value.user_type);
+      localStorage.setItem('role', "admin");
       localStorage.setItem('token', value.token);
+      this.apiService.initHeaders();
       this.router.navigate(["/"]);
     });
   }

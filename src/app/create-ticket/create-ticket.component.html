@@ -5,26 +5,20 @@
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <div class="form-group">
-            <label for="sel1">Issue Cateogry:</label>
+            <label for="sel1">Ticket Cateogry:</label>
             <select class="form-control" id="sel1">
-              <option hidden selected disabled>--Select--</option>
-              <option>Data Recovery</option>
-              <option>Email</option>
-              <option>3</option>
-              <option>4</option>
+              <option>--Select Ticket Cateogry</option>
+              <option *ngFor="let ticketCat of ticketsCat">{{ticketCat}}</option>
             </select>
           </div>
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <div class="form-group">
-            <label for="priority">Priority:</label>
+            <label for="priority">Status:</label>
             <select class="form-control" id="priority">
               <option hidden selected disabled>--Select--</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
+              <option *ngFor="let status of ticketStatus" [value]="status">{{status}}</option>
             </select>
           </div>
         </div>

@@ -8,33 +8,33 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> User name </th>
-      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.username}} </td>
     </ng-container>
 
 
     <!-- Progress Column -->
     <ng-container matColumnDef="phone">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Office phone </th>
-      <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
+      <td mat-cell *matCellDef="let row"> {{row.work_phone}} </td>
     </ng-container>
 
 
     <!-- Color Column -->
     <ng-container matColumnDef="cell">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Cell phone </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
+      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.cell_phone}} </td>
     </ng-container>
 
     <!-- Service Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
+      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.email}} </td>
     </ng-container>
 
     <!-- Website Column -->
     <ng-container matColumnDef="notes">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Notes </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
+      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.notes}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

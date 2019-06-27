@@ -11,6 +11,7 @@ import { ContactCardComponent } from './contact-card/contact-card.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { UserRoles } from './utils/userRoles';
+import { ClientSitesComponent } from './client-sites/client-sites.component';
 
 
 
@@ -22,17 +23,29 @@ const routes: Routes = [
     path: "", component: DashboardComponent,
     canActivate: [AuthGuardService],
     data: {
-      expectedRoles: [UserRoles.ADMIN, UserRoles.CLIENT_ADMIN, UserRoles.CLIENT_USER, UserRoles.SUPER_ADMIN, UserRoles.TECH]
+      expectedRoles: [UserRoles.ADMIN, UserRoles.CLIENT_ADMIN, UserRoles.CLIENT_USER, UserRoles.SUPER_ADMIN]
     }
   },
   {
-    path: "add-ticket", component: CreateTicketComponent
+    path: "add-ticket", component: CreateTicketComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      expectedRoles: [UserRoles.ADMIN, UserRoles.CLIENT_ADMIN, UserRoles.CLIENT_USER, UserRoles.SUPER_ADMIN]
+    }
   },
   {
-    path: "add-company", component: AddCompanyComponent
+    path: "add-company", component: AddCompanyComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      expectedRoles: [UserRoles.SUPER_ADMIN, UserRoles.ADMIN]
+    }
   },
   {
-    path: "add-user", component: AddUserComponent
+    path: "add-user", component: AddUserComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      expectedRoles: [UserRoles.SUPER_ADMIN, UserRoles.ADMIN]
+    }
   },
   {
     path: "users", component: UsersListComponent
@@ -44,6 +57,9 @@ const routes: Routes = [
   },
   {
     path: "tickets", component: TicketsComponent
+  },
+  {
+    path: "client-sites", component: ClientSitesComponent
   }
 ];
 

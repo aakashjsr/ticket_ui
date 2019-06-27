@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { ApiIntercepterService } from '../services/api-intercepter.service';
 
 
 export interface State {
@@ -18,10 +19,11 @@ export interface State {
   styleUrls: ['./create-ticket.component.scss']
 })
 export class CreateTicketComponent implements OnInit {
-
+  ticketsCat = [];
+  ticketForm: FormGroup;
   stateCtrl = new FormControl();
   filteredStates: Observable<State[]>;
-
+  ticketStatus = [];
   states: State[] = [
     {
       name: 'Arkansas',
@@ -50,7 +52,16 @@ export class CreateTicketComponent implements OnInit {
   ];
 
 
-  constructor() {
+  constructor(
+    public apiService: ApiIntercepterService,
+    private fb: FormBuilder
+  ) {
+    this.ticketForm = this.fb.group({
+
+    });
+
+
+
     this.filteredStates = this.stateCtrl.valueChanges
       .pipe(
         startWith(''),
@@ -64,6 +75,14 @@ export class CreateTicketComponent implements OnInit {
     return this.states.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
   }
   ngOnInit() {
+    this.apiService.getTktCateogries().subscribe(value => {
+      console.log(value);
+      this.ticketsCat.push(...value)
+    });
+
+    this.apiService.get<string[]>("entities/ticket/status/", {}, 'json').subscribe(value => {
+      this.ticketStatus = value;
+    });
   }
 
 }

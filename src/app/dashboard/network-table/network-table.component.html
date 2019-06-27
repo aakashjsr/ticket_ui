@@ -5,40 +5,40 @@
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
 
-    <!-- ID Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    <!-- Site Column -->
+    <ng-container matColumnDef="site">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Site </th>
+      <td mat-cell *matCellDef="let row"> {{row.client_location}} </td>
     </ng-container>
 
-    <!-- Progress Column -->
-    <ng-container matColumnDef="progress">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Vendor Name </th>
-      <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
+    <!-- gateway Column -->
+    <ng-container matColumnDef="gateway">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> LAN Gateway </th>
+      <td mat-cell *matCellDef="let row"> {{row.lan_gateway}} </td>
     </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
-      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    <!-- wan_ip Column -->
+    <ng-container matColumnDef="wan_ip">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> WAN Ip </th>
+      <td mat-cell *matCellDef="let row"> {{row.wan_ip}} </td>
     </ng-container>
 
-    <!-- Color Column -->
-    <ng-container matColumnDef="color">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Account </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
+    <!-- dhcp_name Column -->
+    <ng-container matColumnDef="dhcp_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> DHCP name </th>
+      <td mat-cell *matCellDef="let row"> {{row.dhcp_name}} </td>
     </ng-container>
 
-    <!-- Service Column -->
-    <ng-container matColumnDef="vService">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Service </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
+    <!--dns_server_ip Column -->
+    <ng-container matColumnDef="dns_server_ip">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> DNS Serve Ip </th>
+      <td mat-cell *matCellDef="let row"> {{row.dns_server_ip}} </td>
     </ng-container>
 
-    <!-- Website Column -->
-    <ng-container matColumnDef="vWeb">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Support Website </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
+    <!-- domain_controller_ip Column -->
+    <ng-container matColumnDef="domain_controller_ip">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Domain Controller Ip </th>
+      <td mat-cell *matCellDef="let row"> {{row.domain_controller_ip}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -1,18 +1,17 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { ApiIntercepterService } from 'src/app/services/api-intercepter.service';
+import { IclientSite } from '../utils/userInfo';
+import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { Observable } from 'rxjs';
-import { IVendor } from '../../utils/userInfo';
 
 @Component({
-  selector: 'vendors-table',
-  templateUrl: './vendors-table.component.html',
-  styleUrls: ['./vendors-table.component.scss']
+  selector: 'app-client-sites',
+  templateUrl: './client-sites.component.html',
+  styleUrls: ['./client-sites.component.scss']
 })
-export class VendorsTableComponent implements OnInit {
-
-  displayedColumns: string[] = ['name', 'phone', 'service', 'email', 'vWeb'];
-  dataSource: MatTableDataSource<IVendor>;
+export class ClientSitesComponent implements OnInit {
+  displayedColumns: string[] = ['name', 'city', 'phone', 'email', 'vWeb'];
+  dataSource: MatTableDataSource<IclientSite>;
   vendors = [];
   @Input('id') set Id(id: string) {
     this.createNewUser(id).subscribe(
@@ -31,9 +30,6 @@ export class VendorsTableComponent implements OnInit {
   @ViewChild(MatSort, { read: true }) sort: MatSort;
 
   constructor(private apiService: ApiIntercepterService) {
-    // Create 100 vendors
-
-    // Assign the data to the data source for the table to render
 
   }
 
@@ -50,8 +46,8 @@ export class VendorsTableComponent implements OnInit {
   }
 
 
-  createNewUser(id: any): Observable<IVendor[]> {
-    return this.apiService.get<IVendor[]>("entities/vendors", { client: id })
+  createNewUser(id: any): Observable<IclientSite[]> {
+    return this.apiService.get<IclientSite[]>("entities/client-sites", { client: id })
   }
 
 }

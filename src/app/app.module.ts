@@ -27,6 +27,7 @@ import { UsersTableComponent } from './dashboard/users-table/users-table.compone
 import { DevicesTableComponent } from './dashboard/devices-table/devices-table.component';
 import { NetworkTableComponent } from './dashboard/network-table/network-table.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ClientSitesComponent } from './client-sites/client-sites.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { HttpClientModule } from '@angular/common/http';
     VendorsTableComponent,
     UsersTableComponent,
     DevicesTableComponent,
-    NetworkTableComponent
+    NetworkTableComponent,
+    ClientSitesComponent
   ],
   imports: [
     BrowserModule,

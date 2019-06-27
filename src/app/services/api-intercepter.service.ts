@@ -1,32 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { UtilsService } from './utils.service';
-import { share, map, tap } from 'rxjs/operators';
+import { share, map, tap, publishLast, refCount } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiIntercepterService {
   private baseUrl = `${environment.method}${environment.baseUrl}`;
-  private headers: HttpHeaders = new HttpHeaders({
-    'Content-Type': 'application/json',
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-  })
+  private headers: any;
   constructor(private httpClient: HttpClient, private utils: UtilsService) {
-    if (localStorage.getItem("token"))
-      this.headers.set("Authorization", localStorage.getItem("token"));
+    this.initHeaders();
+  }
+
+  initHeaders() {
+    console.log(localStorage.getItem('token'));
+    if (localStorage.getItem("token")) {
+      this.headers = {
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      };
+    }
   }
 
   handleSpinner(observable: Observable<any>) {
     this.utils.showLoader.next(true);
     observable.subscribe(() => this.utils.showLoader.next(false), () => this.utils.showLoader.next(false));
   }
-  get<T>(path: string, params?: { [key: string]: any }): Observable<T> {
+  get<T>(path: string, params?: { [key: string]: any }, respType?: 'json'): Observable<T> {
     const getReq = this.httpClient.get<T>(this.baseUrl + this.addQueryParam(path, params),
-      { headers: this.headers }) // observe 'response' is going to return full response body
+      { headers: this.headers, responseType: respType })
       .pipe(
         share(),
         tap(console.log),
@@ -54,7 +57,9 @@ export class ApiIntercepterService {
   }
 
 
-
+  getTktCateogries(): Observable<Array<string>> {
+    return this.get<Array<string>>('entities/ticket/categories/', {}, 'json');
+  }
 
   private addQueryParam(url: string, params: any): string {
     for (const key in params) {

@@ -36,6 +36,7 @@ mat-sidenav{
 
 button.active, a[mat-list-item].active{
   border: 1px solid purple;
+  border-radius: 4px;
 }
 mat-sidenav-content{
     scrollbar-width: none; /* Firefox */

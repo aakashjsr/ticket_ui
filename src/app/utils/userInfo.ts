@@ -12,6 +12,7 @@ export interface IUserInfo {
   client_id: string;
   user_group?: string;
   bussiness_id?: string;
+  username: string;
   [key: string]: string;
 }
 
@@ -73,4 +74,93 @@ export interface ITicket {
   parts_used: string;
   submit_id: string;
   isBillable: boolean;
+}
+
+
+
+export interface DeviceInfo {
+  active: boolean
+  backup: string;
+  bit: string;
+  client: any;
+  deactivation_date: string;
+  device_id: string;
+  guest_dhcp: string;
+  guest_pass: string;
+  guest_ssid: string;
+  id: any;
+  lan_ip: string;
+  location: string;
+  mac_address: string;
+  make: string;
+  notes: string;
+  password: string;
+  processor: string;
+  ram: string;
+  serial: string;
+  type: string;
+  user_id: string;
+  username: string;
+  verified_date: null
+  wan_ip: string;
+  warranty_exp: string;
+  wireless_pass: string;
+  wireless_ssid: string;
+}
+
+
+export interface IVendor {
+  active: true
+  address: string;
+  client: number;
+  email: string;
+  id: number;
+  name: string;
+  phone: string;
+  service: string;
+  support_website: string;
+  verified_date: string;
+  website: string;
+}
+
+
+
+export interface INetwork {
+  client: number;
+  client_location: string;
+  dc_name: string;
+  dhcp_name: string;
+  dns_server_ip: string;
+  domain_controller_ip: string;
+  id: number;
+  inactive_date: null
+  lan_gateway: string;
+  lan_subnet_mask: string;
+  verified_date: null
+  wan_gateway: string;
+  wan_ip: string;
+  wan_ip_2: string;
+  wan_speed: string;
+  wan_speed_2: string;
+  wan_subnet_mask: string;
+  wan_subnet_mask_2: string;
+}
+
+
+
+export interface IclientSite {
+  active: boolean;
+  address_line_1: string;
+  address_line_2: string;
+  city: string;
+  client: number;
+  client_hours: string;
+  fax: string;
+  id: number;
+  name: string;
+  past_due_date: boolean;
+  phone: string;
+  state: string;
+  website: string;
+  zip_code: string;
 }

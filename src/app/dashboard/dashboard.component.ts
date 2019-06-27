@@ -9,7 +9,17 @@ enum EshowUserInfoType {
   USERINFO = 'userinfo',
   DEVICES = 'devices',
   VENDOR = 'vendor',
-  NETWORK = 'network'
+  NETWORK = 'network',
+  CLIENT_SITES = "client_sites"
+}
+
+interface ICleientSites {
+  active: boolean
+  client_id: string;
+  id: string;
+  name: string;
+  past_due_date: boolean;
+  website: string;
 }
 
 @Component({
@@ -18,62 +28,16 @@ enum EshowUserInfoType {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  currentUser: IUserInfo;
-  private _showCurrentUserInfoType: EshowUserInfoType = EshowUserInfoType.NETWORK;
-  public get showCurrentUserInfoType(): EshowUserInfoType {
+  currentUser: ICleientSites;
+  private _showCurrentUserInfoType: any = EshowUserInfoType.NETWORK;
+  public get showCurrentUserInfoType(): any {
     return this._showCurrentUserInfoType;
   }
-  public set showCurrentUserInfoType(value: EshowUserInfoType) {
+  public set showCurrentUserInfoType(value: any) {
     this._showCurrentUserInfoType = value;
   }
 
-  clients: Array<IUserInfo> = [
-    {
-      _id: "jkdffd",
-      first_name: 'john',
-      last_name: 'doe',
-      email: 'johndoe@gmail.com',
-      work_phone: '34893849343',
-      cell_phone: '45895895554',
-      phone_ext: "+91",
-      user_type: "client",
-      primary_contact: "3895489548954",
-      notes: "lorem ipsum",
-      client_id: "22",
-      user_group: "alpha",
-      bussiness_id: '1234'
-    },
-    {
-      _id: "2",
-      first_name: 'jean',
-      last_name: 'doe',
-      email: 'jeandoe@gmail.com',
-      work_phone: '34893849343',
-      cell_phone: '45895895554',
-      phone_ext: "+91",
-      user_type: "client",
-      primary_contact: "3895489548954",
-      notes: "lorem ipsum",
-      client_id: "22",
-      user_group: "alpha",
-      bussiness_id: '1234'
-    },
-    {
-      _id: "3",
-      first_name: 'mike',
-      last_name: 'tyson',
-      email: 'miketyson@gmail.com',
-      work_phone: '34893849343',
-      cell_phone: '45895895554',
-      phone_ext: "+91",
-      user_type: "client",
-      primary_contact: "3895489548954",
-      notes: "lorem ipsum",
-      client_id: "22",
-      user_group: "alpha",
-      bussiness_id: '1234'
-    }
-  ]
+  clients: Array<ICleientSites> = [];
 
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -83,16 +47,16 @@ export class DashboardComponent implements OnInit {
 
 
   getUsers() {
-    this.apiService.get<Array<IUserInfo>>("/users", { id: this.currentUser._id }).subscribe((value) => {
+    this.apiService.get<Array<ICleientSites>>("accounts/clients").subscribe((value) => {
       console.log(value);
       this.clients.push(...value);
+      this.currentUser = this.clients[0];
     });
   }
 
   constructor(private breakpointObserver: BreakpointObserver, private apiService: ApiIntercepterService) { }
   ngOnInit() {
-    this.currentUser = this.clients[0];
-    // this.getUsers();
+    this.getUsers();
   }
 
 }
