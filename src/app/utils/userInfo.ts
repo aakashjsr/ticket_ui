@@ -164,3 +164,14 @@ export interface IclientSite {
   website: string;
   zip_code: string;
 }
+
+
+export interface IClient {
+  active: boolean;
+  client_id: string;
+  id: string;
+  name: string;
+  past_due_date: boolean;
+  website: string;
+}
+

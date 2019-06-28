@@ -1,16 +1,42 @@
 <div class="full-width-container w-100 h-100">
   <app-header></app-header>
   <mat-sidenav-container class="sidenav-container">
+
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
-      <mat-toolbar class="border-bottom">Client List</mat-toolbar>
-      <mat-nav-list>
-        <ng-container *ngFor="let user of clients">
-          <a mat-list-item (click)="currentUser = user" [class.active]="currentUser.id == user.id">{{user.name}}</a>
-        </ng-container>
-      </mat-nav-list>
+      <mat-toolbar class="border-bottom text-primary">Tables
+      </mat-toolbar>
+      <mat-action-list>
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'"
+          (click)="showCurrentUserInfoType = 'userinfo'">
+          <mat-icon>perm_identity</mat-icon> Users
+        </button>
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'devices'"
+          (click)="showCurrentUserInfoType = 'devices'">
+          <mat-icon>important_devices</mat-icon> &nbsp; Devices
+        </button>
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendor'"
+          (click)="showCurrentUserInfoType = 'vendor'">
+          <mat-icon>loyalty</mat-icon> &nbsp; Vendors
+        </button>
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'network'"
+          (click)="showCurrentUserInfoType = 'network'">
+          <mat-icon>network_wifi</mat-icon> &nbsp; Networks
+        </button>
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'client_sites'"
+          (click)="showCurrentUserInfoType = 'client_sites'">
+          <mat-icon>location_on</mat-icon> Client Sites
+        </button>
+
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'ticket'"
+          (click)="showCurrentUserInfoType = 'ticket'">
+          <mat-icon>local_play</mat-icon> &nbsp; Tickets
+        </button>
+
+      </mat-action-list>
     </mat-sidenav>
+
     <mat-sidenav-content>
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
@@ -18,28 +44,46 @@
       </button>
       <!-- Add Content Here -->
       <div class="w-100">
-        <div class="d-flex justify-content-between align-items-center border rounded-sm p-2 bg-white">
+        <div class="d-flex justify-content-between align-items-center border rounded-sm p-cust bg-white">
           <div class="d-inline-flex">
             <button mat-flat-button [matMenuTriggerFor]="menu">Add
               <mat-icon>keyboard_arrow_down</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
               <button routerLink="/add-user" mat-menu-item>Users</button>
-              <button mat-menu-item>Devices</button>
-              <button mat-menu-item>Vendors</button>
-              <button mat-menu-item>Network</button>
-              <button mat-menu-item>Client Sites</button>
+              <button routerLink="/add-device" mat-menu-item>
+                Devices
+              </button>
+              <button routerLink="/add-vendors" mat-menu-item>
+                Vendors
+              </button>
+              <button routerLink="/add-network" mat-menu-item>
+                Network
+              </button>
+              <button routerLink="/add-client-site" mat-menu-item>
+                Client Sites
+              </button>
+              <button routerLink="/add-ticket" mat-menu-item>
+                Ticket
+              </button>
             </mat-menu>
-            <button mat-flat-button [class.active]="showCurrentUserInfoType == 'userinfo'"
-              (click)="showCurrentUserInfoType = 'userinfo'" class="mx-2">Users</button>
-            <button mat-flat-button [class.active]="showCurrentUserInfoType == 'devices'"
-              (click)="showCurrentUserInfoType = 'devices'" class="mx-2">Devices</button>
-            <button mat-flat-button [class.active]="showCurrentUserInfoType == 'vendor'"
-              (click)="showCurrentUserInfoType = 'vendor'" class="mx-2">Vendors</button>
-            <button mat-flat-button [class.active]="showCurrentUserInfoType == 'network'"
-              (click)="showCurrentUserInfoType = 'network'" class="mx-2">Network</button>
-            <button mat-flat-button [class.active]="showCurrentUserInfoType == 'client_sites'"
-              (click)="showCurrentUserInfoType = 'client_sites'" class="mx-2">Client Sites</button>
+
+            <!-- <ng-container *ngFor="let user of clients">
+              <a mat-list-item (click)="currentUser = user" [class.active]="currentUser.id == user.id">{{user.name}}</a>
+            </ng-container> -->
+          </div>
+
+          <div class="d-inline-flex align-items-center">
+            <h6 class="text-secondary mb-0">Clients:&nbsp;</h6>
+            <mat-form-field id="no-padding" class="m-0 p-0 mx-4" appearance="outline">
+              <input [formControl]="currentUser" matInput placeholder="Client" aria-label="State"
+                [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let user of clients" (click)="onClientSelect(user)" [value]="user.name">
+                  {{user.name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
           </div>
 
           <div class="form-check mr-3">
@@ -53,30 +97,38 @@
       <div [ngSwitch]="showCurrentUserInfoType">
         <mat-card *ngSwitchCase="'network'">
           <mat-card-content>
-            <network-table [id]="currentUser.id" class="w-100"></network-table>
+            <network-table class="w-100"></network-table>
           </mat-card-content>
         </mat-card>
         <mat-card *ngSwitchCase="'devices'">
           <mat-card-content>
-            <devices-table [id]="currentUser.id" class="w-100"></devices-table>
+            <devices-table class="w-100"></devices-table>
           </mat-card-content>
         </mat-card>
         <mat-card *ngSwitchCase="'vendor'">
           <mat-card-content>
-            <vendors-table [id]="currentUser.id" class="w-100"></vendors-table>
+            <vendors-table class="w-100"></vendors-table>
           </mat-card-content>
         </mat-card>
         <mat-card *ngSwitchCase="'userinfo'">
           <mat-card-content>
-            <users-table [id]="currentUser.id" class="w-100"></users-table>
+            <users-table class="w-100"></users-table>
           </mat-card-content>
         </mat-card>
         <mat-card *ngSwitchCase="'client_sites'">
           <mat-card-content>
-            <app-client-sites [id]="currentUser.id" class="w-100"></app-client-sites>
+            <app-client-sites class="w-100"></app-client-sites>
           </mat-card-content>
         </mat-card>
-        <div *ngSwitchDefault>output2</div>
+
+        <mat-card *ngSwitchCase="'ticket'">
+          <mat-card-content>
+            <tickets-table class="w-100"></tickets-table>
+          </mat-card-content>
+        </mat-card>
+
+
+        <div *ngSwitchDefault>Invlid Table Request</div>
       </div>
 
       <!-- end content here -->

@@ -1,0 +1,193 @@
+<app-header></app-header>
+
+<!-- navBar Ends -->
+
+<div class="container">
+  <div class="card my-4">
+    <div class="card-header bg-info">
+      <div class="d-flex justify-content-between">
+        <h6 class="card-title text-white">Add Device</h6>
+        <h6 class="card-title text-white">Client: {{utils.currentUser.value?.name}}</h6>
+      </div>
+    </div>
+    <div [formGroup]="deviceForm" class="card-body">
+      <div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="client">Client:</label>
+              <input type="text" formControlName="client" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="user">Device:</label>
+              <input type="text" formControlName="user_id" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="type">Type:</label>
+              <input type="text" formControlName="type" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="wan_ip">Wan Ip:</label>
+              <input type="text" formControlName="wan_ip" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="make">Make:</label>
+              <input type="text" formControlName="make" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="username">Username:</label>
+              <input type="text" formControlName="username" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="password">Password:</label>
+              <input type="text" formControlName="password" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="serial">Serial:</label>
+              <input type="text" formControlName="serial" class="form-control">
+            </div>
+          </div>
+
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="warranty">Warranty Exp:</label>
+              <input type="text" formControlName="warranty_exp" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="processor">Processor:</label>
+              <input type="text" formControlName="processor" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="ram">RAM:</label>
+              <input type="text" formControlName="ram" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="bit">Bit:</label>
+              <input type="text" formControlName="bit" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="deactivation_date">Deactivation Date:</label>
+              <input type="text" formControlName="deactivation_date" class="form-control">
+            </div>
+          </div>
+
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="location">Location:</label>
+              <input type="text" formControlName="location" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="mac_address">MAC Adress:</label>
+              <input type="text" formControlName="mac_address" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="wireless_ssid">Wireless SSID:</label>
+              <input type="text" formControlName="wireless_ssid" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="wireless_pass">Wireless Paasword:</label>
+              <input type="text" formControlName="wireless_pass" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="guest_ssid">Guest SSID:</label>
+              <input type="text" formControlName="guest_ssid" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="guest_password">Guest Password:</label>
+              <input type="text" formControlName="guest_password" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="guest_dhcp">Guest DHCP:</label>
+              <input type="text" formControlName="guest_dhcp" class="form-control">
+            </div>
+          </div>
+
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="backup">Backup:</label>
+              <input type="text" formControlName="backup" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="verified_date">Verified Date</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="verified_date" [matDatepicker]="picker" placeholder="mm/dd/yyyy">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+
+          <div class="col-12">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="comment">Notes:</label>
+              <textarea formControlName="notes" class="form-control w-100" rows="5" id="comment"></textarea>
+            </div>
+
+            <button (click)="submitForm()" type="button" class="btn btn-primary">Add Device</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Form card ends -->
+
+</div>
+<!-- container fluid ends -->

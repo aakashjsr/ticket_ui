@@ -28,6 +28,11 @@ import { DevicesTableComponent } from './dashboard/devices-table/devices-table.c
 import { NetworkTableComponent } from './dashboard/network-table/network-table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ClientSitesComponent } from './client-sites/client-sites.component';
+import { AddDeviceComponent } from './add-device/add-device.component';
+import { AddVendorsComponent } from './add-vendors/add-vendors.component';
+import { AddNetworksComponent } from './add-networks/add-networks.component';
+import { AddClientSiteComponent } from './add-client-site/add-client-site.component';
+import { TicketsTableComponent } from './tickets-table/tickets-table.component';
 
 
 @NgModule({
@@ -47,7 +52,12 @@ import { ClientSitesComponent } from './client-sites/client-sites.component';
     UsersTableComponent,
     DevicesTableComponent,
     NetworkTableComponent,
-    ClientSitesComponent
+    ClientSitesComponent,
+    AddDeviceComponent,
+    AddVendorsComponent,
+    AddNetworksComponent,
+    AddClientSiteComponent,
+    TicketsTableComponent
   ],
   imports: [
     BrowserModule,

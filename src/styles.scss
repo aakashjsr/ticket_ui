@@ -1,7 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
   table {
     width: 100%;
   }
@@ -10,8 +15,27 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
     font-size: 14px;
     width: 100%;
   }
+}
 
+label {
+  white-space: nowrap;
+  width: 250px;
+  color: #17a2b8 !important;
+}
 
+.mat-datepicker-toggle-default-icon {
+  width: 1.4em !important;
+}
 
-
+app-dashboard {
+  #no-padding {
+    .mat-form-field-infix {
+      padding: 8px !important;
+      border-top: 0.2375em solid transparent !important;
+    }
+    .mat-form-field-wrapper {
+      margin: 0px !important;
+      padding: 0px !important;
+    }
+  }
 }

@@ -2,15 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
-import { IUserInfo } from '../utils/userInfo';
+import { IUserInfo, IClient } from '../utils/userInfo';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
+import { FormControl } from '@angular/forms';
+import { UtilsService } from '../services/utils.service';
 
 enum EshowUserInfoType {
   USERINFO = 'userinfo',
   DEVICES = 'devices',
   VENDOR = 'vendor',
   NETWORK = 'network',
-  CLIENT_SITES = "client_sites"
+  CLIENT_SITES = "client_sites",
+  TICKET = 'ticket'
 }
 
 interface ICleientSites {
@@ -28,8 +31,8 @@ interface ICleientSites {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  currentUser: ICleientSites;
-  private _showCurrentUserInfoType: any = EshowUserInfoType.NETWORK;
+  currentUser = new FormControl();
+  private _showCurrentUserInfoType: any = EshowUserInfoType.USERINFO;
   public get showCurrentUserInfoType(): any {
     return this._showCurrentUserInfoType;
   }
@@ -48,13 +51,23 @@ export class DashboardComponent implements OnInit {
 
   getUsers() {
     this.apiService.get<Array<ICleientSites>>("accounts/clients").subscribe((value) => {
-      console.log(value);
       this.clients.push(...value);
-      this.currentUser = this.clients[0];
+      if (this.clients && this.clients.length) {
+        this.currentUser.patchValue(this.clients[0].name);
+        this.utils.currentUser.next(this.clients[0]);
+      }
     });
   }
 
-  constructor(private breakpointObserver: BreakpointObserver, private apiService: ApiIntercepterService) { }
+  onClientSelect(value: IClient) {
+    this.utils.currentUser.next(value);
+    console.log(value);
+  }
+  constructor(
+    private breakpointObserver: BreakpointObserver
+    , private apiService: ApiIntercepterService
+    , private utils: UtilsService
+  ) { }
   ngOnInit() {
     this.getUsers();
   }

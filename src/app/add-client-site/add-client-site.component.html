@@ -1,0 +1,120 @@
+<app-header></app-header>
+
+<!-- navBar Ends -->
+
+<div class="container">
+  <div class="card my-4">
+    <div class="card-header bg-info">
+      <div class="d-flex justify-content-between">
+        <h6 class="card-title text-white">Add Client Site</h6>
+        <h6 class="card-title text-white">Client: {{utils.currentUser.value.name}}</h6>
+      </div>
+    </div>
+    <div [formGroup]="clientSiteForm" class="card-body">
+      <div>
+        <div class="row">
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="name">Name:</label>
+              <input type="text" formControlName="name" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="client">Client:</label>
+              <input type="text" formControlName="client" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="client_location">Client Location:</label>
+              <input type="text" formControlName="client_location" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="address_line_1">Address Line 1:</label>
+              <input type="text" formControlName="address_line_1" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="address_line_2">Address Line 2:</label>
+              <input type="text" formControlName="address_line_2" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="city">City:</label>
+              <input type="text" formControlName="city" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="zip_code">ZIP code:</label>
+              <input type="text" formControlName="zip_code" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="state">State:</label>
+              <input type="text" formControlName="state" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="phone">Phone:</label>
+              <input type="text" formControlName="phone" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="fax">FAX:</label>
+              <input type="text" formControlName="fax" class="form-control">
+            </div>
+          </div>
+
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="website">Website:</label>
+              <input type="text" formControlName="website" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="client_hours">Client Hours:</label>
+              <input type="text" formControlName="client_hours" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" formControlName="is_active" class="form-check-input" value="">Is Active
+              </label>
+            </div>
+          </div>
+
+          <div class="col-12 mt-4">
+            <button (click)="submitForm()" type="button" class="btn btn-primary">Add Client Site</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Form card ends -->
+
+</div>
+<!-- container fluid ends -->

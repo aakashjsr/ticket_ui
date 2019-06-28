@@ -4,6 +4,7 @@ import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { UserRoles } from '../utils/userRoles';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
   selector: 'app-add-user',
@@ -20,10 +21,12 @@ export class AddUserComponent implements OnInit {
     , private apiService: ApiIntercepterService
     , private router: Router
     , private snackBar: MatSnackBar
+    , public utils: UtilsService
   ) {
     this.userForm = this.fb.group({
       first_name: [null,],
       last_name: [null,],
+      client: [null,],
       email: [null],
       username: [null,],
       password: [null],
@@ -53,6 +56,9 @@ export class AddUserComponent implements OnInit {
 
   ngOnInit() {
     this.userRoles = Object.values(UserRoles);
+    this.utils.currentUser.subscribe(user => {
+      this.userForm.patchValue({ client: user.id });
+    });
   }
 
 }

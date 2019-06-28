@@ -3,6 +3,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { IclientSite } from '../utils/userInfo';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { Observable } from 'rxjs';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
   selector: 'app-client-sites',
@@ -12,29 +13,28 @@ import { Observable } from 'rxjs';
 export class ClientSitesComponent implements OnInit {
   displayedColumns: string[] = ['name', 'city', 'phone', 'email', 'vWeb'];
   dataSource: MatTableDataSource<IclientSite>;
-  vendors = [];
-  @Input('id') set Id(id: string) {
-    this.createNewUser(id).subscribe(
-      (value) => {
-        this.vendors = value;
-        console.log(value);
-        this.dataSource = new MatTableDataSource(this.vendors);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      }
-    );
-
-  }
+  clientSites = [];
 
   @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true }) sort: MatSort;
 
-  constructor(private apiService: ApiIntercepterService) {
+  constructor(private apiService: ApiIntercepterService, private utils: UtilsService) {
 
   }
 
   ngOnInit() {
-
+    this.utils.currentUser.subscribe(user => {
+      if (!user) return;
+      this.createNewUser(user.id).subscribe(
+        (value) => {
+          this.clientSites = value;
+          console.log(value);
+          this.dataSource = new MatTableDataSource(this.clientSites);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
+      );
+    });
   }
 
   applyFilter(filterValue: string) {
@@ -47,7 +47,7 @@ export class ClientSitesComponent implements OnInit {
 
 
   createNewUser(id: any): Observable<IclientSite[]> {
-    return this.apiService.get<IclientSite[]>("entities/client-sites", { client: id })
+    return this.apiService.get<IclientSite[]>("entities/client-sites/", { client: id })
   }
 
 }

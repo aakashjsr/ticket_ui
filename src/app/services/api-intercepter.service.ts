@@ -57,7 +57,7 @@ export class ApiIntercepterService {
   }
 
 
-  getTktCateogries(): Observable<Array<string>> {
+  getTktCateogries(): Observable<Array<any>> {
     return this.get<Array<string>>('entities/ticket/categories/', {}, 'json');
   }
 

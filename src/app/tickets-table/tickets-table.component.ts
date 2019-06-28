@@ -1,20 +1,21 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { ApiIntercepterService } from '../../services/api-intercepter.service';
+import { ITicket } from '../utils/userInfo';
+import { ApiIntercepterService } from '../services/api-intercepter.service';
+import { UtilsService } from '../services/utils.service';
 import { Observable } from 'rxjs';
-import { INetwork } from '../../utils/userInfo';
-import { UtilsService } from 'src/app/services/utils.service';
+
 
 
 @Component({
-  selector: 'network-table',
-  templateUrl: './network-table.component.html',
-  styleUrls: ['./network-table.component.scss']
+  selector: 'tickets-table',
+  templateUrl: './tickets-table.component.html',
+  styleUrls: ['./tickets-table.component.scss']
 })
-export class NetworkTableComponent implements OnInit {
-  displayedColumns: string[] = ['site', 'gateway', 'wan_ip', 'dhcp_name', 'dns_server_ip', 'domain_controller_ip'];
-  dataSource: MatTableDataSource<INetwork>;
-  networks: INetwork[] = [];
+export class TicketsTableComponent implements OnInit {
+  displayedColumns: string[] = ['gateway', 'wan_ip', 'dhcp_name', 'dns_server_ip', 'domain_controller_ip', 'estComp'];
+  dataSource: MatTableDataSource<ITicket>;
+  networks: ITicket[] = [];
 
   @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true }) sort: MatSort;
@@ -43,8 +44,8 @@ export class NetworkTableComponent implements OnInit {
   }
 
 
-  createNewUser(id: any): Observable<INetwork[]> {
-    return this.apiService.get<INetwork[]>("entities/networks", { client: id })
+  createNewUser(id: any): Observable<ITicket[]> {
+    return this.apiService.get<ITicket[]>("entities/tickets", { client: id })
   }
 
 }

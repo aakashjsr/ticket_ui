@@ -3,9 +3,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { ApiIntercepterService } from 'src/app/services/api-intercepter.service';
 import { IUserInfo } from '../../utils/userInfo';
 import { Observable } from 'rxjs';
-
-
-
+import { UtilsService } from 'src/app/services/utils.service';
 @Component({
   selector: 'users-table',
   templateUrl: './users-table.component.html',
@@ -17,27 +15,24 @@ export class UsersTableComponent implements OnInit {
   dataSource: MatTableDataSource<IUserInfo>;
   users = [];
 
-  @Input("id") set setId(id: any) {
-    this.createNewUser(id).subscribe((users) => {
-      this.users = users;
-      console.log(users);
-      this.dataSource = new MatTableDataSource(this.users);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    })
-  }
-
   @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { read: true }) sort: MatSort;
 
-  constructor(private apiService: ApiIntercepterService) {
-    // Create 100 users
-
-    // Assign the data to the data source for the table to render
+  constructor(private apiService: ApiIntercepterService,
+    private utils: UtilsService
+  ) {
   }
 
   ngOnInit() {
-
+    this.utils.currentUser.subscribe(user => {
+      if (!user) return;
+      this.createNewUser(user.id).subscribe((users) => {
+        this.users = users;
+        this.dataSource = new MatTableDataSource(this.users);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+    })
   }
 
   applyFilter(filterValue: string) {
@@ -49,7 +44,7 @@ export class UsersTableComponent implements OnInit {
   }
 
   /** Builds and returns a new User. */
-  createNewUser(id: number): Observable<Array<IUserInfo>> {
+  createNewUser(id: any): Observable<Array<IUserInfo>> {
     return this.apiService.get<Array<IUserInfo>>("accounts/client-users", { client: id });
   }
 }

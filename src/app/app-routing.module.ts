@@ -12,6 +12,10 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { UserRoles } from './utils/userRoles';
 import { ClientSitesComponent } from './client-sites/client-sites.component';
+import { AddDeviceComponent } from './add-device/add-device.component';
+import { AddVendorsComponent } from './add-vendors/add-vendors.component';
+import { AddNetworksComponent } from './add-networks/add-networks.component';
+import { AddClientSiteComponent } from './add-client-site/add-client-site.component';
 
 
 
@@ -60,6 +64,18 @@ const routes: Routes = [
   },
   {
     path: "client-sites", component: ClientSitesComponent
+  },
+  {
+    path: "add-device", component: AddDeviceComponent
+  },
+  {
+    path: "add-vendors", component: AddVendorsComponent
+  },
+  {
+    path: "add-network", component: AddNetworksComponent
+  },
+  {
+    path: "add-client-site", component: AddClientSiteComponent
   }
 ];
 

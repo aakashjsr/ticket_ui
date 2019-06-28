@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiIntercepterService } from '../services/api-intercepter.service';
+import { UtilsService } from '../services/utils.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-users-list',
@@ -7,12 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService: ApiIntercepterService, public utils: UtilsService, private snackBar: MatSnackBar) { }
 
 
 
   ngOnInit() {
-
+    this.apiService.get("accounts/users/").subscribe(users => {
+      console.log(users);
+    });
   }
 
 }
