@@ -123,7 +123,11 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <div class="form-group d-flex align-items-center">
               <label class="mr-4" for="verified_date">Verified Date:</label>
-              <input type="text" formControlName="verified_date" class="form-control">
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="verified_date" [matDatepicker]="picker3" placeholder="mm/dd/yyyy">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+              </mat-form-field>
             </div>
           </div>
 

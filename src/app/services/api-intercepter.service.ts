@@ -50,6 +50,12 @@ export class ApiIntercepterService {
     return patchReq;
   }
 
+  put<T>(path: string, params?: { [key: string]: any }): Observable<T> {
+    const patchReq = this.httpClient.put<T>(this.baseUrl + path, params, { headers: this.headers }).pipe(share());
+    this.handleSpinner(patchReq);
+    return patchReq;
+  }
+
   delete<T>(path: string, params?: { [key: string]: any }): Observable<T> {
     const delReq = this.httpClient.delete<T>(this.baseUrl + path, params).pipe(share());
     this.handleSpinner(delReq);

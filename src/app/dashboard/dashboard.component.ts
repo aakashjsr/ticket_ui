@@ -14,7 +14,8 @@ enum EshowUserInfoType {
   VENDOR = 'vendor',
   NETWORK = 'network',
   CLIENT_SITES = "client_sites",
-  TICKET = 'ticket'
+  TICKET = 'ticket',
+  VENDORS_ACCOUNT = 'vendors-account'
 }
 
 interface ICleientSites {

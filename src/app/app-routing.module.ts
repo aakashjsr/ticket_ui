@@ -20,6 +20,8 @@ import { DevicesTableComponent } from './dashboard/devices-table/devices-table.c
 import { VendorsTableComponent } from './dashboard/vendors-table/vendors-table.component';
 import { UsersTableComponent } from './dashboard/users-table/users-table.component';
 import { TicketsTableComponent } from './tickets-table/tickets-table.component';
+import { AddVendorAccountComponent } from './add-vendor-account/add-vendor-account.component';
+import { VendorsAccountTableComponent } from './vendors-account-table/vendors-account-table.component';
 
 
 
@@ -38,6 +40,9 @@ const routes: Routes = [
       },
       {
         path: "vendors", component: VendorsTableComponent
+      },
+      {
+        path: "vendors-account", component: VendorsAccountTableComponent
       },
       {
         path: "", component: UsersTableComponent
@@ -59,6 +64,9 @@ const routes: Routes = [
       },
       {
         path: "add-client-site", component: AddClientSiteComponent
+      },
+      {
+        path: "add-vendor-account", component: AddVendorAccountComponent
       },
       {
         path: "add-ticket", component: CreateTicketComponent,

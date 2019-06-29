@@ -39,7 +39,7 @@ export class AddDeviceComponent implements OnInit {
       wireless_ssid: [],
       wireless_pass: [],
       guest_ssid: [],
-      guest_password: [],
+      guest_pass: [],
       guest_dhcp: [],
       backup: [],
       verified_date: [],
