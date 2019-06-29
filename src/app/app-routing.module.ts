@@ -40,7 +40,7 @@ const routes: Routes = [
         path: "vendors", component: VendorsTableComponent
       },
       {
-        path: "users", component: UsersTableComponent
+        path: "", component: UsersTableComponent
       },
       {
         path: "client_sites", component: ClientSitesComponent
