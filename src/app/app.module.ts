@@ -91,9 +91,9 @@ import { TktEditHistoryComponent } from './create-ticket/tkt-edit-history/tkt-ed
       animationType: ngxLoadingAnimationTypes.threeBounce,
       backdropBackgroundColour: 'rgba(0,0,0,0.1)',
       backdropBorderRadius: '4px',
-      primaryColour: '#ffffff',
-      secondaryColour: '#ffffff',
-      tertiaryColour: '#ffffff'
+      primaryColour: 'purple',
+      secondaryColour: 'white',
+      tertiaryColour: 'blue'
     }),
   ],
   providers: [],
