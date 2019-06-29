@@ -42,7 +42,7 @@ export class AddClientSiteComponent implements OnInit {
   submitForm() {
     this.apiService.post("entities/client-sites/", this.clientSiteForm.value).subscribe((value) => {
       this.snackBar.open("Client Site Added", "Successfully", { duration: 1000 });
-      this.router.navigate(["/"]);
+      this.router.navigate(["/client_sites"]);
     });
   }
 }

@@ -33,7 +33,7 @@ export class AddClientComponent implements OnInit {
         this.snackBar.open("Client Added", "successfully", {
           duration: 800
         });
-        this.router.navigate(["/"]);
+        this.router.navigate(["/clients"]);
       })
     }
   }

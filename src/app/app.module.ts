@@ -16,7 +16,7 @@ import {
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AddCompanyComponent } from './add-company/add-company.component';
+
 import { AddUserComponent } from './add-user/add-user.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { ContactCardComponent } from './contact-card/contact-card.component';
@@ -47,7 +47,7 @@ import { AddClientComponent } from './add-client/add-client.component';
     HeaderComponent,
     DashboardComponent,
     CreateTicketComponent,
-    AddCompanyComponent,
+    
     AddUserComponent,
     UsersListComponent,
     ContactCardComponent,

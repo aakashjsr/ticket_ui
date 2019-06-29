@@ -40,7 +40,7 @@ export class AddVendorsComponent implements OnInit {
   submitForm() {
     this.apiService.post("entities/vendors/", this.vendorForm.value).subscribe((value) => {
       this.snackBar.open("vendor added", "Successfully", { duration: 1000 });
-      this.router.navigate(["/"]);
+      this.router.navigate(["/vendors"]);
     });
   }
 }

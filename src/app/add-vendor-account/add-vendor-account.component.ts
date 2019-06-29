@@ -42,7 +42,7 @@ export class AddVendorAccountComponent implements OnInit {
         this.snackBar.open("Vendor Added", "successfully", {
           duration: 800
         });
-        this.router.navigate(["/"]);
+        this.router.navigate(["/vendors-account"]);
       })
     }
   }
