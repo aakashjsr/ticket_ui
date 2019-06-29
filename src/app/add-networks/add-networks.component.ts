@@ -47,7 +47,7 @@ export class AddNetworksComponent implements OnInit {
   submitForm() {
     this.apiService.post("entities/networks/", this.networkForm.value).subscribe((value) => {
       this.snackBar.open("Network Added", "Successfully", { duration: 1000 });
-      this.router.navigate(["/"]);
+      this.router.navigate(["/networks"]);
     });
   }
 

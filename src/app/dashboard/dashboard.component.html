@@ -26,6 +26,10 @@
           (click)="navTo('networks', 'network')">
           <mat-icon>network_wifi</mat-icon> <span class="list-text">Network</span>
         </button>
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'clients'"
+          (click)="navTo('clients', 'clients')">
+          <mat-icon>person</mat-icon> <span class="list-text">Clients</span>
+        </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'client_sites'"
           (click)="navTo('client_sites', 'client_sites')">
           <mat-icon>location_on</mat-icon> <span class="list-text">Client Sites</span>
@@ -33,11 +37,6 @@
 
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'ticket'" (click)="navTo('tickets', 'ticket')">
           <mat-icon>file_copy</mat-icon> <span class="list-text">Tickets</span>
-        </button>
-
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'clients'"
-          (click)="navTo('clients', 'clients')">
-          <mat-icon>file_copy</mat-icon> <span class="list-text">Clients</span>
         </button>
 
         <!-- clients -->
@@ -67,6 +66,9 @@
               <button routerLink="/add-network" mat-menu-item>
                 <mat-icon>network_wifi</mat-icon> Network
               </button>
+              <button routerLink="/add-client" mat-menu-item>
+                <mat-icon>person</mat-icon> Add Client
+              </button>
               <button routerLink="/add-client-site" mat-menu-item>
                 <mat-icon>location_on</mat-icon> Client Sites
               </button>
@@ -78,10 +80,6 @@
               </button>
               <button routerLink="/add-vendor-account" mat-menu-item>
                 <mat-icon>account_balance</mat-icon> Vendor Account
-              </button>
-
-              <button routerLink="/add-client" mat-menu-item>
-                <mat-icon>account_balance</mat-icon> Add Client
               </button>
             </mat-menu>
 

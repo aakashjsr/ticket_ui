@@ -54,7 +54,7 @@ export class AddDeviceComponent implements OnInit {
   submitForm() {
     this.apiService.post("entities/devices/", this.deviceForm.value).subscribe((value) => {
       this.snackBar.open("Device Added", "Successfully", { duration: 1000 });
-      this.router.navigate(["/"]);
+      this.router.navigate(["/devices"]);
     });
   }
 }

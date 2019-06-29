@@ -4,7 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
-import { AddCompanyComponent } from './add-company/add-company.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { ContactCardComponent } from './contact-card/contact-card.component';
@@ -94,14 +93,6 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     data: {
       expectedRoles: [UserRoles.ADMIN, UserRoles.CLIENT_ADMIN, UserRoles.CLIENT_USER, UserRoles.SUPER_ADMIN]
-    }
-  },
-
-  {
-    path: "add-company", component: AddCompanyComponent,
-    canActivate: [AuthGuardService],
-    data: {
-      expectedRoles: [UserRoles.SUPER_ADMIN, UserRoles.ADMIN]
     }
   },
 

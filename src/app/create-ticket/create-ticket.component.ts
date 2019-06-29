@@ -55,6 +55,8 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
         this.updateTicketId = value.data.id;
         const currentFromState = value.data;
 
+
+
         this.ticketForm = this.fb.group({
           category: [{ value: currentFromState['category'], disabled: true },],
           status: [{ value: currentFromState['status'], disabled: false },],
@@ -95,14 +97,18 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
       this.ticketStatus = value;
     });
 
-    this.apiService.get("accounts/client-users", { client: 1 }).subscribe((value: any) => {
-      console.log(value, "---------------------------------------------------------------");
-      this.usersList = value;
-    });
+
+
+    
     this.utils.currentUser.subscribe(user => {
       if (user && !this.ticketForm.value.client) {
         this.ticketForm.patchValue({ client: user.id });
       }
+      this.apiService.get("accounts/client-users", { client: this.user.id }).subscribe((value: any) => {
+      console.log(value, "---------------------------------------------------------------");
+      this.usersList = value;
+    });
+
     });
 
   }
