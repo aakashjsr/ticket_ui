@@ -111,7 +111,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
   submitForm() {
     if (this.ticketForm.valid) {
       if (this.isUpdate) {
-        this.apiService.put(`entities/tickets/${this.updateTicketId}/`, this.ticketForm.value).subscribe(value => {
+        this.apiService.put(`entities/ticket/${this.updateTicketId}/`, this.ticketForm.value).subscribe(value => {
           this.snackBar.open("Ticket updated", "SuccessFully", { duration: 1000 });
           this.router.navigate(["/"]);
         });

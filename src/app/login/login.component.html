@@ -2,7 +2,7 @@
   <mat-card class="mat-elevation-z1">
 
     <mat-card-content [formGroup]="loginForm">
-      <h3 class="text-center text-warning">Login</h3>
+      <h4 class="text-center"><font color="purple"><i>Login</i></font></h4>
       <mat-form-field class="w-100 my-1" appearance="outline">
         <mat-label>Username</mat-label>
         <input matInput placeholder="Username" formControlName="username">
@@ -14,18 +14,16 @@
 
       <mat-form-field class="w-100 my-1" appearance="outline">
         <mat-label>Password</mat-label>
-        <input matInput placeholder="Password" formControlName="password">
+        <input type="password" matInput placeholder="Password" formControlName="password">
         <mat-error *ngIf="!loginForm.hasError('required')">
           Please enter password
         </mat-error>
       </mat-form-field>
 
-    
-
     </mat-card-content>
 
-    <mat-card-actions class="d-flex justify-content-between w-100">
-      <button (click)="submitForm()" mat-stroked-button color="primary">Sigin</button>
+    <mat-card-actions style="text-align: center;">
+      <button (click)="submitForm()" mat-stroked-button class="btn btn-primary"> Sign in </button>
     </mat-card-actions>
   </mat-card>
 </div>

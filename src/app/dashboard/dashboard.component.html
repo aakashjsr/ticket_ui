@@ -1,39 +1,38 @@
 <div class="full-width-container w-100 h-100">
-
+  
   <mat-sidenav-container class="sidenav-container">
 
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
-      <mat-toolbar class="border-bottom text-primary">LOGO
+      <mat-toolbar class="logo-color">Ticket Management
       </mat-toolbar>
       <mat-action-list>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'" (click)="navTo('/', 'userinfo')">
-          <mat-icon>perm_identity</mat-icon> Users
+          <mat-icon>accessibility</mat-icon> <span class="list-text">Users</span>
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'devices'"
           (click)="navTo('devices', 'devices')">
-          <mat-icon>important_devices</mat-icon> &nbsp; Devices
+          <mat-icon>important_devices</mat-icon> <span class="list-text">Devices</span>
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendor'" (click)="navTo('vendors', 'vendor')">
-          <mat-icon>supervisor_account</mat-icon> &nbsp; Vendors
+          <mat-icon>supervisor_account</mat-icon> <span class="list-text">Vendors</span>
+        </button>
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendors-account'"
+          (click)="navTo('vendors-account', 'vendors-account')">
+          <mat-icon>account_balance</mat-icon> <span class="list-text">Vendor Accounts</span>
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'network'"
           (click)="navTo('networks', 'network')">
-          <mat-icon>network_wifi</mat-icon> &nbsp; Networks
+          <mat-icon>network_wifi</mat-icon> <span class="list-text">Network</span>
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'client_sites'"
           (click)="navTo('client_sites', 'client_sites')">
-          <mat-icon>location_on</mat-icon> Client Sites
+          <mat-icon>location_on</mat-icon> <span class="list-text">Client Sites</span>
         </button>
 
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'ticket'" (click)="navTo('tickets', 'ticket')">
-          <mat-icon>local_play</mat-icon> &nbsp; Tickets
-        </button>
-
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendors-account'"
-          (click)="navTo('vendors-account', 'vendors-account')">
-          <mat-icon>supervisor_account</mat-icon> &nbsp; Vendors Account
+          <mat-icon>file_copy</mat-icon>  <span class="list-text">Tickets</span>
         </button>
 
       </mat-action-list>
@@ -46,31 +45,33 @@
       </button>
       <!-- Add Content Here -->
       <div class="w-100">
-        <div class="d-flex justify-content-between align-items-center border rounded-sm p-cust bg-white">
+        <div class="d-flex justify-content-between align-items-center border rounded-sm p-cust nav-bar-color">
           <div class="d-inline-flex">
             <button mat-flat-button [matMenuTriggerFor]="menu">Add
               <mat-icon>keyboard_arrow_down</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button routerLink="/add-user" mat-menu-item>Users</button>
+              <button routerLink="/add-user" mat-menu-item>
+                <mat-icon>accessibility</mat-icon> Users
+              </button>
               <button routerLink="/add-device" mat-menu-item>
-                Devices
+                <mat-icon>important_devices</mat-icon> Devices
               </button>
 
               <button routerLink="/add-network" mat-menu-item>
-                Network
+                <mat-icon>network_wifi</mat-icon> Network
               </button>
               <button routerLink="/add-client-site" mat-menu-item>
-                Client Sites
+                <mat-icon>location_on</mat-icon> Client Sites
               </button>
               <button routerLink="/add-ticket" mat-menu-item>
-                Ticket
+               <mat-icon>file_copy</mat-icon>  Ticket
               </button>
               <button routerLink="/add-vendors" mat-menu-item>
-                Vendors
+                <mat-icon>supervisor_account</mat-icon> Vendors
               </button>
               <button routerLink="/add-vendor-account" mat-menu-item>
-                Vendor Account
+                <mat-icon>account_balance</mat-icon> Vendor Account
               </button>
             </mat-menu>
 
@@ -81,7 +82,7 @@
           </div>
 
           <div class="d-inline-flex align-items-center">
-            <h6 class="text-secondary mb-0">Clients:&nbsp;</h6>
+            <h6 class="text-secondary mb-0">Client&nbsp;</h6>
             <mat-form-field id="no-padding" class="m-0 p-0 mx-4" appearance="outline">
               <input [formControl]="currentUser" matInput placeholder="Client" aria-label="State"
                 [matAutocomplete]="auto">
@@ -94,7 +95,7 @@
           </div>
 
           <button mat-flat-button (click)="logout()" type="button">
-            <mat-icon>exit_to_app</mat-icon>
+            Logout <mat-icon>exit_to_app</mat-icon>
           </button>
         </div>
       </div>

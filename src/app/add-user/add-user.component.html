@@ -5,31 +5,34 @@
 
     <div [formGroup]="userForm" class="card-body">
       <div class="d-flex justify-content-between mb-4">
-        <h6 class="text-primary">Add User</h6>
-        <h6 class="text-primary">Client: {{utils.currentUser.value.name}}</h6>
+        <h6><font color="purple">Add User</font></h6>
       </div>
       <div>
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
+              <mat-label>First name</mat-label>
               <input matInput formControlName="first_name" placeholder="First Name">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
+              <mat-label>Last name</mat-label>
               <input matInput formControlName="last_name" placeholder="Last Name">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
               <input matInput formControlName="email" placeholder="Email">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
               <input matInput type="password" formControlName="password" placeholder="Password">
             </mat-form-field>
           </div>
@@ -72,22 +75,25 @@
           </div>
 
           <div class="col-12">
-            <h6 class="text-primary">Contact Info:</h6>
+            <h6><font color="purple">Contact Info</font></h6>
             <div class="row">
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <mat-form-field appearance="outline">
+                  <mat-label>Phone</mat-label>
                   <input matInput type="tel" formControlName="phone" placeholder="Phone">
                 </mat-form-field>
               </div>
 
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <mat-form-field appearance="outline">
+                  <mat-label>Phone ext</mat-label>
                   <input matInput type="text" formControlName="phone_ext" placeholder="Phone EXT">
                 </mat-form-field>
               </div>
 
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <mat-form-field appearance="outline">
+                  <mat-label>Cell phone</mat-label>
                   <input matInput type="tel" formControlName="cell_phone" placeholder="Cell Phone">
                 </mat-form-field>
               </div>
@@ -102,10 +108,10 @@
                   </div>
                   <mat-radio-group class="d-inline-flex" aria-labelledby="primary-contact-radio-group-label"
                     formControlName="is_primary_contact">
-                    <mat-radio-button color="accent" class="mr-4" [value]="true">
+                    <mat-radio-button color="primary" class="mr-4" [value]="true">
                       Yes
                     </mat-radio-button>
-                    <mat-radio-button color="accent" [value]="false">
+                    <mat-radio-button color="primary" [value]="false">
                       No
                     </mat-radio-button>
                   </mat-radio-group>
@@ -119,11 +125,15 @@
 
           <div class="col-12">
             <div class="form-group d-flex align-items-center">
-              <label class="mr-4" for="comment">Notes:</label>
-              <textarea formControlName="notes" class="form-control w-100" rows="5"></textarea>
+              <mat-form-field appearance="outline">
+                  <mat-label>Notes</mat-label>
+                  <textarea matInput formControlName="notes" class="form-control w-100" rows="5"></textarea>
+                </mat-form-field>
             </div>
 
-            <button (click)="submitForm()" type="button" class="btn btn-primary">Add User</button>
+            <div align="right">
+              <button (click)="submitForm()" type="button" class="btn btn-success">Add User</button>
+            </div>
           </div>
         </div>
       </div>

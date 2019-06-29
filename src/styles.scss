@@ -3,6 +3,7 @@
 html,
 body {
   height: 100%;
+  background: white;
 }
 body {
   margin: 0;
@@ -47,4 +48,11 @@ app-dashboard {
       padding: 0px !important;
     }
   }
+}
+
+h6 {
+  color: purple;
+}
+.mat-form-field-wrapper {
+  background: white;
 }

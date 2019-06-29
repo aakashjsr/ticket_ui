@@ -49,14 +49,14 @@
 
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Invoice Id:</mat-label>
+            <mat-label>Invoice Id</mat-label>
             <input matInput formControlName="invoice_id" placeholder="Invoice Id">
           </mat-form-field>
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Parts used:</mat-label>
+            <mat-label>Parts used</mat-label>
             <input matInput formControlName="parts_used" placeholder="Parts Used">
           </mat-form-field>
         </div>
@@ -74,7 +74,7 @@
 
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Assigned To:</mat-label>
+            <mat-label>Assigned To</mat-label>
             <mat-select formControlName="assigned_to">
               <mat-option *ngFor="let user of usersList" [value]="user.id">
                 {{user.username}}
@@ -102,7 +102,7 @@
         <div class="col-12" *ngIf="!isUpdate">
           <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>
-            <textarea matInput formControlName="description" placeholder="Description"></textarea>
+            <textarea matInput formControlName="description" placeholder="Description" rows="5"></textarea>
           </mat-form-field>
         </div>
       </div>
