@@ -8,8 +8,7 @@
       <mat-toolbar class="border-bottom text-primary">LOGO
       </mat-toolbar>
       <mat-action-list>
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'"
-          (click)="navTo('users', 'userinfo')">
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'" (click)="navTo('/', 'userinfo')">
           <mat-icon>perm_identity</mat-icon> Users
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'devices'"
@@ -32,6 +31,11 @@
           <mat-icon>local_play</mat-icon> &nbsp; Tickets
         </button>
 
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendors-account'"
+          (click)="navTo('vendors-account', 'vendors-account')">
+          <mat-icon>supervisor_account</mat-icon> &nbsp; Vendors Account
+        </button>
+
       </mat-action-list>
     </mat-sidenav>
 
@@ -52,9 +56,7 @@
               <button routerLink="/add-device" mat-menu-item>
                 Devices
               </button>
-              <button routerLink="/add-vendors" mat-menu-item>
-                Vendors
-              </button>
+
               <button routerLink="/add-network" mat-menu-item>
                 Network
               </button>
@@ -64,8 +66,15 @@
               <button routerLink="/add-ticket" mat-menu-item>
                 Ticket
               </button>
+              <button routerLink="/add-vendors" mat-menu-item>
+                Vendors
+              </button>
+              <button routerLink="/add-vendor-account" mat-menu-item>
+                Vendor Account
+              </button>
             </mat-menu>
 
+            <!-- add-vendor-account -->
             <!-- <ng-container *ngFor="let user of clients">
               <a mat-list-item (click)="currentUser = user" [class.active]="currentUser.id == user.id">{{user.name}}</a>
             </ng-container> -->

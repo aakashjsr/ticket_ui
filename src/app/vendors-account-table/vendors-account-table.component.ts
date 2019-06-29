@@ -1,17 +1,16 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { ApiIntercepterService } from '../../services/api-intercepter.service';
-import { DeviceInfo } from '../../utils/userInfo';
+import { DeviceInfo } from '../utils/userInfo';
+import { ApiIntercepterService } from '../services/api-intercepter.service';
+import { UtilsService } from '../services/utils.service';
 import { Observable } from 'rxjs';
-import { UtilsService } from '../../services/utils.service';
-
 
 @Component({
-  selector: 'devices-table',
-  templateUrl: './devices-table.component.html',
-  styleUrls: ['./devices-table.component.scss']
+  selector: 'app-vendors-account-table',
+  templateUrl: './vendors-account-table.component.html',
+  styleUrls: ['./vendors-account-table.component.scss']
 })
-export class DevicesTableComponent implements OnInit {
+export class VendorsAccountTableComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'phone', 'color', 'vService', 'vWeb', 'notes'];
   dataSource: MatTableDataSource<DeviceInfo>;
@@ -48,7 +47,7 @@ export class DevicesTableComponent implements OnInit {
 
 
   createNewUser(id: any): Observable<DeviceInfo[]> {
-    return this.apiService.get("entities/devices", { client: 1 })
+    return this.apiService.get("entities/vendor-accounts", { client: 1 })
   }
 
 }

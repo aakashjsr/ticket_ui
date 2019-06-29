@@ -18,19 +18,19 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <input matInput formControlName="last_name" formControlName="last_name" placeholder="Last Name">
+              <input matInput formControlName="last_name" placeholder="Last Name">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <input matInput formControlName="last_name" formControlName="email" placeholder="Email">
+              <input matInput formControlName="email" placeholder="Email">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <input matInput type="password" formControlName="guest_password" placeholder="Guest Password">
+              <input matInput type="password" formControlName="password" placeholder="Password">
             </mat-form-field>
           </div>
 
@@ -38,7 +38,7 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Clients</mat-label>
-              <mat-select formControlName="client" multiple>
+              <mat-select formControlName="clients" multiple>
                 <mat-option *ngFor="let client of clients" [value]="client.id">{{client.name}}</mat-option>
               </mat-select>
             </mat-form-field>

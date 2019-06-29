@@ -1,0 +1,79 @@
+<!-- navBar Ends -->
+
+<div class="container">
+  <div class="card my-4">
+
+    <div [formGroup]="vendorAccountForm" class="card-body">
+      <div class="d-flex justify-content-between mb-4">
+        <h6 class="text-primary">Add Vendor Account</h6>
+        <h6 class="text-primary">Client: {{utils.currentUser.value.name}}</h6>
+      </div>
+      <div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="client_location" placeholder="Client Location">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="account" placeholder="Account">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="username" placeholder="Username">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field appearance="outline">
+              <input matInput type="password" formControlName="password" placeholder="Password">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field appearance="outline">
+              <input matInput type="text" formControlName="license_key" placeholder="License Key">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Clients</mat-label>
+              <mat-select formControlName="vendor">
+                <mat-option *ngFor="let client of clients" [value]="client.id">{{client.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="d-flex align-items-center">
+              <label class="mr-4" for="support_expiration">Support Expiration</label>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="support_expiration" [matDatepicker]="picker" placeholder="mm/dd/yyyy">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+
+          <div class="col-12">
+            <div class="form-group d-flex align-items-center">
+              <label class="mr-4" for="comment">Notes:</label>
+              <textarea formControlName="notes" class="form-control w-100" rows="5"></textarea>
+            </div>
+
+            <button (click)="submitForm()" type="button" class="btn btn-primary">Add Account</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Form card ends -->
+
+</div>
+<!-- container fluid ends -->

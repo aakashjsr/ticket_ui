@@ -33,6 +33,8 @@ import { AddNetworksComponent } from './add-networks/add-networks.component';
 import { AddClientSiteComponent } from './add-client-site/add-client-site.component';
 import { TicketsTableComponent } from './tickets-table/tickets-table.component';
 import { TktEditHistoryComponent } from './create-ticket/tkt-edit-history/tkt-edit-history.component';
+import { AddVendorAccountComponent } from './add-vendor-account/add-vendor-account.component';
+import { VendorsAccountTableComponent } from './vendors-account-table/vendors-account-table.component';
 
 
 @NgModule({
@@ -57,7 +59,9 @@ import { TktEditHistoryComponent } from './create-ticket/tkt-edit-history/tkt-ed
     AddNetworksComponent,
     AddClientSiteComponent,
     TicketsTableComponent,
-    TktEditHistoryComponent
+    TktEditHistoryComponent,
+    AddVendorAccountComponent,
+    VendorsAccountTableComponent
   ],
   imports: [
     BrowserModule,
