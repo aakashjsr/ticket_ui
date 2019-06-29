@@ -1,6 +1,6 @@
 <div class="full-width-container w-100 h-100">
-  
-  <mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav-container class="sidenav-container bg-white">
 
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -32,9 +32,15 @@
         </button>
 
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'ticket'" (click)="navTo('tickets', 'ticket')">
-          <mat-icon>file_copy</mat-icon>  <span class="list-text">Tickets</span>
+          <mat-icon>file_copy</mat-icon> <span class="list-text">Tickets</span>
         </button>
 
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'clients'"
+          (click)="navTo('clients', 'clients')">
+          <mat-icon>file_copy</mat-icon> <span class="list-text">Clients</span>
+        </button>
+
+        <!-- clients -->
       </mat-action-list>
     </mat-sidenav>
 
@@ -65,13 +71,17 @@
                 <mat-icon>location_on</mat-icon> Client Sites
               </button>
               <button routerLink="/add-ticket" mat-menu-item>
-               <mat-icon>file_copy</mat-icon>  Ticket
+                <mat-icon>file_copy</mat-icon> Ticket
               </button>
               <button routerLink="/add-vendors" mat-menu-item>
                 <mat-icon>supervisor_account</mat-icon> Vendors
               </button>
               <button routerLink="/add-vendor-account" mat-menu-item>
                 <mat-icon>account_balance</mat-icon> Vendor Account
+              </button>
+
+              <button routerLink="/add-client" mat-menu-item>
+                <mat-icon>account_balance</mat-icon> Add Client
               </button>
             </mat-menu>
 

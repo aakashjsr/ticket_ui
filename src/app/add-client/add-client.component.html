@@ -1,0 +1,43 @@
+<!-- navBar Ends -->
+
+<div class="container">
+  <div class="card my-4">
+
+    <div [formGroup]="addClientForm" class="card-body">
+      <div class="d-flex justify-content-between mb-4">
+        <h6 class="text-primary">Add Client</h6>
+      </div>
+      <div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" placeholder="Client Name">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Client Id</mat-label>
+              <input matInput formControlName="client_id" placeholder="Client Id">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Website</mat-label>
+              <input matInput formControlName="website" placeholder="Website">
+            </mat-form-field>
+          </div>
+
+          <div class="col-12">
+            <button (click)="submitForm()" type="button" class="btn btn-primary">Add Client</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Form card ends -->
+
+</div>
+<!-- container fluid ends -->

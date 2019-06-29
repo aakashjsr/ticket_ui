@@ -22,6 +22,8 @@ import { UsersTableComponent } from './dashboard/users-table/users-table.compone
 import { TicketsTableComponent } from './tickets-table/tickets-table.component';
 import { AddVendorAccountComponent } from './add-vendor-account/add-vendor-account.component';
 import { VendorsAccountTableComponent } from './vendors-account-table/vendors-account-table.component';
+import { ClientsTableComponent } from './clients-table/clients-table.component';
+import { AddClientComponent } from './add-client/add-client.component';
 
 
 
@@ -58,6 +60,12 @@ const routes: Routes = [
       },
       {
         path: "add-vendors", component: AddVendorsComponent
+      },
+      {
+        path: "add-client", component: AddClientComponent
+      },
+      {
+        path: "clients", component: ClientsTableComponent
       },
       {
         path: "add-network", component: AddNetworksComponent
