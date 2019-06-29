@@ -1,0 +1,33 @@
+<!-- Responsive table starts here -->
+<!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
+
+<h6 class="text-info mt-4">Ticket History</h6>
+
+<div class="table-responsive-vertical shadow-z-1">
+  <!-- Table starts here -->
+  <table id="table" class="table table-hover table-mc-light-blue">
+    <thead>
+      <tr>
+        <th>Work Type</th>
+        <th>Support Type</th>
+        <th>Status</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Public Notes</th>
+        <th>Internal Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tktHist of tktHistories">
+        <td data-title="ID">{{tktHist.work_type}}</td>
+        <td data-title="Name">{{tktHist.support_type}}</td>
+        <td data-title="Name">{{tktHist.status}}</td>
+        <td data-title="Name">{{tktHist.start_datetime | date:'mediumDate'}}</td>
+        <td data-title="Name">{{tktHist.end_datetime | date:'mediumDate'}}</td>
+        <td data-title="Name">{{tktHist.public_notes}}</td>
+        <td data-title="Name">{{tktHist.internal_notes}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>

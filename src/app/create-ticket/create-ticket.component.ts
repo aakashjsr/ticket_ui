@@ -1,17 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { UtilsService } from '../services/utils.service';
 
-
-export interface State {
-  flag: string;
-  name: string;
-  population: string;
-}
 
 
 
@@ -23,30 +16,45 @@ export interface State {
 export class CreateTicketComponent implements OnInit {
   ticketsCat: Array<{ display: string, value: string }> = [];
   ticketForm: FormGroup;
+  isUpdate = false;
   stateCtrl = new FormControl();
-  filteredStates: Observable<State[]>;
   ticketStatus: Array<{ display: string, value: string }> = [];
   usersList: any[];
+  currentTktHistory = [];
 
 
   constructor(
     public apiService: ApiIntercepterService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    public utils: UtilsService
   ) {
     this.ticketForm = this.fb.group({
-      category: [null, Validators.required],
-      status: [null, Validators.required],
-      invoice_id: [null, Validators.required],
-      parts_used: [null, Validators.required],
-      requested_comp_date: [null, Validators.required],
-      estimated_comp_date: [null, Validators.required],
-      contact_person: [null, Validators.required],
-      assigned_to: [null, Validators.required],
-      issue_description: [null, Validators],
-      client_id: [Validators.required],
+      category: [null,],
+      status: [null,],
+      invoice_id: [null,],
+      parts_used: [null,],
+      requested_comp_date: [null,],
+      completed_time: [],
+      submit_time: [null],
+      contact_person: [null,],
+      assigned_to: [null,],
+      public_notes: [null],
+      client: [null, Validators.required],
     });
+    this.utils.internalDataBus.subscribe(value => {
+      if (!value) return;
+      console.log(value);
+      if (value.type == 'tkt') {
+        this.isUpdate = true;
+        this.ticketForm.patchValue(value.data);
+        this.apiService.get<Array<any>>(`entities/ticket-history/${value.data.id}/`).subscribe(history => {
+          this.currentTktHistory = history;
+        })
+      }
+    });
+
   }
 
 
@@ -63,6 +71,12 @@ export class CreateTicketComponent implements OnInit {
       console.log(value, "---------------------------------------------------------------");
       this.usersList = value;
     });
+    this.utils.currentUser.subscribe(user => {
+      if (user && !this.ticketForm.value.client) {
+        this.ticketForm.patchValue({ client: user.id });
+      }
+    });
+
   }
 
 

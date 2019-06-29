@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { UserRoles } from '../utils/userRoles';
 import { UtilsService } from '../services/utils.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class AddUserComponent implements OnInit {
   userForm: FormGroup;
   IsPrimaryContact: boolean;
   IsActive: boolean;
-  userRoles: string[];
+  clients = []
   constructor(
     private fb: FormBuilder
     , private apiService: ApiIntercepterService
@@ -27,12 +26,12 @@ export class AddUserComponent implements OnInit {
       first_name: [null,],
       last_name: [null,],
       client: [null,],
+      device_id: [null,],
       email: [null],
       username: [null,],
-      password: [null],
-      primary_company: [null,],
+      guest_password: [null],
+      lan_ip: [],
       user_type: [null],
-      related_company: [],
       is_primary_contact: [],
       is_active: [],
       phone: [],
@@ -55,9 +54,12 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userRoles = Object.values(UserRoles);
     this.utils.currentUser.subscribe(user => {
       this.userForm.patchValue({ client: user.id });
+    });
+
+    this.apiService.get<Array<any>>("accounts/clients").subscribe((value) => {
+      this.clients = value;
     });
   }
 

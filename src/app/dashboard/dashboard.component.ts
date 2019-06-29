@@ -6,6 +6,7 @@ import { IUserInfo, IClient } from '../utils/userInfo';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { FormControl } from '@angular/forms';
 import { UtilsService } from '../services/utils.service';
+import { Router } from '@angular/router';
 
 enum EshowUserInfoType {
   USERINFO = 'userinfo',
@@ -59,6 +60,18 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  logout() {
+    this.apiService.post("accounts/logout/").subscribe((value) => {
+      localStorage.clear();
+      this.router.navigate(["/login"]);
+    });
+  }
+
+  navTo(path: string, selectionType: string) {
+    this.router.navigate([path]);
+    this.showCurrentUserInfoType = selectionType;
+  }
+
   onClientSelect(value: IClient) {
     this.utils.currentUser.next(value);
     console.log(value);
@@ -67,6 +80,7 @@ export class DashboardComponent implements OnInit {
     private breakpointObserver: BreakpointObserver
     , private apiService: ApiIntercepterService
     , private utils: UtilsService
+    , private router: Router
   ) { }
   ngOnInit() {
     this.getUsers();

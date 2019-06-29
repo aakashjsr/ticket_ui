@@ -44,7 +44,7 @@ export class NetworkTableComponent implements OnInit {
 
 
   createNewUser(id: any): Observable<INetwork[]> {
-    return this.apiService.get<INetwork[]>("entities/networks", { client: id })
+    return this.apiService.get<INetwork[]>("entities/networks/", { client: id })
   }
 
 }

@@ -1,36 +1,34 @@
 <div class="full-width-container w-100 h-100">
-  <app-header></app-header>
+
   <mat-sidenav-container class="sidenav-container">
 
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
-      <mat-toolbar class="border-bottom text-primary">Tables
+      <mat-toolbar class="border-bottom text-primary">LOGO
       </mat-toolbar>
       <mat-action-list>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'"
-          (click)="showCurrentUserInfoType = 'userinfo'">
+          (click)="navTo('users', 'userinfo')">
           <mat-icon>perm_identity</mat-icon> Users
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'devices'"
-          (click)="showCurrentUserInfoType = 'devices'">
+          (click)="navTo('devices', 'devices')">
           <mat-icon>important_devices</mat-icon> &nbsp; Devices
         </button>
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendor'"
-          (click)="showCurrentUserInfoType = 'vendor'">
-          <mat-icon>loyalty</mat-icon> &nbsp; Vendors
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendor'" (click)="navTo('vendors', 'vendor')">
+          <mat-icon>supervisor_account</mat-icon> &nbsp; Vendors
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'network'"
-          (click)="showCurrentUserInfoType = 'network'">
+          (click)="navTo('networks', 'network')">
           <mat-icon>network_wifi</mat-icon> &nbsp; Networks
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'client_sites'"
-          (click)="showCurrentUserInfoType = 'client_sites'">
+          (click)="navTo('client_sites', 'client_sites')">
           <mat-icon>location_on</mat-icon> Client Sites
         </button>
 
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'ticket'"
-          (click)="showCurrentUserInfoType = 'ticket'">
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'ticket'" (click)="navTo('tickets', 'ticket')">
           <mat-icon>local_play</mat-icon> &nbsp; Tickets
         </button>
 
@@ -86,15 +84,13 @@
             </mat-form-field>
           </div>
 
-          <div class="form-check mr-3">
-            <label class="form-check-label">
-              <input type="checkbox" class="form-check-input" value="">Inactive
-            </label>
-          </div>
+          <button mat-flat-button (click)="logout()" type="button">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
         </div>
       </div>
 
-      <div [ngSwitch]="showCurrentUserInfoType">
+      <!-- <div [ngSwitch]="showCurrentUserInfoType">
         <mat-card *ngSwitchCase="'network'">
           <mat-card-content>
             <network-table class="w-100"></network-table>
@@ -129,8 +125,8 @@
 
 
         <div *ngSwitchDefault>Invlid Table Request</div>
-      </div>
-
+      </div> -->
+      <router-outlet></router-outlet>
       <!-- end content here -->
     </mat-sidenav-content>
   </mat-sidenav-container>

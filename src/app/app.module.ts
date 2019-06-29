@@ -20,7 +20,6 @@ import { AddCompanyComponent } from './add-company/add-company.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { ContactCardComponent } from './contact-card/contact-card.component';
-import { TicketsComponent } from './tickets/tickets.component';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { VendorsTableComponent } from './dashboard/vendors-table/vendors-table.component';
 import { UsersTableComponent } from './dashboard/users-table/users-table.component';
@@ -33,6 +32,7 @@ import { AddVendorsComponent } from './add-vendors/add-vendors.component';
 import { AddNetworksComponent } from './add-networks/add-networks.component';
 import { AddClientSiteComponent } from './add-client-site/add-client-site.component';
 import { TicketsTableComponent } from './tickets-table/tickets-table.component';
+import { TktEditHistoryComponent } from './create-ticket/tkt-edit-history/tkt-edit-history.component';
 
 
 @NgModule({
@@ -47,7 +47,6 @@ import { TicketsTableComponent } from './tickets-table/tickets-table.component';
     AddUserComponent,
     UsersListComponent,
     ContactCardComponent,
-    TicketsComponent,
     VendorsTableComponent,
     UsersTableComponent,
     DevicesTableComponent,
@@ -57,7 +56,8 @@ import { TicketsTableComponent } from './tickets-table/tickets-table.component';
     AddVendorsComponent,
     AddNetworksComponent,
     AddClientSiteComponent,
-    TicketsTableComponent
+    TicketsTableComponent,
+    TktEditHistoryComponent
   ],
   imports: [
     BrowserModule,

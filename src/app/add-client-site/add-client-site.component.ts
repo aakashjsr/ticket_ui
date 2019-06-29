@@ -24,6 +24,7 @@ export class AddClientSiteComponent implements OnInit {
       address_line_1: [],
       address_line_2: [],
       city: [],
+      client_location: [],
       zip_code: [],
       state: [],
       phone: [],
