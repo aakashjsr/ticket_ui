@@ -95,14 +95,15 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
       this.ticketStatus = value;
     });
 
-    this.apiService.get("accounts/client-users", { client: 1 }).subscribe((value: any) => {
-      console.log(value, "---------------------------------------------------------------");
-      this.usersList = value;
-    });
+
     this.utils.currentUser.subscribe(user => {
       if (user && !this.ticketForm.value.client) {
         this.ticketForm.patchValue({ client: user.id });
       }
+      this.apiService.get("accounts/client-users", { client: user.id }).subscribe((value: any) => {
+        console.log(value, "---------------------------------------------------------------");
+        this.usersList = value;
+      });
     });
 
   }
