@@ -1,8 +1,8 @@
-<div class="container">
+<div class="">
   <div class="card">
     <div class="card-body" [formGroup]="ticketForm">
       <div class="d-flex justify-content-between mb-4">
-        <h6 class="text-secondary">
+        <h6 class="">
           <span *ngIf="isUpdate">Update</span> <span *ngIf="!isUpdate">Create New</span>
           Ticket</h6>
         <h6 class="text-primary">Client Name: {{utils.currentUser.value.name}}</h6>
@@ -107,9 +107,11 @@
         </div>
       </div>
 
-      <button (click)="submitForm()" mat-flat-button color="primary">
+      <div align="right">
+        <button (click)="submitForm()" mat-flat-button class="btn btn-success">
         <span *ngIf="isUpdate">Update</span> <span *ngIf="!isUpdate">Add</span>
         Ticket</button>
+      </div>
     </div>
   </div>
 
