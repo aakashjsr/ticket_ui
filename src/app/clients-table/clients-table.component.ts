@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { IclientSite } from '../utils/userInfo';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
@@ -16,10 +16,14 @@ export class ClientsTableComponent implements OnInit {
   dataSource: MatTableDataSource<IclientSite>;
   clientSites = [];
 
-  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private apiService: ApiIntercepterService, private utils: UtilsService) {
+  constructor(
+    private apiService: ApiIntercepterService
+    , private utils: UtilsService
+    , private cdref: ChangeDetectorRef
+  ) {
 
   }
 
@@ -29,8 +33,8 @@ export class ClientsTableComponent implements OnInit {
       this.createNewUser(user.id).subscribe(
         (value) => {
           this.clientSites = value;
-          console.log(value);
           this.dataSource = new MatTableDataSource(this.clientSites);
+          this.cdref.detectChanges();
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         }
@@ -40,7 +44,6 @@ export class ClientsTableComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

@@ -1,4 +1,8 @@
-<ngx-loading [show]="loading">
+<ngx-loading [show]="loading" [config]="loaderConfig">
 </ngx-loading>
+
+<div *ngIf="showAlert" class="alert alert-warning">
+  <strong>{{showAlert}}</strong> is required
+</div>
 
 <router-outlet></router-outlet>

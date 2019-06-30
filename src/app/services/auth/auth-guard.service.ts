@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { AuthService } from './auth-service.service';
-import { UserRoles } from 'src/app/utils/userRoles';
+import { UserRoles } from '../../utils/userRoles';
 import { MatSnackBar } from '@angular/material';
+import { UtilsService } from '../utils.service';
 
 
 @Injectable({
@@ -10,10 +10,12 @@ import { MatSnackBar } from '@angular/material';
 })
 export class AuthGuardService implements CanActivate {
 
-  constructor(public auth: AuthService, public router: Router, private snackBar: MatSnackBar) { }
+  constructor(
+    private utils: UtilsService,
+    public router: Router, private snackBar: MatSnackBar) { }
 
   isAuthorized(expectedRoles: Array<UserRoles>): boolean {
-    const currentRole = localStorage.getItem('role');
+    const currentRole = this.utils.getCookie('user_type');
     let isAllowed = false;
     expectedRoles.forEach((role: UserRoles) => {
       if (role == currentRole)
@@ -28,7 +30,7 @@ export class AuthGuardService implements CanActivate {
     const expectedRoles = route.data.expectedRoles;
 
     if (
-      !this.auth.isAuthenticated() || !this.isAuthorized(expectedRoles)
+      !this.utils.getCookie('token') || !this.isAuthorized(expectedRoles)
     ) {
       this.snackBar.open("you are not authorized for this", localStorage.getItem('role'), { duration: 1000 })
       this.router.navigate(['login']);

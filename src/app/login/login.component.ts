@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { UserRoles } from '../utils/userRoles';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { IUserInfo, IAdminInfo } from '../utils/userInfo';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { UtilsService } from '../services/utils.service';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +19,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private snackBar: MatSnackBar,
+    private utils: UtilsService,
+    public dialog: MatDialog,
     private apiService: ApiIntercepterService) {
     this.loginForm = this.fb.group({
       username: [null, Validators.required],
@@ -30,8 +34,9 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.apiService.post("accounts/login/", this.loginForm.value).subscribe((value: IAdminInfo) => {
         console.log(value);
-        localStorage.setItem('role', "admin");
-        localStorage.setItem('token', value.token);
+        // localStorage.setItem('role', "admin");
+        // localStorage.setItem('token', value.token);
+        this.utils.setCookies(value);
         this.apiService.initHeaders();
         this.router.navigate(["/"]);
       });
@@ -41,6 +46,17 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ForgotPasswordComponent, {
+      width: '350px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

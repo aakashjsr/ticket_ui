@@ -11,7 +11,9 @@ import {
   MatButtonModule, MatInputModule, MatCardModule,
   MatDatepickerModule, MatNativeDateModule, MatIconModule,
   MatDividerModule, MatChipsModule, MatSidenavModule, MatToolbarModule,
-  MatListModule, MatSelectModule, MatAutocompleteModule, MatMenuModule, MatRadioModule, MatSnackBarModule, MatTableModule, MatPaginatorModule
+  MatListModule, MatSelectModule, MatAutocompleteModule,
+  MatMenuModule, MatRadioModule, MatSnackBarModule,
+  MatTableModule, MatPaginatorModule
 } from '@angular/material';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
@@ -37,7 +39,8 @@ import { AddVendorAccountComponent } from './add-vendor-account/add-vendor-accou
 import { VendorsAccountTableComponent } from './vendors-account-table/vendors-account-table.component';
 import { ClientsTableComponent } from './clients-table/clients-table.component';
 import { AddClientComponent } from './add-client/add-client.component';
-
+import { CookieService } from 'ngx-cookie-service';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,7 @@ import { AddClientComponent } from './add-client/add-client.component';
     HeaderComponent,
     DashboardComponent,
     CreateTicketComponent,
-    
+
     AddUserComponent,
     UsersListComponent,
     ContactCardComponent,
@@ -65,7 +68,8 @@ import { AddClientComponent } from './add-client/add-client.component';
     AddVendorAccountComponent,
     VendorsAccountTableComponent,
     ClientsTableComponent,
-    AddClientComponent
+    AddClientComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +108,8 @@ import { AddClientComponent } from './add-client/add-client.component';
       tertiaryColour: 'blue'
     }),
   ],
-  providers: [],
+  entryComponents: [ForgotPasswordComponent],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

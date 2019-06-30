@@ -15,8 +15,8 @@ export class ClientSitesComponent implements OnInit {
   dataSource: MatTableDataSource<IclientSite>;
   clientSites = [];
 
-  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private apiService: ApiIntercepterService, private utils: UtilsService) {
 

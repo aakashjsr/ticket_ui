@@ -2,7 +2,9 @@
   <mat-card class="mat-elevation-z1">
 
     <mat-card-content [formGroup]="loginForm">
-      <h4 class="text-center"><font color="purple"><i>Login</i></font></h4>
+      <h4 class="text-center">
+        <font color="purple"><i>Login</i></font>
+      </h4>
       <mat-form-field class="w-100 my-1" appearance="outline">
         <mat-label>Username</mat-label>
         <input matInput placeholder="Username" formControlName="username">
@@ -22,8 +24,9 @@
 
     </mat-card-content>
 
-    <mat-card-actions style="text-align: center;">
+    <mat-card-actions class="d-flex justify-content-between px-2">
       <button (click)="submitForm()" mat-stroked-button class="btn btn-primary"> Sign in </button>
+      <button (click)="openDialog()" mat-stroked-button class="btn btn-primary"> Forgot Password </button>
     </mat-card-actions>
   </mat-card>
 </div>

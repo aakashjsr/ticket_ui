@@ -16,8 +16,8 @@ export class DevicesTableComponent implements OnInit {
   displayedColumns: string[] = ['name', 'phone', 'color', 'vService', 'vWeb', 'notes'];
   dataSource: MatTableDataSource<DeviceInfo>;
 
-  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   users = [];
   constructor(
     private apiService: ApiIntercepterService, private utils: UtilsService) {

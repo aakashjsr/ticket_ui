@@ -49,7 +49,9 @@ export class AddUserComponent implements OnInit {
           duration: 800
         });
         this.router.navigate(["/"]);
-      })
+      }, err => {
+        console.log(err.error);
+      });
     }
   }
 

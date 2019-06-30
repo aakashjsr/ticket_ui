@@ -3,43 +3,52 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { UtilsService } from './utils.service';
-import { share, map, tap, publishLast, refCount } from 'rxjs/operators';
+import { share } from 'rxjs/operators';
+
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiIntercepterService {
   private baseUrl = `${environment.method}${environment.baseUrl}`;
   private headers: any;
-  constructor(private httpClient: HttpClient, private utils: UtilsService) {
+  constructor(private httpClient: HttpClient
+    , private utils: UtilsService) {
     this.initHeaders();
   }
 
   initHeaders() {
-    console.log(localStorage.getItem('token'));
-    if (localStorage.getItem("token")) {
+    if (this.utils.getCookie("token")) {
       this.headers = {
-        "Authorization": `Token ${localStorage.getItem("token")}`
+        "Authorization": `Token ${this.utils.getCookie('token')}`
       };
     }
   }
 
   handleSpinner(observable: Observable<any>) {
     this.utils.showLoader.next(true);
-    observable.subscribe(() => this.utils.showLoader.next(false), () => this.utils.showLoader.next(false));
+    observable.subscribe(_ => this.utils.showLoader.next(false), _ => this.utils.showLoader.next(false));
   }
+
+  formErrorHandler(observable: Observable<any>) {
+    observable.subscribe(_ => { }, err => {
+      this.utils.internalDataBus.next({ type: 'error', data: err.error });
+    });
+  }
+
+
   get<T>(path: string, params?: { [key: string]: any }, respType?: 'json'): Observable<T> {
     const getReq = this.httpClient.get<T>(this.baseUrl + this.addQueryParam(path, params),
       { headers: this.headers, responseType: respType })
-      .pipe(
-        share(),
-        tap(console.log),
-      );
+      .pipe(share());
     this.handleSpinner(getReq);
     return getReq;
   }
 
   post<T>(path: string, params?: { [key: string]: any }): Observable<T> {
     const postReq = this.httpClient.post<T>(this.baseUrl + path, params, { headers: this.headers }).pipe(share());
+    this.formErrorHandler(postReq);
     this.handleSpinner(postReq);
     return postReq;
   }

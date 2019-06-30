@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { ApiIntercepterService } from 'src/app/services/api-intercepter.service';
+import { ApiIntercepterService } from '../../services/api-intercepter.service';
 import { IUserInfo } from '../../utils/userInfo';
 import { Observable } from 'rxjs';
-import { UtilsService } from 'src/app/services/utils.service';
+import { UtilsService } from '../../services/utils.service';
 @Component({
   selector: 'users-table',
   templateUrl: './users-table.component.html',
@@ -15,8 +15,8 @@ export class UsersTableComponent implements OnInit {
   dataSource: MatTableDataSource<IUserInfo>;
   users = [];
 
-  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private apiService: ApiIntercepterService,
     private utils: UtilsService

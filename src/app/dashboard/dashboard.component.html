@@ -5,8 +5,14 @@
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
-      <mat-toolbar class="logo-color">Ticket Management
+      <mat-toolbar class="logo-color py-2 flex-column">
+        <span>Ticket Management</span>
+        <div class="no-wrap text-center small">
+          <span>{{username}}</span> &nbsp;
+          <span>({{userRole}})</span>
+        </div>
       </mat-toolbar>
+
       <mat-action-list>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'" (click)="navTo('/', 'userinfo')">
           <mat-icon>accessibility</mat-icon> <span class="list-text">Users</span>
@@ -95,15 +101,16 @@
               <input [formControl]="currentUser" matInput placeholder="Client" aria-label="State"
                 [matAutocomplete]="auto">
               <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let user of clients" (click)="onClientSelect(user)" [value]="user.name">
+                <mat-option *ngFor="let user of filteredStates | async" (click)="onClientSelect(user)"
+                  [value]="user.name">
                   {{user.name}}
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
           </div>
 
-          <button mat-flat-button (click)="logout()" type="button">
-            Logout <mat-icon>exit_to_app</mat-icon>
+          <button class="text-warning" mat-flat-button (click)="logout()" type="button">
+            Logout &nbsp; <mat-icon>exit_to_app</mat-icon>
           </button>
         </div>
       </div>

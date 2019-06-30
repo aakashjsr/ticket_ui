@@ -3,7 +3,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { ApiIntercepterService } from '../../services/api-intercepter.service';
 import { Observable } from 'rxjs';
 import { INetwork } from '../../utils/userInfo';
-import { UtilsService } from 'src/app/services/utils.service';
+import { UtilsService } from '../../services/utils.service';
 
 
 @Component({
@@ -16,8 +16,8 @@ export class NetworkTableComponent implements OnInit {
   dataSource: MatTableDataSource<INetwork>;
   networks: INetwork[] = [];
 
-  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private apiService: ApiIntercepterService, private utils: UtilsService) {
   }

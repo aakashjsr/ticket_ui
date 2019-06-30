@@ -18,8 +18,8 @@ export class TicketsTableComponent implements OnInit {
   dataSource: MatTableDataSource<ITicket>;
   networks: ITicket[] = [];
 
-  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private apiService: ApiIntercepterService, private utils: UtilsService, private router: Router) {
   }

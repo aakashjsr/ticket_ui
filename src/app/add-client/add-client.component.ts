@@ -33,6 +33,10 @@ export class AddClientComponent implements OnInit {
         this.snackBar.open("Client Added", "successfully", {
           duration: 800
         });
+        this.utils.internalDataBus.next({
+          type: 'update_client',
+          data: this.addClientForm.value
+        });
         this.router.navigate(["/clients"]);
       })
     }

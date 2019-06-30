@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { ApiIntercepterService } from 'src/app/services/api-intercepter.service';
+import { ApiIntercepterService } from '../../services/api-intercepter.service';
 import { Observable } from 'rxjs';
 import { IVendor } from '../../utils/userInfo';
-import { UtilsService } from 'src/app/services/utils.service';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'vendors-table',
@@ -16,8 +16,8 @@ export class VendorsTableComponent implements OnInit {
   dataSource: MatTableDataSource<IVendor>;
   vendors = [];
 
-  @ViewChild(MatPaginator, { read: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { read: true }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private apiService: ApiIntercepterService,
