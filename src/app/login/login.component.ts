@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit {
     public dialog: MatDialog,
     private apiService: ApiIntercepterService) {
     this.loginForm = this.fb.group({
-      username: [null, Validators.required],
-      password: [null, Validators.required]
+      username: [null, [Validators.required]],
+      password: [null, [Validators.required]]
     });
   }
 

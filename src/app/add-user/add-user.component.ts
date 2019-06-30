@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
@@ -21,18 +21,19 @@ export class AddUserComponent implements OnInit {
     , private router: Router
     , private snackBar: MatSnackBar
     , public utils: UtilsService
+    , public changeRef: ChangeDetectorRef
   ) {
     this.userForm = this.fb.group({
-      first_name: [null,],
-      last_name: [null,],
-      clients: [null,],
+      first_name: [null, Validators.required],
+      last_name: [null, Validators.required],
+      clients: [null, Validators.required],
       device_id: [null,],
-      email: [null],
-      username: [null,],
-      password: [null],
+      email: [null, Validators.required],
+      username: [null, Validators.required],
+      password: [null, Validators.required],
       lan_ip: [],
-      user_type: [null],
-      is_primary_contact: [],
+      user_type: [null, Validators.required],
+      is_primary_contact: [true, Validators.required],
       is_active: [],
       phone: [],
       phone_ext: [],
