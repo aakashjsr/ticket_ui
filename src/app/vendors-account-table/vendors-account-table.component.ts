@@ -15,8 +15,8 @@ export class VendorsAccountTableComponent implements OnInit {
   displayedColumns: string[] = ['name', 'phone', 'color', 'vService', 'vWeb', 'notes'];
   dataSource: MatTableDataSource<DeviceInfo>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   users = [];
   constructor(
     private apiService: ApiIntercepterService, private utils: UtilsService) {

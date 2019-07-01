@@ -16,8 +16,8 @@ export class NetworkTableComponent implements OnInit {
   dataSource: MatTableDataSource<INetwork>;
   networks: INetwork[] = [];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private apiService: ApiIntercepterService, private utils: UtilsService) {
   }

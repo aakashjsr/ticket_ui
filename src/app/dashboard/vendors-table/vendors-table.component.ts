@@ -16,8 +16,8 @@ export class VendorsTableComponent implements OnInit {
   dataSource: MatTableDataSource<IVendor>;
   vendors = [];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     private apiService: ApiIntercepterService,

@@ -33,9 +33,6 @@ export class LoginComponent implements OnInit {
   submitForm() {
     if (this.loginForm.valid) {
       this.apiService.post("accounts/login/", this.loginForm.value).subscribe((value: IAdminInfo) => {
-        console.log(value);
-        // localStorage.setItem('role', "admin");
-        // localStorage.setItem('token', value.token);
         this.utils.setCookies(value);
         this.apiService.initHeaders();
         this.router.navigate(["/"]);
