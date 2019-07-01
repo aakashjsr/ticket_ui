@@ -1,7 +1,9 @@
 <ngx-loading [show]="loading" [config]="loaderConfig">
 </ngx-loading>
 
-<div *ngIf="showAlert" class="alert alert-warning">
+<div *ngIf="showAlert" class="alert alert-warning alert-dismissible">
+  <button type="button" (click)="showAlert = false" class="close" data-dismiss="alert">&times;</button>
+
   <strong>{{showAlert}}</strong> is required
 </div>
 

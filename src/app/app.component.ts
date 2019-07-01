@@ -30,14 +30,8 @@ export class AppComponent implements OnInit {
       if (value && value.type == 'error') {
         const errMsg = value.data;
         let keys = Object.keys(errMsg);
-        const timeSubscription = timer(100, 1000).subscribe((time) => {
-          let key = keys.pop();
-          this.showAlert = `${key.replace(/\_/g, " ")}`;
-          if (keys.length == 0) {
-            timeSubscription.unsubscribe();
-            this.showAlert = false;
-          }
-        });
+        let key = keys.pop();
+        this.showAlert = `${key.replace(/\_/g, " ")}`;
       }
     });
   }
