@@ -51,7 +51,7 @@ export class AddVendorAccountComponent implements OnInit {
       } else {
         this.apiService
           .put(
-            `entities/vendor-accounts/${this.id}`,
+            `entities/vendor-accounts/${this.id}/`,
             this.vendorAccountForm.value
           )
           .subscribe(value => {

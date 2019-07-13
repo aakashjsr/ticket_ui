@@ -13,6 +13,7 @@ import { UtilsService } from "../services/utils.service";
 export class AddClientSiteComponent implements OnInit {
   clientSiteForm: FormGroup;
   isUpdated = false;
+  id: string;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -43,6 +44,7 @@ export class AddClientSiteComponent implements OnInit {
       if (deviceInfo && deviceInfo.type == "edit-client-site") {
         this.clientSiteForm.patchValue(deviceInfo.data);
         this.isUpdated = true;
+        this.id = deviceInfo.data.id;
       }
     });
   }
@@ -61,7 +63,7 @@ export class AddClientSiteComponent implements OnInit {
       } else {
         this.apiService
           .put(
-            `entities/client-sites/${this.clientSiteForm.value.client}/`,
+            `entities/client-sites/${this.id}/`,
             this.clientSiteForm.value
           )
           .subscribe(value => {

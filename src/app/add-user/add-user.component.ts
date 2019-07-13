@@ -33,7 +33,7 @@ export class AddUserComponent implements OnInit {
       device_id: [null],
       email: [null, Validators.required],
       username: [null, Validators.required],
-      password: [null, Validators.required],
+      password: [null],
       lan_ip: [],
       user_type: [null, Validators.required],
       is_primary_contact: [true, Validators.required],
@@ -61,7 +61,7 @@ export class AddUserComponent implements OnInit {
         );
       } else {
         this.apiService
-          .put(`accounts/${this.id}/`, this.userForm.value)
+          .patch(`accounts/users/${this.id}/`, this.userForm.value)
           .subscribe(
             value => {
               this.snackBar.open("user Details updated", "successfully", {
@@ -76,6 +76,7 @@ export class AddUserComponent implements OnInit {
       }
     } else {
       this.userForm.markAllAsTouched();
+      console.log('--------------------------------');
     }
   }
 
@@ -90,7 +91,7 @@ export class AddUserComponent implements OnInit {
         this.isUpdate = true;
         this.id=value.data.id;
         this.userForm.patchValue(value.data);
-        this.userForm.controls['password'].disable();
+        // this.userForm.controls['password'].disable();
       }
     });
 
