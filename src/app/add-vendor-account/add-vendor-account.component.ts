@@ -16,6 +16,7 @@ export class AddVendorAccountComponent implements OnInit {
   IsActive: boolean;
   isUpdated = false;
   clients = [];
+  id: string;
   constructor(
     private fb: FormBuilder,
     private apiService: ApiIntercepterService,
@@ -50,7 +51,7 @@ export class AddVendorAccountComponent implements OnInit {
       } else {
         this.apiService
           .put(
-            `entities/vendor-accounts/${this.vendorAccountForm.value.client}`,
+            `entities/vendor-accounts/${this.id}`,
             this.vendorAccountForm.value
           )
           .subscribe(value => {
@@ -78,6 +79,7 @@ export class AddVendorAccountComponent implements OnInit {
       if (value && value.type == "edit-vac") {
         this.vendorAccountForm.patchValue(value.data);
         this.isUpdated = true;
+        this.id = value.data.id;
       }
     });
   }

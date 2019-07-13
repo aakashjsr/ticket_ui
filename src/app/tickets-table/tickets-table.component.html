@@ -32,7 +32,11 @@
     <!-- domain_controller_ip Column -->
     <ng-container matColumnDef="domain_controller_ip">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person </th>
-      <td mat-cell *matCellDef="let row"> {{row.contact_person}} </td>
+      <td mat-cell *matCellDef="let row">
+          <button mat-button (click)='openDialog(row)' color="primary">
+              {{row.contact_person.first_name + ' '+ row.contact_person.last_name}}
+          </button>
+       </td>
     </ng-container>
 
     <!-- estComp Column -->

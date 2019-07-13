@@ -13,6 +13,7 @@ import { UtilsService } from "../services/utils.service";
 export class AddVendorsComponent implements OnInit {
   vendorForm: FormGroup;
   isupdate = false;
+  id: string;
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -40,6 +41,7 @@ export class AddVendorsComponent implements OnInit {
       if (value && value.type == "edit-vendor") {
         this.vendorForm.patchValue(value.data);
         this.isupdate = true;
+        this.id = value.data.id;
       }
     });
   }
@@ -57,13 +59,13 @@ export class AddVendorsComponent implements OnInit {
           });
       } else {
         this.apiService
-        .put(`entities/vendors/${this.vendorForm.value.client}/`, this.vendorForm.value)
-        .subscribe(value => {
-          this.snackBar.open("vendor updated", "Successfully", {
-            duration: 1000
+          .put(`entities/vendors/${this.id}/`, this.vendorForm.value)
+          .subscribe(value => {
+            this.snackBar.open("vendor updated", "Successfully", {
+              duration: 1000
+            });
+            this.router.navigate(["/vendors"]);
           });
-          this.router.navigate(["/vendors"]);
-        });
       }
     } else {
       this.vendorForm.markAllAsTouched();

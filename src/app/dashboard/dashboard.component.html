@@ -11,16 +11,24 @@
         </div>
       </mat-toolbar>
       <div class="d-flex flex-column justify-content-center align-items-center mt-4">
+
+        <mat-form-field id="no-padding" appearance="outline">
+          <mat-select [formControl]="currentUser">
+            <mat-option *ngFor="let user of clients" (click)="onClientSelect(user)" [value]="user.name">
+              {{ user.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!--
         <mat-form-field id="no-padding" class="m-0 p-0 mx-4" appearance="outline">
           <input [formControl]="currentUser" matInput placeholder="Client" aria-label="State"
             [matAutocomplete]="auto" />
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let user of filteredStates | async" (click)="onClientSelect(user)"
-              [value]="user.name">
+            <mat-option *ngFor="let user of filteredStates | async" (click)="onClientSelect(user)" [value]="user.name">
               {{ user.name }}
             </mat-option>
           </mat-autocomplete>
-        </mat-form-field>
+        </mat-form-field> -->
       </div>
       <mat-action-list>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'" (click)="navTo('/', 'userinfo')">

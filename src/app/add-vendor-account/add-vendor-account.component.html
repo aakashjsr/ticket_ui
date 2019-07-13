@@ -5,7 +5,8 @@
 
     <div [formGroup]="vendorAccountForm" class="card-body">
       <div class="d-flex justify-content-between mb-4">
-        <h6>Add Vendor Account</h6>
+        <h6> <span *ngIf="!isUpdated; else update">Add</span>
+          <ng-template #update>Edit</ng-template> Vendor Account</h6>
         <h6>Client: {{utils.currentUser.value.name}}</h6>
       </div>
       <div>

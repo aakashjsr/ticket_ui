@@ -16,6 +16,7 @@ export class AddUserComponent implements OnInit {
   IsActive: boolean;
   isUpdate = false;
   clients = [];
+  id:string;
   constructor(
     private fb: FormBuilder,
     private apiService: ApiIntercepterService,
@@ -60,7 +61,7 @@ export class AddUserComponent implements OnInit {
         );
       } else {
         this.apiService
-          .put(`accounts/${this.userForm.value.client}/`, this.userForm.value)
+          .put(`accounts/${this.id}/`, this.userForm.value)
           .subscribe(
             value => {
               this.snackBar.open("user Details updated", "successfully", {
@@ -87,7 +88,9 @@ export class AddUserComponent implements OnInit {
       if (value && value.type == "edit-user") {
         console.log(value.data);
         this.isUpdate = true;
+        this.id=value.data.id;
         this.userForm.patchValue(value.data);
+        this.userForm.controls['password'].disable();
       }
     });
 

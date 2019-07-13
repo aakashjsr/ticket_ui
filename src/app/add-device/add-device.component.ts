@@ -13,6 +13,7 @@ import { UtilsService } from "../services/utils.service";
 export class AddDeviceComponent implements OnInit {
   deviceForm: FormGroup;
   isUpdated = false;
+  id:string;
   constructor(
     private fb: FormBuilder,
     private apiService: ApiIntercepterService,
@@ -55,6 +56,7 @@ export class AddDeviceComponent implements OnInit {
       if (deviceInfo && deviceInfo.type == "edit-device") {
         this.deviceForm.patchValue(deviceInfo.data);
         this.isUpdated = true;
+        this.id=deviceInfo.data.id;
       }
     });
   }
@@ -73,7 +75,7 @@ export class AddDeviceComponent implements OnInit {
       } else {
         this.apiService
           .put(
-            `entities/devices/${this.deviceForm.value.client}/`,
+            `entities/devices/${this.id}/`,
             this.deviceForm.value
           )
           .subscribe(value => {

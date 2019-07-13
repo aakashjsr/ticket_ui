@@ -5,7 +5,8 @@
     <div [formGroup]="userForm" class="card-body">
       <div class="d-flex justify-content-between mb-4">
         <h6>
-          <font color="purple">Add User</font>
+          <font color="purple"> <span *ngIf="!isUpdate; else update">Add</span>
+            <ng-template #update>Edit</ng-template> User</font>
         </h6>
       </div>
       <div>

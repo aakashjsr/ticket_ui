@@ -13,6 +13,7 @@ import { UtilsService } from "../services/utils.service";
 export class AddClientComponent implements OnInit {
   addClientForm: FormGroup;
   isUpdated = false;
+  id:string;
   constructor(
     private fb: FormBuilder,
     private apiService: ApiIntercepterService,
@@ -45,7 +46,7 @@ export class AddClientComponent implements OnInit {
       } else {
         this.apiService
           .put(
-            `accounts/clients/${this.addClientForm.value.client_id}/`,
+            `accounts/clients/${this.id}/`,
             this.addClientForm.value
           )
           .subscribe(value => {
@@ -68,6 +69,7 @@ export class AddClientComponent implements OnInit {
       if (deviceInfo && deviceInfo.type == "edit-client") {
         this.addClientForm.patchValue(deviceInfo.data);
         this.isUpdated = true;
+        this.id=deviceInfo.data.id;
       }
     });
   }

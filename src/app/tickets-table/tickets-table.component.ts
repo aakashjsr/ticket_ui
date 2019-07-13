@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { ITicket } from '../utils/userInfo';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { UtilsService } from '../services/utils.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { ContactDialogueComponent } from './contact-dialogue/contact-dialogue.component';
 
 
 
@@ -14,14 +15,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./tickets-table.component.scss']
 })
 export class TicketsTableComponent implements OnInit {
-  displayedColumns: string[] = ['gateway', 'wan_ip', 'dhcp_name', 'dns_server_ip', 'domain_controller_ip', 'estComp', 'edit'];
+  displayedColumns: string[] = ['gateway', 'wan_ip', 'dhcp_name', 'dns_server_ip', 'domain_controller_ip', 'edit'];
   dataSource: MatTableDataSource<ITicket>;
   networks: ITicket[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private apiService: ApiIntercepterService, private utils: UtilsService, private router: Router) {
+  constructor(private apiService: ApiIntercepterService
+    , private utils: UtilsService
+    , private router: Router,
+    public dialog: MatDialog) {
+  }
+
+  openDialog(value:any): void {
+    const dialogRef = this.dialog.open(ContactDialogueComponent, {
+      width: '600px',
+      maxWidth:'80vw',
+      data: value
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed',result);
+    });
   }
 
   ngOnInit() {

@@ -45,6 +45,22 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
       description: [null, Validators.required],
       client: [null, Validators.required]
     });
+  }
+
+  ngOnDestroy(): void {
+    this.utils.internalDataBus.next({ type: "jjjj", data: null });
+  }
+
+  // create description not public notes
+  //update internal notes public notes
+  // status ,public notes, internal notes are enabled
+
+  async getFormInfo() {
+    const tktCat = await this.apiService.getTktCateogries().toPromise();
+    this.ticketsCat.push(...tktCat);
+    const tktStatus = await this.apiService.get<any[]>("entities/ticket/status/", {}, "json").toPromise();
+    this.ticketStatus = tktStatus;
+
     this.utils.internalDataBus.subscribe(value => {
       if (!value) return;
       console.log(value);
@@ -100,24 +116,8 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.utils.internalDataBus.next({ type: "jjjj", data: null });
-  }
-
-  // create description not public notes
-  //update internal notes public notes
-  // status ,public notes, internal notes are enabled
-
   ngOnInit() {
-    this.apiService.getTktCateogries().subscribe(value => {
-      this.ticketsCat.push(...value);
-    });
-
-    this.apiService
-      .get<any[]>("entities/ticket/status/", {}, "json")
-      .subscribe(value => {
-        this.ticketStatus = value;
-      });
+    this.getFormInfo();
 
     this.utils.currentUser.subscribe(user => {
       if (user && !this.ticketForm.value.client) {
@@ -152,7 +152,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
             this.router.navigate(["/"]);
           });
       }
-    } else{
+    } else {
       this.ticketForm.markAllAsTouched();
     }
   }

@@ -13,6 +13,7 @@ import { UtilsService } from "../services/utils.service";
 export class AddNetworksComponent implements OnInit {
   networkForm: FormGroup;
   isUpdated = false;
+  id:string;
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -46,6 +47,7 @@ export class AddNetworksComponent implements OnInit {
     this.utils.internalDataBus.subscribe(deviceInfo => {
       if (deviceInfo && deviceInfo.type == "edit-network") {
         this.networkForm.patchValue(deviceInfo.data);
+        this.id=deviceInfo.data.id;
         this.isUpdated = true;
       }
     });
@@ -65,7 +67,7 @@ export class AddNetworksComponent implements OnInit {
       }else {
         this.apiService
           .put(
-            `entities/networks/${this.networkForm.value.client}/`,
+            `entities/networks/${this.id}/`,
             this.networkForm.value
           )
           .subscribe(value => {

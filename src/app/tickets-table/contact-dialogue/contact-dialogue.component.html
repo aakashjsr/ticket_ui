@@ -1,0 +1,77 @@
+<div class="container d-flex flex-column justify-content-center align-items-center">
+  <div class="row flex-column justify-content-center align-items-center w-100">
+    <div class="col-12">
+      <div class="card border-0 w-100">
+          <h6 class="text-primary ml-3 pb-2 border-bottom">Contact Info</h6>
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-4">
+              <h6 class="text-danger">Name:</h6>
+            </div>
+            <div class="col-8">
+              <p> {{contactDetail.first_name + ' ' + contactDetail.last_name}} </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <h6 class="text-danger">Email:</h6>
+            </div>
+            <div class="col-8">
+              <p>{{contactDetail.email}}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <h6 class="text-danger">Phone:</h6>
+            </div>
+            <div class="col-8">
+              <p>{{contactDetail.Phone}} ext {{contactDetail.phone_ext}}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <h6 class="text-danger">Cell:</h6>
+            </div>
+            <div class="col-8">
+              <p>{{contactDetail.cell_phone}} ext {{contactDetail.phone_ext}}</p>
+            </div>
+          </div>
+
+          <!-- <div class="row">
+            <div class="col-4">
+              <h6 class="text-danger">Notes:</h6>
+            </div>
+            <div class="col-8">
+              <p>{{contactDetail.notes}}</p>
+            </div>
+          </div> -->
+
+<!--
+          <div class="alert alert-light border-top">
+              <div class="form-group d-inline-flex align-items-center">
+              <label class="no-wrap mr-4" for="vendor">Select Vendor:</label>
+              <select class="form-control" id="vendor">
+                <option>please select</option>
+                <option>Data Recovery</option>
+                <option>Email</option>
+                <option>Employee Leaving</option>
+                <option>Folder Permissions</option>
+              </select>
+
+              <button type="button" class="btn btn-primary mx-4">Visio</button>
+            </div>
+
+
+          </div> -->
+          <button type="button" (click)='onNoClick()' mat-stroked-button >Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
