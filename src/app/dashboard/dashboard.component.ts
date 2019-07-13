@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map, startWith } from 'rxjs/operators';
-import { IUserInfo, IClient } from '../utils/userInfo';
+import { IUserInfo, IClient, ICleientSites } from '../utils/userInfo';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { FormControl } from '@angular/forms';
 import { UtilsService } from '../services/utils.service';
@@ -15,16 +15,7 @@ enum EshowUserInfoType {
   NETWORK = 'network',
   CLIENT_SITES = "client_sites",
   TICKET = 'ticket',
-  VENDORS_ACCOUNT = 'vendors-account'
-}
-
-interface ICleientSites {
-  active: boolean
-  client_id: string;
-  id: string;
-  name: string;
-  past_due_date: boolean;
-  website: string;
+  VENDORS_ACCOUNT = 'vendors-accounts'
 }
 
 @Component({

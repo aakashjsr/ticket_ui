@@ -44,8 +44,8 @@
           <mat-icon>supervisor_account</mat-icon>
           <span class="list-text">Vendors</span>
         </button>
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendors-account'"
-          (click)="navTo('vendors-account', 'vendors-account')">
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendors-accounts'"
+          (click)="navTo('vendors-accounts', 'vendors-accounts')">
           <mat-icon>account_balance</mat-icon>
           <span class="list-text">Vendor Accounts</span>
         </button>
@@ -86,34 +86,34 @@
               <mat-icon>keyboard_arrow_down</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button routerLink="/add-user" mat-menu-item>
+              <button routerLink="/user" mat-menu-item>
                 <mat-icon>accessibility</mat-icon> Users
               </button>
-              <button routerLink="/add-device" mat-menu-item>
+              <button routerLink="/device" mat-menu-item>
                 <mat-icon>important_devices</mat-icon> Devices
               </button>
 
-              <button routerLink="/add-network" mat-menu-item>
+              <button routerLink="/network" mat-menu-item>
                 <mat-icon>network_wifi</mat-icon> Network
               </button>
-              <button routerLink="/add-client" mat-menu-item>
+              <button routerLink="/client" mat-menu-item>
                 <mat-icon>person</mat-icon> Add Client
               </button>
-              <button routerLink="/add-client-site" mat-menu-item>
+              <button routerLink="/client-site" mat-menu-item>
                 <mat-icon>location_on</mat-icon> Client Sites
               </button>
-              <button routerLink="/add-ticket" mat-menu-item>
+              <button routerLink="/ticket" mat-menu-item>
                 <mat-icon>file_copy</mat-icon> Ticket
               </button>
-              <button routerLink="/add-vendors" mat-menu-item>
+              <button routerLink="/vendor" mat-menu-item>
                 <mat-icon>supervisor_account</mat-icon> Vendors
               </button>
-              <button routerLink="/add-vendor-account" mat-menu-item>
+              <button routerLink="/vendor-account" mat-menu-item>
                 <mat-icon>account_balance</mat-icon> Vendor Account
               </button>
             </mat-menu>
 
-            <!-- add-vendor-account -->
+            <!-- vendor-account -->
             <!-- <ng-container *ngFor="let user of clients">
               <a mat-list-item (click)="currentUser = user" [class.active]="currentUser.id == user.id">{{user.name}}</a>
             </ng-container> -->

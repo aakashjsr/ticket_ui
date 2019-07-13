@@ -30,7 +30,7 @@ export class VendorsTableComponent implements OnInit {
 
   editUserForm(value:IVendor){
     this.utils.internalDataBus.next({type:'edit-vendor',data:value});
-    this.router.navigate(['add-vendors']);
+    this.router.navigate(['vendor']);
   }
 
   ngOnInit() {

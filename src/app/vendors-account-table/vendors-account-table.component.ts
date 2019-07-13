@@ -35,7 +35,7 @@ export class VendorsAccountTableComponent implements OnInit {
 
   editUserForm(accDetail: any) {
     this.utils.internalDataBus.next({ type: "edit-vac", data: accDetail });
-    this.router.navigate(["add-vendor-account"]);
+    this.router.navigate(["vendor-account"]);
   }
 
   ngOnInit() {

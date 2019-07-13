@@ -3,6 +3,44 @@
 </mat-form-field>
 
 <div class="mat-elevation-z0">
+  <mat-toolbar [formGroup]='filterForm' class="logo-color bg-white py-2">
+    <div class="row w-100">
+      <div class="col-xs-12 col-sm-4 d-flex align-items-center">
+        <h6 class='ml-1'>Filters: </h6>
+      </div>
+
+      <div class="col-xs-12 col-sm-4 d-flex align-items-center justify-content-center">
+
+        <mat-form-field>
+          <mat-label>Clients</mat-label>
+          <mat-select formControlName="clients" multiple>
+            <mat-option value='all'>
+              All
+            </mat-option>
+            <!-- clients -->
+            <mat-option *ngFor='let client of clients' [value]='client.id'>
+              {{client.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- ticketStatus -->
+      </div>
+      <div class="col-xs-12 col-sm-4 d-flex align-items-center justify-content-end">
+        <mat-form-field>
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" multiple>
+            <mat-option value='all'>
+              All
+            </mat-option>
+            <mat-option *ngFor='let status of ticketStatus' [value]='status.value'>
+              {{status.display}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+    </div>
+  </mat-toolbar>
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- gateway Column -->
@@ -33,10 +71,10 @@
     <ng-container matColumnDef="domain_controller_ip">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person </th>
       <td mat-cell *matCellDef="let row">
-          <button mat-button (click)='openDialog(row)' color="primary">
-              {{row.contact_person.first_name + ' '+ row.contact_person.last_name}}
-          </button>
-       </td>
+        <button mat-button (click)='openDialog(row)' color="primary">
+          {{row.contact_person.first_name + ' '+ row.contact_person.last_name}}
+        </button>
+      </td>
     </ng-container>
 
     <!-- estComp Column -->

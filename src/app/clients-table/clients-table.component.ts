@@ -31,7 +31,7 @@ export class ClientsTableComponent implements OnInit {
 
   editUserForm(value){
     this.utils.internalDataBus.next({type:'edit-client',data:value})
-    this.router.navigate(['add-client']);
+    this.router.navigate(['client']);
   }
 
   ngOnInit() {

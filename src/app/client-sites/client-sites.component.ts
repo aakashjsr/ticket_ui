@@ -27,7 +27,7 @@ export class ClientSitesComponent implements OnInit {
 
   editUserForm(value:any){
     this.utils.internalDataBus.next({type:'edit-client-site',data:value})
-    this.router.navigate(['add-client-site']);
+    this.router.navigate(['client-site']);
   }
 
 

@@ -1,38 +1,43 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { ApiIntercepterService } from '../../services/api-intercepter.service';
-import { DeviceInfo } from '../../utils/userInfo';
-import { Observable } from 'rxjs';
-import { UtilsService } from '../../services/utils.service';
-import { Router } from '@angular/router';
-
+import { Component, OnInit, ViewChild, Input } from "@angular/core";
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { ApiIntercepterService } from "../../services/api-intercepter.service";
+import { DeviceInfo } from "../../utils/userInfo";
+import { Observable } from "rxjs";
+import { UtilsService } from "../../services/utils.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'devices-table',
-  templateUrl: './devices-table.component.html',
-  styleUrls: ['./devices-table.component.scss']
+  selector: "devices-table",
+  templateUrl: "./devices-table.component.html",
+  styleUrls: ["./devices-table.component.scss"]
 })
 export class DevicesTableComponent implements OnInit {
-
-  displayedColumns: string[] = ['name', 'phone', 'color', 'vService', 'vWeb', 'notes', 'edit'];
+  displayedColumns: string[] = [
+    "name",
+    "phone",
+    "color",
+    "vService",
+    "vWeb",
+    "notes",
+    "edit"
+  ];
   dataSource: MatTableDataSource<DeviceInfo>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   users = [];
   constructor(
-    private apiService: ApiIntercepterService
-    , private utils: UtilsService
-    , private router:Router) {
-
-
+    private apiService: ApiIntercepterService,
+    private utils: UtilsService,
+    private router: Router
+  ) {
     // Assign the data to the data source for the table to render
   }
 
   ngOnInit() {
     this.utils.currentUser.subscribe(user => {
       if (!user) return;
-      this.createNewUser(user.id).subscribe((value) => {
+      this.createNewUser(user.id).subscribe(value => {
         this.users = value;
         this.dataSource = new MatTableDataSource(this.users);
         this.dataSource.paginator = this.paginator;
@@ -49,14 +54,12 @@ export class DevicesTableComponent implements OnInit {
     }
   }
 
-  editUserForm(deviceInfo:DeviceInfo){
+  editUserForm(deviceInfo: DeviceInfo) {
     this.utils.internalDataBus.next({ type: "edit-device", data: deviceInfo });
-    this.router.navigate(["/add-device"]);
+    this.router.navigate(["/device"]);
   }
-
 
   createNewUser(id: any): Observable<DeviceInfo[]> {
-    return this.apiService.get("entities/devices/", { client: id })
+    return this.apiService.get("entities/devices/", { client: id });
   }
-
 }

@@ -74,6 +74,7 @@ export interface ITicket {
   parts_used: string;
   submit_id: string;
   isBillable: boolean;
+  client:number;
 }
 
 
@@ -175,3 +176,11 @@ export interface IClient {
   website: string;
 }
 
+export interface ICleientSites {
+  active: boolean
+  client_id: string;
+  id: string;
+  name: string;
+  past_due_date: boolean;
+  website: string;
+}

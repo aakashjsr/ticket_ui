@@ -28,7 +28,7 @@ export class NetworkTableComponent implements OnInit {
 
   editUserForm(value:any){
     this.utils.internalDataBus.next({type:'edit-network',data:value})
-    this.router.navigate(['add-network']);
+    this.router.navigate(['network']);
   }
 
   ngOnInit() {

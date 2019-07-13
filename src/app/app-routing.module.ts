@@ -42,7 +42,7 @@ const routes: Routes = [
         path: "vendors", component: VendorsTableComponent
       },
       {
-        path: "vendors-account", component: VendorsAccountTableComponent
+        path: "vendors-accounts", component: VendorsAccountTableComponent
       },
       {
         path: "", component: UsersTableComponent
@@ -54,35 +54,35 @@ const routes: Routes = [
         path: "tickets", component: TicketsTableComponent
       },
       {
-        path: "add-device", component: AddDeviceComponent
+        path: "device", component: AddDeviceComponent
       },
       {
-        path: "add-vendors", component: AddVendorsComponent
+        path: "vendor", component: AddVendorsComponent
       },
       {
-        path: "add-client", component: AddClientComponent
+        path: "client", component: AddClientComponent
       },
       {
         path: "clients", component: ClientsTableComponent
       },
       {
-        path: "add-network", component: AddNetworksComponent
+        path: "network", component: AddNetworksComponent
       },
       {
-        path: "add-client-site", component: AddClientSiteComponent
+        path: "client-site", component: AddClientSiteComponent
       },
       {
-        path: "add-vendor-account", component: AddVendorAccountComponent
+        path: "vendor-account", component: AddVendorAccountComponent
       },
       {
-        path: "add-ticket", component: CreateTicketComponent,
+        path: "ticket", component: CreateTicketComponent,
         canActivate: [AuthGuardService],
         data: {
           expectedRoles: [UserRoles.ADMIN, UserRoles.CLIENT_ADMIN, UserRoles.CLIENT_USER, UserRoles.SUPER_ADMIN]
         }
       },
       {
-        path: "add-user", component: AddUserComponent,
+        path: "user", component: AddUserComponent,
         canActivate: [AuthGuardService],
         data: {
           expectedRoles: [UserRoles.SUPER_ADMIN, UserRoles.ADMIN]

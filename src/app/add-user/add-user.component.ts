@@ -31,7 +31,7 @@ export class AddUserComponent implements OnInit {
       clients: [null, Validators.required],
       client: [null, Validators.required],
       device_id: [null],
-      email: [null, Validators.required],
+      email: [null, [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)]],
       username: [null, Validators.required],
       password: [null],
       lan_ip: [],
@@ -60,8 +60,10 @@ export class AddUserComponent implements OnInit {
           }
         );
       } else {
+        let formData =this.userForm.value;
+        delete formData.password;
         this.apiService
-          .patch(`accounts/users/${this.id}/`, this.userForm.value)
+          .patch(`accounts/users/${this.id}/`, formData)
           .subscribe(
             value => {
               this.snackBar.open("user Details updated", "successfully", {
@@ -85,18 +87,22 @@ export class AddUserComponent implements OnInit {
       this.userForm.patchValue({ client: user.id });
     });
 
-    this.utils.internalDataBus.subscribe(value => {
-      if (value && value.type == "edit-user") {
-        console.log(value.data);
-        this.isUpdate = true;
-        this.id=value.data.id;
-        this.userForm.patchValue(value.data);
-        // this.userForm.controls['password'].disable();
-      }
-    });
-
     this.apiService.get<Array<any>>("accounts/clients").subscribe(value => {
       this.clients = value;
+
+      this.utils.internalDataBus.subscribe(value => {
+        if (value && value.type == "edit-user") {
+          console.log(value.data);
+          this.isUpdate = true;
+          this.id=value.data.id;
+          this.userForm.patchValue(value.data);
+          // this.userForm.controls['password'].disable();
+        }
+      });
+
+
     });
+
+
   }
 }
