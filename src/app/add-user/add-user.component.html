@@ -2,7 +2,6 @@
 
 <div class="">
   <div class="card">
-
     <div [formGroup]="userForm" class="card-body">
       <div class="d-flex justify-content-between mb-4">
         <h6>
@@ -14,7 +13,11 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>First name</mat-label>
-              <input matInput formControlName="first_name" placeholder="First Name">
+              <input
+                matInput
+                formControlName="first_name"
+                placeholder="First Name"
+              />
               <mat-error *ngIf="userForm.controls['first_name'].invalid">
                 This field is <strong>requird</strong>
               </mat-error>
@@ -24,7 +27,11 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Last name</mat-label>
-              <input matInput formControlName="last_name" placeholder="Last Name">
+              <input
+                matInput
+                formControlName="last_name"
+                placeholder="Last Name"
+              />
               <mat-error *ngIf="userForm.controls['last_name'].invalid">
                 This field is <strong>requird</strong>
               </mat-error>
@@ -34,7 +41,7 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
-              <input matInput formControlName="email" placeholder="Email">
+              <input matInput formControlName="email" placeholder="Email" />
               <mat-error *ngIf="userForm.controls['email'].invalid">
                 This field is <strong>requird</strong>
               </mat-error>
@@ -44,23 +51,30 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Password</mat-label>
-              <input matInput type="password" formControlName="password" placeholder="Password">
+              <input
+                matInput
+                type="password"
+                formControlName="password"
+                placeholder="Password"
+              />
               <mat-error *ngIf="userForm.controls['password'].invalid">
                 This field is <strong>requird</strong>
               </mat-error>
             </mat-form-field>
           </div>
 
-
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Clients</mat-label>
               <mat-select formControlName="clients" multiple>
-                <mat-option *ngFor="let client of clients" [value]="client.id">{{client.name}}</mat-option>
+                <mat-option
+                  *ngFor="let client of clients"
+                  [value]="client.id"
+                  >{{ client.name }}</mat-option
+                >
               </mat-select>
             </mat-form-field>
           </div>
-
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
@@ -69,7 +83,9 @@
                 <mat-option value="admin">
                   Admin
                 </mat-option>
-
+                <mat-option value="global_admin">
+                  Global Admin
+                </mat-option>
                 <mat-option value="client_admin">
                   Client Admin
                 </mat-option>
@@ -81,10 +97,14 @@
             </mat-form-field>
           </div>
 
-
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <input matInput type="text" formControlName="username" placeholder="Username">
+              <input
+                matInput
+                type="text"
+                formControlName="username"
+                placeholder="Username"
+              />
               <mat-error *ngIf="userForm.controls['username'].invalid">
                 This field is <strong>requird</strong>
               </mat-error>
@@ -99,24 +119,38 @@
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <mat-form-field appearance="outline">
                   <mat-label>Phone</mat-label>
-                  <input matInput type="tel" formControlName="phone" placeholder="Phone">
+                  <input
+                    matInput
+                    type="tel"
+                    formControlName="phone"
+                    placeholder="Phone"
+                  />
                 </mat-form-field>
               </div>
 
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <mat-form-field appearance="outline">
                   <mat-label>Phone ext</mat-label>
-                  <input matInput type="text" formControlName="phone_ext" placeholder="Phone EXT">
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="phone_ext"
+                    placeholder="Phone EXT"
+                  />
                 </mat-form-field>
               </div>
 
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <mat-form-field appearance="outline">
                   <mat-label>Cell phone</mat-label>
-                  <input matInput type="tel" formControlName="cell_phone" placeholder="Cell Phone">
+                  <input
+                    matInput
+                    type="tel"
+                    formControlName="cell_phone"
+                    placeholder="Cell Phone"
+                  />
                 </mat-form-field>
               </div>
-
 
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 my-4">
                 <div class="d-inline-flex">
@@ -125,20 +159,24 @@
                       Is Primary Contact?
                     </label>
                   </div>
-                  <mat-radio-group class="d-inline-flex" aria-labelledby="primary-contact-radio-group-label"
-                    formControlName="is_primary_contact">
-                    <mat-radio-button color="primary" class="mr-4" [value]="true">
+                  <mat-radio-group
+                    class="d-inline-flex"
+                    aria-labelledby="primary-contact-radio-group-label"
+                    formControlName="is_primary_contact"
+                  >
+                    <mat-radio-button
+                      color="primary"
+                      class="mr-4"
+                      [value]="true"
+                    >
                       Yes
                     </mat-radio-button>
                     <mat-radio-button color="primary" [value]="false">
                       No
                     </mat-radio-button>
                   </mat-radio-group>
-
                 </div>
               </div>
-
-
             </div>
           </div>
 
@@ -146,13 +184,24 @@
             <div class="form-group d-flex align-items-center">
               <mat-form-field appearance="outline">
                 <mat-label>Notes</mat-label>
-                <textarea matInput formControlName="notes" class="form-control w-100" rows="5"></textarea>
+                <textarea
+                  matInput
+                  formControlName="notes"
+                  class="form-control w-100"
+                  rows="5"
+                ></textarea>
               </mat-form-field>
             </div>
 
             <div align="right">
-              <button (click)="submitForm()" type="button" class="btn btn-success">Add
-                User</button>
+              <button
+                (click)="submitForm()"
+                type="button"
+                class="btn btn-success"
+              >
+                <span *ngIf="isUpdate">Update User</span>
+                <span *ngIf="!isUpdate">Add User</span>
+              </button>
             </div>
           </div>
         </div>
@@ -160,6 +209,5 @@
     </div>
   </div>
   <!-- Form card ends -->
-
 </div>
 <!-- container fluid ends -->

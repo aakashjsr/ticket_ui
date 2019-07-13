@@ -4,6 +4,7 @@ import { ApiIntercepterService } from '../../services/api-intercepter.service';
 import { Observable } from 'rxjs';
 import { IVendor } from '../../utils/userInfo';
 import { UtilsService } from '../../services/utils.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'vendors-table',
@@ -12,7 +13,7 @@ import { UtilsService } from '../../services/utils.service';
 })
 export class VendorsTableComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'phone', 'service', 'email', 'vWeb'];
+  displayedColumns: string[] = ['name', 'phone', 'service', 'email', 'vWeb', 'edit'];
   dataSource: MatTableDataSource<IVendor>;
   vendors = [];
 
@@ -22,8 +23,14 @@ export class VendorsTableComponent implements OnInit {
   constructor(
     private apiService: ApiIntercepterService,
     private utils: UtilsService,
+    private router:Router
   ) {
 
+  }
+
+  editUserForm(value:IVendor){
+    this.utils.internalDataBus.next({type:'edit-vendor',data:value});
+    this.router.navigate(['add-vendors']);
   }
 
   ngOnInit() {
@@ -48,7 +55,7 @@ export class VendorsTableComponent implements OnInit {
     }
   }
   createNewUser(id: any): Observable<IVendor[]> {
-    return this.apiService.get<IVendor[]>("entities/vendors", { client: id })
+    return this.apiService.get<IVendor[]>("entities/vendors/", { client: id })
   }
 
 }

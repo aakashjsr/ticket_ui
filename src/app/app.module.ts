@@ -20,7 +20,6 @@ import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AddUserComponent } from './add-user/add-user.component';
-import { UsersListComponent } from './users-list/users-list.component';
 import { ContactCardComponent } from './contact-card/contact-card.component';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { VendorsTableComponent } from './dashboard/vendors-table/vendors-table.component';
@@ -52,7 +51,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     CreateTicketComponent,
 
     AddUserComponent,
-    UsersListComponent,
     ContactCardComponent,
     VendorsTableComponent,
     UsersTableComponent,

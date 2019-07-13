@@ -68,17 +68,19 @@
           </mat-form-field>
         </div>
 
-          
+
 
           <div class="col-12">
             <mat-form-field appearance="outline">
               <mat-label>Notes</mat-label>
               <textarea matInput formControlName="notes" placeholder="First Name" rows="5"></textarea>
             </mat-form-field>
-            
+
 
             <div align="right">
-              <button (click)="submitForm()" type="button" class="btn btn-success">Add Vendor</button>
+              <button (click)="submitForm()" type="button" class="btn btn-success">
+                  <span *ngIf="!isupdate; else update">Add</span>
+                  <ng-template #update>Update</ng-template>  Vendor</button>
             </div>
           </div>
         </div>

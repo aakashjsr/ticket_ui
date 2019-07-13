@@ -5,7 +5,6 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { AddUserComponent } from './add-user/add-user.component';
-import { UsersListComponent } from './users-list/users-list.component';
 import { ContactCardComponent } from './contact-card/contact-card.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { UserRoles } from './utils/userRoles';
@@ -94,10 +93,6 @@ const routes: Routes = [
     data: {
       expectedRoles: [UserRoles.ADMIN, UserRoles.CLIENT_ADMIN, UserRoles.CLIENT_USER, UserRoles.SUPER_ADMIN]
     }
-  },
-
-  {
-    path: "users", component: UsersListComponent
   },
   {
     path: "home", component: HomeComponent

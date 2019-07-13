@@ -31,7 +31,10 @@
           </div>
 
           <div class="col-12">
-            <button (click)="submitForm()" type="button" class="btn btn-primary">Add Client</button>
+            <button (click)="submitForm()" type="button" class="btn btn-primary">
+              <span *ngIf="!isUpdated; else update">Add</span>
+              <ng-template #update>Update</ng-template> Client
+            </button>
           </div>
         </div>
       </div>

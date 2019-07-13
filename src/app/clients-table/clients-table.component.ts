@@ -4,6 +4,7 @@ import { IclientSite } from '../utils/userInfo';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { UtilsService } from '../services/utils.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clients-table',
@@ -12,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class ClientsTableComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'city', 'website'];
+  displayedColumns: string[] = ['name', 'city', 'website', 'edit'];
   dataSource: MatTableDataSource<IclientSite>;
   clientSites = [];
 
@@ -23,8 +24,14 @@ export class ClientsTableComponent implements OnInit {
     private apiService: ApiIntercepterService
     , private utils: UtilsService
     , private cdref: ChangeDetectorRef
+    , private router:Router
   ) {
 
+  }
+
+  editUserForm(value){
+    this.utils.internalDataBus.next({type:'edit-client',data:value})
+    this.router.navigate(['add-client']);
   }
 
   ngOnInit() {

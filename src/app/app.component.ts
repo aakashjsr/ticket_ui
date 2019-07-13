@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.utils.getCookie('token'));
     this.utils.internalDataBus.subscribe((value) => {
       if (value && value.type == 'error') {
         const errMsg = value.data;

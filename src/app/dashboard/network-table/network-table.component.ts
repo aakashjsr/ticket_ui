@@ -4,6 +4,7 @@ import { ApiIntercepterService } from '../../services/api-intercepter.service';
 import { Observable } from 'rxjs';
 import { INetwork } from '../../utils/userInfo';
 import { UtilsService } from '../../services/utils.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,14 +13,22 @@ import { UtilsService } from '../../services/utils.service';
   styleUrls: ['./network-table.component.scss']
 })
 export class NetworkTableComponent implements OnInit {
-  displayedColumns: string[] = ['site', 'gateway', 'wan_ip', 'dhcp_name', 'dns_server_ip', 'domain_controller_ip'];
+  displayedColumns: string[] =
+  ['site', 'gateway', 'wan_ip', 'dhcp_name', 'dns_server_ip', 'domain_controller_ip', 'edit'];
   dataSource: MatTableDataSource<INetwork>;
   networks: INetwork[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private apiService: ApiIntercepterService, private utils: UtilsService) {
+  constructor(private apiService: ApiIntercepterService
+    , private utils: UtilsService
+    , private router:Router) {
+  }
+
+  editUserForm(value:any){
+    this.utils.internalDataBus.next({type:'edit-network',data:value})
+    this.router.navigate(['add-network']);
   }
 
   ngOnInit() {

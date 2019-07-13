@@ -4,6 +4,7 @@ import { IclientSite } from '../utils/userInfo';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { Observable } from 'rxjs';
 import { UtilsService } from '../services/utils.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-sites',
@@ -11,16 +12,24 @@ import { UtilsService } from '../services/utils.service';
   styleUrls: ['./client-sites.component.scss']
 })
 export class ClientSitesComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'city', 'phone', 'email', 'vWeb'];
+  displayedColumns: string[] = ['name', 'city', 'phone', 'email', 'vWeb','edit'];
   dataSource: MatTableDataSource<IclientSite>;
   clientSites = [];
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private apiService: ApiIntercepterService, private utils: UtilsService) {
+  constructor(private apiService: ApiIntercepterService
+    , private utils: UtilsService
+    , private router:Router) {
 
   }
+
+  editUserForm(value:any){
+    this.utils.internalDataBus.next({type:'edit-client-site',data:value})
+    this.router.navigate(['add-client-site']);
+  }
+
 
   ngOnInit() {
     this.utils.currentUser.subscribe(user => {

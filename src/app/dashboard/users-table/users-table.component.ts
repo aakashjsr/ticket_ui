@@ -1,38 +1,44 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { ApiIntercepterService } from '../../services/api-intercepter.service';
-import { IUserInfo } from '../../utils/userInfo';
-import { Observable } from 'rxjs';
-import { UtilsService } from '../../services/utils.service';
+import { Component, OnInit, ViewChild, Input } from "@angular/core";
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { ApiIntercepterService } from "../../services/api-intercepter.service";
+import { IUserInfo } from "../../utils/userInfo";
+import { Observable } from "rxjs";
+import { UtilsService } from "../../services/utils.service";
+import { Router } from '@angular/router';
 @Component({
-  selector: 'users-table',
-  templateUrl: './users-table.component.html',
-  styleUrls: ['./users-table.component.scss']
+  selector: "users-table",
+  templateUrl: "./users-table.component.html",
+  styleUrls: ["./users-table.component.scss"]
 })
 export class UsersTableComponent implements OnInit {
-
-  displayedColumns: string[] = ['name', 'phone', 'cell', 'email', 'notes'];
+  displayedColumns: string[] = ["name", "phone", "cell", "email", "notes", "edit"];
   dataSource: MatTableDataSource<IUserInfo>;
   users = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private apiService: ApiIntercepterService,
-    private utils: UtilsService
-  ) {
+  constructor(
+    private apiService: ApiIntercepterService,
+    private utils: UtilsService,
+    private router: Router
+  ) {}
+
+  editUserForm(userInfo: any) {
+    this.utils.internalDataBus.next({ type: "edit-user", data: userInfo });
+    this.router.navigate(["/add-user"]);
   }
 
   ngOnInit() {
     this.utils.currentUser.subscribe(user => {
       if (!user) return;
-      this.createNewUser(user.id).subscribe((users) => {
+      this.createNewUser(user.id).subscribe(users => {
         this.users = users;
         this.dataSource = new MatTableDataSource(this.users);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });
-    })
+    });
   }
 
   applyFilter(filterValue: string) {
@@ -45,8 +51,8 @@ export class UsersTableComponent implements OnInit {
 
   /** Builds and returns a new User. */
   createNewUser(id: any): Observable<Array<IUserInfo>> {
-    return this.apiService.get<Array<IUserInfo>>("accounts/client-users", { client: id });
+    return this.apiService.get<Array<IUserInfo>>("accounts/client-users", {
+      client: id
+    });
   }
 }
-
-

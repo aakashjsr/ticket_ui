@@ -3,9 +3,12 @@
     <div class="card-body" [formGroup]="ticketForm">
       <div class="d-flex justify-content-between mb-4">
         <h6 class="">
-          <span *ngIf="isUpdate">Update</span> <span *ngIf="!isUpdate">Create New</span>
-          Ticket</h6>
-        <h6 class="text-primary">Client Name: {{utils.currentUser.value.name}}</h6>
+          <span *ngIf="isUpdate">Update</span>
+          <span *ngIf="!isUpdate">Create New</span> Ticket
+        </h6>
+        <h6 class="text-primary">
+          Client Name: {{ utils.currentUser.value.name }}
+        </h6>
       </div>
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -13,9 +16,12 @@
             <mat-label>Ticket cateogry</mat-label>
             <mat-select formControlName="category">
               <mat-option *ngFor="let ticketCat of ticketsCat" [value]="ticketCat.value">
-                {{ticketCat.display}}
+                {{ ticketCat.display }}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="ticketForm.controls['category'].hasError('required')">
+              this field is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -24,40 +30,29 @@
             <mat-label>Ticket Status</mat-label>
             <mat-select formControlName="status">
               <mat-option *ngFor="let status of ticketStatus" [value]="status.value">
-                {{status.display}}
+                {{ status.display }}
               </mat-option>
             </mat-select>
-          </mat-form-field>
-        </div>
-
-
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <mat-form-field class="w-100" appearance="outline">
-            <input matInput formControlName="completed_time" [matDatepicker]="picker" placeholder="Completed Date">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </div>
-
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <mat-form-field class="w-100" appearance="outline">
-            <input matInput formControlName="submit_time" [matDatepicker]="picker2" placeholder="Submit Date">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Invoice Id</mat-label>
-            <input matInput formControlName="invoice_id" placeholder="Invoice Id">
+            <input matInput formControlName="invoice_id" placeholder="Invoice Id" />
+            <mat-error *ngIf="ticketForm.controls['invoice_id'].hasError('required')">
+              this field is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Parts used</mat-label>
-            <input matInput formControlName="parts_used" placeholder="Parts Used">
+            <input matInput formControlName="parts_used" placeholder="Parts Used" />
+            <mat-error *ngIf="ticketForm.controls['parts_used'].hasError('required')">
+              this field is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -66,9 +61,12 @@
             <mat-label>Contact Person</mat-label>
             <mat-select formControlName="contact_person">
               <mat-option *ngFor="let user of usersList" [value]="user.id">
-                {{user.username}}
+                {{ user.username }}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="ticketForm.controls['contact_person'].hasError('required')">
+              this field is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -77,15 +75,16 @@
             <mat-label>Assigned To</mat-label>
             <mat-select formControlName="assigned_to">
               <mat-option *ngFor="let user of usersList" [value]="user.id">
-                {{user.username}}
+                {{ user.username }}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="ticketForm.controls['assigned_to'].hasError('required')">
+              this field is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </div>
 
-
         <div class="col-12" *ngIf="isUpdate">
-
           <mat-form-field appearance="outline">
             <mat-label>Internal Notes</mat-label>
             <textarea matInput formControlName="internal_notes" placeholder="Internal Notes"></textarea>
@@ -103,18 +102,21 @@
           <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>
             <textarea matInput formControlName="description" placeholder="Description" rows="5"></textarea>
+            <mat-error *ngIf="ticketForm.controls['description'].hasError('required')">
+              this field is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
 
       <div align="right">
         <button (click)="submitForm()" mat-flat-button class="btn btn-success">
-        <span *ngIf="isUpdate">Update</span> <span *ngIf="!isUpdate">Add</span>
-        Ticket</button>
+          <span *ngIf="isUpdate">Update</span>
+          <span *ngIf="!isUpdate">Add</span> Ticket
+        </button>
       </div>
     </div>
   </div>
-
 
   <tkt-edit-history *ngIf="isUpdate" [tktHistory]="currentTktHistory"></tkt-edit-history>
 </div>

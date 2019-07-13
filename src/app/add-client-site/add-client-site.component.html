@@ -20,7 +20,7 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Client location</mat-label>
-              <input matInput formControlName="client_location" placeholder="Last Name">
+              <input matInput formControlName="client_location" placeholder="Client location">
             </mat-form-field>
           </div>
 
@@ -88,10 +88,14 @@
             </mat-form-field>
           </div>
 
-          
+
 
           <div class="col-12 mt-4" align="right">
-            <button (click)="submitForm()" type="button" class="btn btn-success">Add Client Site</button>
+            <button (click)="submitForm()" type="button" class="btn btn-success">
+              <span
+                *ngIf="!isUpdated; else update">Add</span>
+              <ng-template #update>Update</ng-template> Client Site
+            </button>
           </div>
         </div>
       </div>

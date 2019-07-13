@@ -1,36 +1,50 @@
 <div class="full-width-container w-100 h-100">
-
   <mat-sidenav-container class="sidenav-container bg-white">
-
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
       <mat-toolbar class="logo-color py-2 flex-column">
         <span>Ticket Management</span>
         <div class="no-wrap text-center small">
-          <span>{{username}}</span> &nbsp;
-          <span>({{userRole}})</span>
+          <span>{{ username }}</span> &nbsp;
+          <span>({{ userRole }})</span>
         </div>
       </mat-toolbar>
-
+      <div class="d-flex flex-column justify-content-center align-items-center mt-4">
+        <mat-form-field id="no-padding" class="m-0 p-0 mx-4" appearance="outline">
+          <input [formControl]="currentUser" matInput placeholder="Client" aria-label="State"
+            [matAutocomplete]="auto" />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let user of filteredStates | async" (click)="onClientSelect(user)"
+              [value]="user.name">
+              {{ user.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
       <mat-action-list>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'" (click)="navTo('/', 'userinfo')">
-          <mat-icon>accessibility</mat-icon> <span class="list-text">Users</span>
+          <mat-icon>accessibility</mat-icon>
+          <span class="list-text">Users</span>
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'devices'"
           (click)="navTo('devices', 'devices')">
-          <mat-icon>important_devices</mat-icon> <span class="list-text">Devices</span>
+          <mat-icon>important_devices</mat-icon>
+          <span class="list-text">Devices</span>
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendor'" (click)="navTo('vendors', 'vendor')">
-          <mat-icon>supervisor_account</mat-icon> <span class="list-text">Vendors</span>
+          <mat-icon>supervisor_account</mat-icon>
+          <span class="list-text">Vendors</span>
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendors-account'"
           (click)="navTo('vendors-account', 'vendors-account')">
-          <mat-icon>account_balance</mat-icon> <span class="list-text">Vendor Accounts</span>
+          <mat-icon>account_balance</mat-icon>
+          <span class="list-text">Vendor Accounts</span>
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'network'"
           (click)="navTo('networks', 'network')">
-          <mat-icon>network_wifi</mat-icon> <span class="list-text">Network</span>
+          <mat-icon>network_wifi</mat-icon>
+          <span class="list-text">Network</span>
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'clients'"
           (click)="navTo('clients', 'clients')">
@@ -38,7 +52,8 @@
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'client_sites'"
           (click)="navTo('client_sites', 'client_sites')">
-          <mat-icon>location_on</mat-icon> <span class="list-text">Client Sites</span>
+          <mat-icon>location_on</mat-icon>
+          <span class="list-text">Client Sites</span>
         </button>
 
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'ticket'" (click)="navTo('tickets', 'ticket')">
@@ -58,7 +73,8 @@
       <div class="w-100">
         <div class="d-flex justify-content-between align-items-center border rounded-sm p-cust nav-bar-color">
           <div class="d-inline-flex">
-            <button mat-flat-button [matMenuTriggerFor]="menu">Add
+            <button mat-flat-button [matMenuTriggerFor]="menu">
+              Add
               <mat-icon>keyboard_arrow_down</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
@@ -93,20 +109,6 @@
             <!-- <ng-container *ngFor="let user of clients">
               <a mat-list-item (click)="currentUser = user" [class.active]="currentUser.id == user.id">{{user.name}}</a>
             </ng-container> -->
-          </div>
-
-          <div class="d-inline-flex align-items-center">
-            <h6 class="text-secondary mb-0">Client&nbsp;</h6>
-            <mat-form-field id="no-padding" class="m-0 p-0 mx-4" appearance="outline">
-              <input [formControl]="currentUser" matInput placeholder="Client" aria-label="State"
-                [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let user of filteredStates | async" (click)="onClientSelect(user)"
-                  [value]="user.name">
-                  {{user.name}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
           </div>
 
           <button class="text-warning" mat-flat-button (click)="logout()" type="button">
@@ -155,5 +157,4 @@
       <!-- end content here -->
     </mat-sidenav-content>
   </mat-sidenav-container>
-
 </div>

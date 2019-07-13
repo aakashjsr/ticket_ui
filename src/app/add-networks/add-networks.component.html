@@ -112,7 +112,7 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <div class="form-group d-flex align-items-center">
-              
+
               <mat-form-field appearance="outline">
                 <mat-label>Inactive Date</mat-label>
                 <input matInput formControlName="inactive_date" [matDatepicker]="picker" placeholder="mm/dd/yyyy">
@@ -124,7 +124,7 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <div class="form-group d-flex align-items-center">
-              
+
               <mat-form-field appearance="outline">
                 <mat-label>Verified Date</mat-label>
                 <input matInput formControlName="verified_date" [matDatepicker]="picker3" placeholder="mm/dd/yyyy">
@@ -135,7 +135,10 @@
           </div>
 
           <div class="col-12" align="right">
-            <button (click)="submitForm()" type="button" class="btn btn-success">Add Network</button>
+            <button (click)="submitForm()" type="button" class="btn btn-success">
+              <span *ngIf="!isUpdated; else update">Add</span>
+              <ng-template #update>Update</ng-template> Network
+            </button>
           </div>
         </div>
       </div>

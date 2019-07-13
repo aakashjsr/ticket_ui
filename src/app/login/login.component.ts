@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(["/"]);
       });
     } else {
-      this.snackBar.open("Invalid form", "error", { duration: 1000 });
+      this.loginForm.markAllAsTouched();
     }
   }
 
