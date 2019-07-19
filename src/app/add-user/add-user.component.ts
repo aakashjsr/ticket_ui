@@ -53,7 +53,7 @@ export class AddUserComponent implements OnInit {
             this.snackBar.open("user Added", "successfully", {
               duration: 1500
             });
-            this.router.navigate(["/"]);
+            this.router.navigate(["/users"]);
           },
           err => {
             console.log(err.error);
@@ -69,7 +69,7 @@ export class AddUserComponent implements OnInit {
               this.snackBar.open("user Details updated", "successfully", {
                 duration: 1500
               });
-              this.router.navigate(["/"]);
+              this.router.navigate(["/users"]);
             },
             err => {
               console.log(err.error);

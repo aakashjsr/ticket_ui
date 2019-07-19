@@ -140,7 +140,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
             this.snackBar.open("Ticket updated", "SuccessFully", {
               duration: 1000
             });
-            this.router.navigate(["/tickets"]);
+            this.router.navigate(["/"]);
           });
       } else {
         this.apiService
@@ -149,7 +149,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
             this.snackBar.open("Ticket Created", "SuccessFully", {
               duration: 1000
             });
-            this.router.navigate(["/tickets"]);
+            this.router.navigate(["/"]);
           });
       }
     } else {

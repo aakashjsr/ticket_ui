@@ -26,7 +26,7 @@ enum EshowUserInfoType {
 export class DashboardComponent implements OnInit {
   currentUser = new FormControl();
   filteredStates: Observable<any[]>;
-  private _showCurrentUserInfoType: any = EshowUserInfoType.USERINFO;
+  private _showCurrentUserInfoType: any = EshowUserInfoType.TICKET;
   public get showCurrentUserInfoType(): any {
     return this._showCurrentUserInfoType;
   }

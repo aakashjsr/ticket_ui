@@ -31,9 +31,9 @@
         </mat-form-field> -->
       </div>
       <mat-action-list>
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'" (click)="navTo('/', 'userinfo')">
-          <mat-icon>accessibility</mat-icon>
-          <span class="list-text">Users</span>
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'ticket'" (click)="navTo('/', 'ticket')">
+          <mat-icon>file_copy</mat-icon>
+          <span class="list-text">Tickets</span>
         </button>
         <button mat-list-item [class.active]="showCurrentUserInfoType == 'devices'"
           (click)="navTo('devices', 'devices')">
@@ -64,8 +64,8 @@
           <span class="list-text">Client Sites</span>
         </button>
 
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'ticket'" (click)="navTo('tickets', 'ticket')">
-          <mat-icon>file_copy</mat-icon> <span class="list-text">Tickets</span>
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'" (click)="navTo('/users', 'userinfo')">
+          <mat-icon>accessibility</mat-icon> <span class="list-text">Users</span>
         </button>
 
         <!-- clients -->

@@ -45,13 +45,13 @@ const routes: Routes = [
         path: "vendors-accounts", component: VendorsAccountTableComponent
       },
       {
-        path: "", component: UsersTableComponent
+        path: "users", component: UsersTableComponent
       },
       {
         path: "client_sites", component: ClientSitesComponent
       },
       {
-        path: "tickets", component: TicketsTableComponent
+        path: "", component: TicketsTableComponent
       },
       {
         path: "device", component: AddDeviceComponent
