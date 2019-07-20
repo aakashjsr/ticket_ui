@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatCheckboxChange } from '@angular/material';
 import { ApiIntercepterService } from '../../services/api-intercepter.service';
 import { Observable } from 'rxjs';
 import { IVendor } from '../../utils/userInfo';
@@ -23,15 +23,26 @@ export class VendorsTableComponent implements OnInit {
   constructor(
     private apiService: ApiIntercepterService,
     private utils: UtilsService,
-    private router:Router
+    private router: Router
   ) {
 
   }
 
-  editUserForm(value:IVendor){
-    this.utils.internalDataBus.next({type:'edit-vendor',data:value});
+  editUserForm(value: IVendor) {
+    this.utils.internalDataBus.next({ type: 'edit-vendor', data: value });
     this.router.navigate(['vendor']);
   }
+
+  activeFilter(event: MatCheckboxChange) {
+    console.log(event);
+    if (!event.checked) {
+      this.applyFilter('');
+      return;
+    }
+    this.dataSource.filterPredicate = (data: IVendor, filter: any) => data.is_active == filter;
+    this.dataSource.filter = event.checked.toString();
+  }
+
 
   ngOnInit() {
     this.utils.currentUser.subscribe(user => {

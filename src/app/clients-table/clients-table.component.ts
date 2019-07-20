@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatCheckboxChange } from '@angular/material';
 import { IclientSite } from '../utils/userInfo';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { UtilsService } from '../services/utils.service';
@@ -24,15 +24,26 @@ export class ClientsTableComponent implements OnInit {
     private apiService: ApiIntercepterService
     , private utils: UtilsService
     , private cdref: ChangeDetectorRef
-    , private router:Router
+    , private router: Router
   ) {
 
   }
 
-  editUserForm(value){
-    this.utils.internalDataBus.next({type:'edit-client',data:value})
+  editUserForm(value) {
+    this.utils.internalDataBus.next({ type: 'edit-client', data: value })
     this.router.navigate(['client']);
   }
+
+  activeFilter(event: MatCheckboxChange) {
+    console.log(event);
+    if (!event.checked) {
+      this.applyFilter('');
+      return;
+    }
+    this.dataSource.filterPredicate = (data: IclientSite, filter: any) => data.is_active == filter;
+    this.dataSource.filter = event.checked.toString();
+  }
+
 
   ngOnInit() {
     this.utils.currentUser.subscribe(user => {

@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
-import { IClient } from '../utils/userInfo';
+import { IClient, IclientSite } from '../utils/userInfo';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
@@ -9,7 +9,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class UtilsService implements OnDestroy {
   internalDataBus = new BehaviorSubject<{ type: string, data: any }>(null);
   showLoader = new Subject<boolean>();
-  currentUser = new BehaviorSubject<IClient>({ client_id: '000', id: '1', name: 'sjkdsjkdsjkd', active: true, past_due_date: true, website: '' });
+  currentUser = new BehaviorSubject<IClient>({ client_id: '000', id: '1', name: 'sjkdsjkdsjkd', active: true, past_due_date: true, website: '', is_active: true });
+  client_sites = new BehaviorSubject<IclientSite[]>(null);
   constructor(private cookieService: CookieService) { }
 
   ngOnDestroy(): void {

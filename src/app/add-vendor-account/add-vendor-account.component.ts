@@ -4,6 +4,7 @@ import { ApiIntercepterService } from "../services/api-intercepter.service";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
 import { UtilsService } from "../services/utils.service";
+import { IclientSite } from '../utils/userInfo';
 
 @Component({
   selector: "app-add-vendor-account",
@@ -17,6 +18,7 @@ export class AddVendorAccountComponent implements OnInit {
   isUpdated = false;
   clients = [];
   id: string;
+  clientSites: IclientSite[] = [];
   constructor(
     private fb: FormBuilder,
     private apiService: ApiIntercepterService,
@@ -31,6 +33,7 @@ export class AddVendorAccountComponent implements OnInit {
       username: [null],
       password: [null],
       client: [null, Validators.required],
+      client_site: [null, Validators.required],
       notes: [],
       support_expiration: [null, Validators.required],
       license_key: []
@@ -67,6 +70,12 @@ export class AddVendorAccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.vendorAccountForm.reset();
+    this.utils.internalDataBus.subscribe(value => {
+      if (value && value.type == 'refresh_table') {
+        this.vendorAccountForm.reset();
+      }
+    });
     this.utils.currentUser.subscribe(user => {
       this.vendorAccountForm.patchValue({ client: user.id });
     });
@@ -80,6 +89,12 @@ export class AddVendorAccountComponent implements OnInit {
         this.vendorAccountForm.patchValue(value.data);
         this.isUpdated = true;
         this.id = value.data.id;
+      }
+    });
+    this.utils.client_sites.subscribe((c_sites) => {
+      if (c_sites) {
+        console.log(c_sites);
+        this.clientSites.push(...c_sites);
       }
     });
   }

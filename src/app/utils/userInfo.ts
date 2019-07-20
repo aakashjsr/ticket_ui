@@ -13,7 +13,8 @@ export interface IUserInfo {
   user_group?: string;
   bussiness_id?: string;
   username: string;
-  [key: string]: string;
+  is_active: boolean;
+  [key: string]: any;
 }
 
 
@@ -29,6 +30,7 @@ export interface IAdminInfo {
   user_type: string,
   username: string,
   work_phone: string,
+  is_active: boolean;
 }
 
 export interface IBussinessInfo {
@@ -47,6 +49,7 @@ export interface IBussinessInfo {
   hours: string;
   time_zone: string;
   exp_date: string;
+  is_active: boolean;
   [key: string]: any;
 }
 
@@ -74,7 +77,8 @@ export interface ITicket {
   parts_used: string;
   submit_id: string;
   isBillable: boolean;
-  client:number;
+  client: number;
+  is_active: boolean;
 }
 
 
@@ -107,6 +111,7 @@ export interface DeviceInfo {
   warranty_exp: string;
   wireless_pass: string;
   wireless_ssid: string;
+  is_active: boolean;
 }
 
 
@@ -122,6 +127,7 @@ export interface IVendor {
   support_website: string;
   verified_date: string;
   website: string;
+  is_active: boolean;
 }
 
 
@@ -145,6 +151,7 @@ export interface INetwork {
   wan_speed_2: string;
   wan_subnet_mask: string;
   wan_subnet_mask_2: string;
+  is_active: boolean;
 }
 
 
@@ -164,6 +171,7 @@ export interface IclientSite {
   state: string;
   website: string;
   zip_code: string;
+  is_active: boolean;
 }
 
 
@@ -174,6 +182,7 @@ export interface IClient {
   name: string;
   past_due_date: boolean;
   website: string;
+  is_active: boolean;
 }
 
 export interface ICleientSites {
@@ -183,4 +192,5 @@ export interface ICleientSites {
   name: string;
   past_due_date: boolean;
   website: string;
+  is_active: boolean;
 }

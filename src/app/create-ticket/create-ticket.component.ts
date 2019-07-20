@@ -24,6 +24,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
   usersList: any[];
   currentTktHistory = [];
   updateTicketId: number;
+  workType: Array<string> = ['Onsite', 'Offsite', 'Project', 'After', 'Hours', 'Onsite', 'After', 'Hours', 'offsite']
 
   constructor(
     public apiService: ApiIntercepterService,
@@ -35,15 +36,16 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
     this.ticketForm = this.fb.group({
       category: [null, Validators.required],
       status: ["new", null],
-      invoice_id: [null, Validators.required],
-      parts_used: [null, Validators.required],
+      invoice_id: [null,],
+      parts_used: [null,],
       requested_comp_date: [null],
       contact_person: [null, Validators.required],
       assigned_to: [null, Validators.required],
       public_notes: [null],
       internal_notes: [null],
       description: [null, Validators.required],
-      client: [null, Validators.required]
+      client: [null, Validators.required],
+      work_type: [null]
     });
   }
 
@@ -88,7 +90,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
             { value: currentFromState["submit_time"], disabled: true }
           ],
           contact_person: [
-            { value: currentFromState["contact_person"], disabled: true }
+            { value: currentFromState["contact_person"]['id'], disabled: true }
           ],
           assigned_to: [
             { value: currentFromState["assigned_to"], disabled: true }

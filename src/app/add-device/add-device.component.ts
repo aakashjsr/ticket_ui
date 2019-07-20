@@ -4,6 +4,7 @@ import { ApiIntercepterService } from "../services/api-intercepter.service";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
 import { UtilsService } from "../services/utils.service";
+import { IclientSite } from '../utils/userInfo';
 
 @Component({
   selector: "app-add-device",
@@ -13,7 +14,8 @@ import { UtilsService } from "../services/utils.service";
 export class AddDeviceComponent implements OnInit {
   deviceForm: FormGroup;
   isUpdated = false;
-  id:string;
+  clientSites: IclientSite[] = [];
+  id: string;
   constructor(
     private fb: FormBuilder,
     private apiService: ApiIntercepterService,
@@ -45,18 +47,31 @@ export class AddDeviceComponent implements OnInit {
       guest_pass: [null, Validators.required],
       guest_dhcp: [null, Validators.required],
       backup: [null, Validators.required],
+      client_site: [null, Validators.required],
       verified_date: [],
       notes: []
     });
   }
 
   ngOnInit() {
+    this.deviceForm.reset();
+    this.utils.internalDataBus.subscribe(value => {
+      if (value && value.type == 'refresh_table') {
+        this.deviceForm.reset();
+      }
+    });
     this.deviceForm.patchValue({ client: this.utils.currentUser.value.id });
     this.utils.internalDataBus.subscribe(deviceInfo => {
       if (deviceInfo && deviceInfo.type == "edit-device") {
         this.deviceForm.patchValue(deviceInfo.data);
         this.isUpdated = true;
-        this.id=deviceInfo.data.id;
+        this.id = deviceInfo.data.id;
+      }
+    });
+    this.utils.client_sites.subscribe((c_sites) => {
+      if (c_sites) {
+        console.log(c_sites);
+        this.clientSites.push(...c_sites);
       }
     });
   }

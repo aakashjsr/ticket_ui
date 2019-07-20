@@ -60,6 +60,12 @@ export class AddClientComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.addClientForm.reset();
+    this.utils.internalDataBus.subscribe(value => {
+      if (value && value.type == 'refresh_table') {
+        this.addClientForm.reset();
+      }
+    });
     this.utils.currentUser.subscribe(user => {
       this.addClientForm.patchValue({ client: user.id });
     });

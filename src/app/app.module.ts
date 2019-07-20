@@ -25,7 +25,8 @@ import {
   MatRadioModule,
   MatSnackBarModule,
   MatTableModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatCheckboxModule
 } from "@angular/material";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { CreateTicketComponent } from "./create-ticket/create-ticket.component";
@@ -95,6 +96,7 @@ import { ContactDialogueComponent } from "./tickets-table/contact-dialogue/conta
     MatInputModule,
     MatSidenavModule,
     MatMenuModule,
+    MatCheckboxModule,
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,
@@ -124,4 +126,4 @@ import { ContactDialogueComponent } from "./tickets-table/contact-dialogue/conta
   providers: [CookieService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

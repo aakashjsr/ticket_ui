@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from "@angular/core";
-import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { MatTableDataSource, MatPaginator, MatSort, MatCheckboxChange } from "@angular/material";
 import { ApiIntercepterService } from "../../services/api-intercepter.service";
 import { IUserInfo } from "../../utils/userInfo";
 import { Observable } from "rxjs";
@@ -22,11 +22,21 @@ export class UsersTableComponent implements OnInit {
     private apiService: ApiIntercepterService,
     private utils: UtilsService,
     private router: Router
-  ) {}
+  ) { }
 
   editUserForm(userInfo: any) {
     this.utils.internalDataBus.next({ type: "edit-user", data: userInfo });
     this.router.navigate(["/user"]);
+  }
+
+  activeFilter(event: MatCheckboxChange) {
+    console.log(event);
+    if (!event.checked) {
+      this.applyFilter('');
+      return;
+    }
+    this.dataSource.filterPredicate = (data: IUserInfo, filter: any) => data.is_active == filter;
+    this.dataSource.filter = event.checked.toString();
   }
 
   ngOnInit() {

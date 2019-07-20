@@ -64,7 +64,8 @@
           <span class="list-text">Client Sites</span>
         </button>
 
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'" (click)="navTo('/users', 'userinfo')">
+        <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'"
+          (click)="navTo('/users', 'userinfo')">
           <mat-icon>accessibility</mat-icon> <span class="list-text">Users</span>
         </button>
 
@@ -86,29 +87,29 @@
               <mat-icon>keyboard_arrow_down</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button routerLink="/user" mat-menu-item>
+              <button (click)="navToRoute('user')" mat-menu-item>
                 <mat-icon>accessibility</mat-icon> Users
               </button>
-              <button routerLink="/device" mat-menu-item>
+              <button (click)="navToRoute('device')" mat-menu-item>
                 <mat-icon>important_devices</mat-icon> Devices
               </button>
 
-              <button routerLink="/network" mat-menu-item>
+              <button (click)="navToRoute('network')" mat-menu-item>
                 <mat-icon>network_wifi</mat-icon> Network
               </button>
-              <button routerLink="/client" mat-menu-item>
+              <button (click)="navToRoute('client')" mat-menu-item>
                 <mat-icon>person</mat-icon> Add Client
               </button>
-              <button routerLink="/client-site" mat-menu-item>
+              <button (click)="navToRoute('client-site')" mat-menu-item>
                 <mat-icon>location_on</mat-icon> Client Sites
               </button>
-              <button routerLink="/ticket" mat-menu-item>
+              <button (click)="navToRoute('ticket')" mat-menu-item>
                 <mat-icon>file_copy</mat-icon> Ticket
               </button>
-              <button routerLink="/vendor" mat-menu-item>
+              <button (click)="navToRoute('vendor')" mat-menu-item>
                 <mat-icon>supervisor_account</mat-icon> Vendors
               </button>
-              <button routerLink="/vendor-account" mat-menu-item>
+              <button (click)="navToRoute('vendor-account')" mat-menu-item>
                 <mat-icon>account_balance</mat-icon> Vendor Account
               </button>
             </mat-menu>

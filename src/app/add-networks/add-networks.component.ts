@@ -4,6 +4,7 @@ import { MatSnackBar } from "@angular/material";
 import { Router } from "@angular/router";
 import { ApiIntercepterService } from "../services/api-intercepter.service";
 import { UtilsService } from "../services/utils.service";
+import { IclientSite } from '../utils/userInfo';
 
 @Component({
   selector: "app-add-networks",
@@ -13,7 +14,8 @@ import { UtilsService } from "../services/utils.service";
 export class AddNetworksComponent implements OnInit {
   networkForm: FormGroup;
   isUpdated = false;
-  id:string;
+  id: string;
+  clientSites: IclientSite[] = [];
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -38,17 +40,32 @@ export class AddNetworksComponent implements OnInit {
       wan_subnet_mask_2: [null, Validators.required],
       wan_speed_2: [null, Validators.required],
       inactive_date: [],
-      verified_date: []
+      verified_date: [],
+      client_site: [null, Validators.required],
+      is_active: [null,]
     });
   }
 
   ngOnInit() {
+    this.networkForm.reset();
+    this.utils.internalDataBus.subscribe(value => {
+      if (value && value.type == 'refresh_table') {
+        this.networkForm.reset();
+      }
+    });
     this.networkForm.patchValue({ client: this.utils.currentUser.value.id });
     this.utils.internalDataBus.subscribe(deviceInfo => {
       if (deviceInfo && deviceInfo.type == "edit-network") {
         this.networkForm.patchValue(deviceInfo.data);
-        this.id=deviceInfo.data.id;
+        this.id = deviceInfo.data.id;
         this.isUpdated = true;
+      }
+    });
+
+    this.utils.client_sites.subscribe((c_sites) => {
+      if (c_sites) {
+        console.log(c_sites);
+        this.clientSites.push(...c_sites);
       }
     });
   }
@@ -64,7 +81,7 @@ export class AddNetworksComponent implements OnInit {
             });
             this.router.navigate(["/networks"]);
           });
-      }else {
+      } else {
         this.apiService
           .put(
             `entities/networks/${this.id}/`,

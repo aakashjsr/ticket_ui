@@ -36,6 +36,12 @@ export class AddVendorsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.vendorForm.reset();
+    this.utils.internalDataBus.subscribe(value => {
+      if (value && value.type == 'refresh_table') {
+        this.vendorForm.reset();
+      }
+    });
     this.vendorForm.patchValue({ client: this.utils.currentUser.value.id });
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == "edit-vendor") {

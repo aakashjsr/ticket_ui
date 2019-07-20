@@ -39,7 +39,12 @@ export class AddClientSiteComponent implements OnInit {
   }
   // edit-client-site
   ngOnInit() {
-    this.clientSiteForm.patchValue({ client: this.utils.currentUser.value.id });
+    this.clientSiteForm.reset();
+    this.utils.internalDataBus.subscribe(value => {
+      if (value && value.type == 'refresh_table') {
+        this.clientSiteForm.reset();
+      }
+    }); this.clientSiteForm.patchValue({ client: this.utils.currentUser.value.id });
     this.utils.internalDataBus.subscribe(deviceInfo => {
       if (deviceInfo && deviceInfo.type == "edit-client-site") {
         this.clientSiteForm.patchValue(deviceInfo.data);

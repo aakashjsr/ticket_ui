@@ -5,19 +5,23 @@
 <div class="mat-elevation-z0">
   <mat-toolbar [formGroup]='filterForm' class="logo-color bg-white py-2">
     <div class="row w-100">
-      <div class="col-xs-12 col-sm-4 d-flex align-items-center">
+      <div class="col-xs-12 col-sm-3 d-flex align-items-center">
         <h6 class='ml-1'>Filters: </h6>
       </div>
 
-      <div class="col-xs-12 col-sm-4 d-flex align-items-center justify-content-center">
+      <div class="col-xs-12 col-sm-3 d-flex align-items-center justify-content-center">
 
         <mat-form-field>
           <mat-label>Clients</mat-label>
           <mat-select formControlName="clients" multiple>
-            <mat-option value='all'>
-              All
-            </mat-option>
             <!-- clients -->
+            <mat-select-trigger>
+              {{filterForm.value.clients ? getTicketById(filterForm.value.clients[0]) : ''}}
+              <span *ngIf="filterForm.value.clients?.length > 1" class="example-additional-selection">
+                (+{{filterForm.value.clients.length - 1}}
+                {{filterForm.value.clients?.length === 2 ? 'other' : 'others'}})
+              </span>
+            </mat-select-trigger>
             <mat-option *ngFor='let client of clients' [value]='client.id'>
               {{client.name}}
             </mat-option>
@@ -25,13 +29,18 @@
         </mat-form-field>
         <!-- ticketStatus -->
       </div>
-      <div class="col-xs-12 col-sm-4 d-flex align-items-center justify-content-end">
+      <div class="col-xs-12 col-sm-3 d-flex align-items-center justify-content-end">
         <mat-form-field>
           <mat-label>Status</mat-label>
+
           <mat-select formControlName="status" multiple>
-            <mat-option value='all'>
-              All
-            </mat-option>
+            <mat-select-trigger>
+              {{filterForm.value.status ? filterForm.value.status[0] : ''}}
+              <span *ngIf="filterForm.value.status?.length > 1" class="example-additional-selection">
+                (+{{filterForm.value.status.length - 1}}
+                {{filterForm.value.status?.length === 2 ? 'other' : 'others'}})
+              </span>
+            </mat-select-trigger>
             <mat-option *ngFor='let status of ticketStatus' [value]='status.value'>
               {{status.display}}
             </mat-option>
@@ -39,36 +48,41 @@
         </mat-form-field>
 
       </div>
+      <div class="col-xs-12 col-sm-3 d-flex align-items-center justify-content-end">
+        <mat-checkbox color="primary" (change)="activeFilter($event)"><span class="text-primary">Is Active</span>
+        </mat-checkbox>
+      </div>
+
     </div>
   </mat-toolbar>
   <table mat-table [dataSource]="dataSource" matSort>
 
-    <!-- gateway Column -->
-    <ng-container matColumnDef="gateway">
+    <!-- tktId Column -->
+    <ng-container matColumnDef="tktId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket Id </th>
       <td mat-cell *matCellDef="let row"> {{row.id}} </td>
     </ng-container>
 
-    <!-- wan_ip Column -->
-    <ng-container matColumnDef="wan_ip">
+    <!-- desc Column -->
+    <ng-container matColumnDef="desc">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Issue Description </th>
       <td mat-cell *matCellDef="let row"> {{row.description}} </td>
     </ng-container>
 
-    <!-- dhcp_name Column -->
-    <ng-container matColumnDef="dhcp_name">
+    <!-- cateogry Column -->
+    <ng-container matColumnDef="cateogry">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket Category </th>
       <td mat-cell *matCellDef="let row"> {{row.category}} </td>
     </ng-container>
 
-    <!--dns_server_ip Column -->
-    <ng-container matColumnDef="dns_server_ip">
+    <!--status Column -->
+    <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
       <td mat-cell *matCellDef="let row"> {{row.status}} </td>
     </ng-container>
 
-    <!-- domain_controller_ip Column -->
-    <ng-container matColumnDef="domain_controller_ip">
+    <!-- c_p Column -->
+    <ng-container matColumnDef="c_p">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person </th>
       <td mat-cell *matCellDef="let row">
         <button mat-button (click)='openDialog(row)' color="primary">
@@ -81,6 +95,19 @@
     <ng-container matColumnDef="estComp">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated Completion </th>
       <td mat-cell *matCellDef="let row"> {{row.completed_time | date:'mediumDate'}} </td>
+    </ng-container>
+
+    <!-- assignedTo Column -->
+    <ng-container matColumnDef="assignedTo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned to </th>
+      <td mat-cell *matCellDef="let row"> {{row.assigned_to}} </td>
+    </ng-container>
+
+
+    <!-- client Column -->
+    <ng-container matColumnDef="client">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned to </th>
+      <td mat-cell *matCellDef="let row"> {{row.client}} </td>
     </ng-container>
 
     <!-- edit Column -->

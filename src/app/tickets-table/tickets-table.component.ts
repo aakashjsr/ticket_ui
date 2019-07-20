@@ -3,7 +3,8 @@ import {
   MatTableDataSource,
   MatPaginator,
   MatSort,
-  MatDialog
+  MatDialog,
+  MatCheckboxChange
 } from "@angular/material";
 import { ITicket, ICleientSites } from "../utils/userInfo";
 import { ApiIntercepterService } from "../services/api-intercepter.service";
@@ -20,14 +21,17 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 })
 export class TicketsTableComponent implements OnInit {
   displayedColumns: string[] = [
-    "gateway",
-    "wan_ip",
-    "dhcp_name",
-    "dns_server_ip",
-    "domain_controller_ip",
+    "tktId",
+    "status",
+    'client',
+    "cateogry",
+    "desc",
+    'assignedTo',
+    'estComp',
+    "c_p",
     "edit"
   ];
-  dataSource: MatTableDataSource<ITicket>;
+  dataSource: MatTableDataSource<ITicket> = new MatTableDataSource([]);
   networks: ITicket[] = [];
   filterForm: FormGroup;
   clients: Array<ICleientSites> = [];
@@ -44,9 +48,24 @@ export class TicketsTableComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.filterForm = this.fb.group({
-      clients: [["all"], Validators.required],
-      status: [["all"], Validators.required]
+      clients: [null],
+      status: [null],
     });
+  }
+
+  getTicketById(id: any) {
+    const clientName = this.clients.find((tkt => tkt.id == id));
+    return clientName ? clientName.name : '';
+  }
+
+  activeFilter(event: MatCheckboxChange) {
+    console.log(event);
+    if (!event.checked) {
+      this.applyFilter('');
+      return;
+    }
+    this.dataSource.filterPredicate = (data: ITicket, filter: any) => data.is_active == filter;
+    this.dataSource.filter = event.checked.toString();
   }
 
   openDialog(value: any): void {
@@ -66,12 +85,16 @@ export class TicketsTableComponent implements OnInit {
       .get<Array<ICleientSites>>("accounts/clients")
       .subscribe(value => {
         this.clients.push(...value);
+        this.filterForm.patchValue({ clients: value.map(client => client.id) });
       });
 
     this.apiService
       .get<any[]>("entities/ticket/status/", {}, "json")
       .subscribe(value => {
         this.ticketStatus.push(...value);
+        let tempTkt = [...value];
+        tempTkt = tempTkt.filter(tickt => tickt.value !== 'completed')
+        this.filterForm.patchValue({ status: tempTkt.map(status => status.value) });
       });
   }
 
@@ -83,31 +106,32 @@ export class TicketsTableComponent implements OnInit {
       let formData: { [key: string]: Array<string> } = this.filterForm.value;
 
       this.dataSource.filterPredicate = (data: ITicket, filter: any) => {
-        console.log(filter);
-        const clients: Array<string> = filter.clients.filter(
-          (value: any) => value !== "all"
-        );
-        const status: Array<string> = filter.status.filter(
-          (value: any) => value !== "all"
-        );
-
-        console.log(clients, status);
-        let ispresent = false;
-        if (!clients.length && !status.length) {
-          ispresent = true;
+        console.log(data);
+        if (typeof filter == 'string' || !filter) {
+          return true;
         }
+        const clients: Array<string> = filter.clients;
+        const status: Array<string> = filter.status;
+        if (!clients.length && !status.length) {
+          return true;
+        }
+
+        let isClient = false;
+        let isStatus = false;
+
+
         clients.forEach(clientId => {
-          if (data.client.toString() == clientId.toString()) {
-            ispresent = true;
+          if (data.client.toString().toLowerCase() == clientId.toString().toLowerCase()) {
+            isClient = true;
           }
         });
 
         status.forEach(value => {
-          if (data.status.toString() == value.toString()) {
-            ispresent = true;
+          if (data.status.toString().toLowerCase() == value.toString().toLowerCase()) {
+            isStatus = true;
           }
         });
-        return ispresent;
+        return isClient && isStatus;
       };
 
       this.dataSource.filter = <any>formData;
@@ -119,6 +143,8 @@ export class TicketsTableComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.networks);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.dataSource.filterPredicate = (data: ITicket, filter: string) => data.status !== filter;
+        this.dataSource.filter = 'completed';
       });
     });
   }

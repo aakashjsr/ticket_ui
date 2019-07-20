@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map, startWith } from 'rxjs/operators';
-import { IUserInfo, IClient, ICleientSites } from '../utils/userInfo';
+import { IUserInfo, IClient, ICleientSites, IclientSite } from '../utils/userInfo';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { FormControl } from '@angular/forms';
 import { UtilsService } from '../services/utils.service';
@@ -41,6 +41,11 @@ export class DashboardComponent implements OnInit {
     , private router: Router
   ) { }
 
+  navToRoute(path: string) {
+    this.router.navigate([`/${path}`]);
+    this.utils.internalDataBus.next({ type: 'refresh_table', data: null });
+  }
+
   get username() {
     return this.utils.getCookie('first_name')
   }
@@ -68,6 +73,8 @@ export class DashboardComponent implements OnInit {
       if (this.clients && this.clients.length) {
         this.currentUser.patchValue(this.clients[0].name);
         this.utils.currentUser.next(this.clients[0]);
+        this.apiService.get<IclientSite[]>("entities/client-sites/", { client: this.clients[0].id })
+          .subscribe(client_ites => this.utils.client_sites.next(client_ites));
       }
     });
   }
@@ -87,6 +94,8 @@ export class DashboardComponent implements OnInit {
   onClientSelect(value: IClient) {
     this.utils.currentUser.next(value);
     console.log(value);
+    this.apiService.get<IclientSite[]>("entities/client-sites/", { client: value.id })
+      .subscribe(client_ites => this.utils.client_sites.next(client_ites));
   }
 
   ngOnInit() {

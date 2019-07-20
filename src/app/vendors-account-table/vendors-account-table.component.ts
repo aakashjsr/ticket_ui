@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { MatTableDataSource, MatPaginator, MatSort, MatCheckboxChange } from "@angular/material";
 import { DeviceInfo } from "../utils/userInfo";
 import { ApiIntercepterService } from "../services/api-intercepter.service";
 import { UtilsService } from "../services/utils.service";
@@ -18,7 +18,7 @@ export class VendorsAccountTableComponent implements OnInit {
     "color",
     "vService",
     "vWeb",
-    "notes",'edit'
+    "notes", 'edit'
   ];
   dataSource: MatTableDataSource<DeviceInfo>;
 
@@ -49,6 +49,17 @@ export class VendorsAccountTableComponent implements OnInit {
       });
     });
   }
+
+  activeFilter(event: MatCheckboxChange) {
+    console.log(event);
+    if (!event.checked) {
+      this.applyFilter('');
+      return;
+    }
+    this.dataSource.filterPredicate = (data: DeviceInfo, filter: any) => data.is_active == filter;
+    this.dataSource.filter = event.checked.toString();
+  }
+
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

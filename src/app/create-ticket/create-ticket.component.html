@@ -37,6 +37,17 @@
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Work Type</mat-label>
+            <mat-select formControlName="work_type">
+              <mat-option *ngFor="let work of workType" [value]="work">
+                {{ work }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Invoice Id</mat-label>
             <input matInput formControlName="invoice_id" placeholder="Invoice Id" />

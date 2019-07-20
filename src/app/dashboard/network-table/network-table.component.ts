@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatCheckboxChange } from '@angular/material';
 import { ApiIntercepterService } from '../../services/api-intercepter.service';
 import { Observable } from 'rxjs';
 import { INetwork } from '../../utils/userInfo';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class NetworkTableComponent implements OnInit {
   displayedColumns: string[] =
-  ['site', 'gateway', 'wan_ip', 'dhcp_name', 'dns_server_ip', 'domain_controller_ip', 'edit'];
+    ['site', 'gateway', 'wan_ip', 'dhcp_name', 'dns_server_ip', 'domain_controller_ip', 'edit'];
   dataSource: MatTableDataSource<INetwork>;
   networks: INetwork[] = [];
 
@@ -23,13 +23,24 @@ export class NetworkTableComponent implements OnInit {
 
   constructor(private apiService: ApiIntercepterService
     , private utils: UtilsService
-    , private router:Router) {
+    , private router: Router) {
   }
 
-  editUserForm(value:any){
-    this.utils.internalDataBus.next({type:'edit-network',data:value})
+  editUserForm(value: any) {
+    this.utils.internalDataBus.next({ type: 'edit-network', data: value })
     this.router.navigate(['network']);
   }
+
+  activeFilter(event: MatCheckboxChange) {
+    console.log(event);
+    if (!event.checked) {
+      this.applyFilter('');
+      return;
+    }
+    this.dataSource.filterPredicate = (data: INetwork, filter: any) => data.is_active == filter;
+    this.dataSource.filter = event.checked.toString();
+  }
+
 
   ngOnInit() {
     this.utils.currentUser.subscribe(user => {
