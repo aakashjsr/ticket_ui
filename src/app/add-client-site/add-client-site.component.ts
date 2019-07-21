@@ -32,7 +32,6 @@ export class AddClientSiteComponent implements OnInit {
       state: [null, Validators.required],
       phone: [null, Validators.required],
       fax: [],
-      website: [null, Validators.required],
       client_hours: [],
       is_active: []
     });
@@ -43,6 +42,8 @@ export class AddClientSiteComponent implements OnInit {
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.clientSiteForm.reset();
+        this.isUpdated = false;
+
       }
     }); this.clientSiteForm.patchValue({ client: this.utils.currentUser.value.id });
     this.utils.internalDataBus.subscribe(deviceInfo => {
@@ -61,7 +62,7 @@ export class AddClientSiteComponent implements OnInit {
           .post("entities/client-sites/", this.clientSiteForm.value)
           .subscribe(value => {
             this.snackBar.open("Client Site Added", "Successfully", {
-              duration: 1000
+              duration: 3000
             });
             this.router.navigate(["/client_sites"]);
           });
@@ -73,7 +74,7 @@ export class AddClientSiteComponent implements OnInit {
           )
           .subscribe(value => {
             this.snackBar.open("Client Site updated", "Successfully", {
-              duration: 1000
+              duration: 3000
             });
             this.router.navigate(["/client_sites"]);
           });

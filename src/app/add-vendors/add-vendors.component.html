@@ -5,7 +5,8 @@
     <div [formGroup]="vendorForm" class="card-body">
       <div class="d-flex justify-content-between mb-4">
         <h6> <span *ngIf="!isupdate; else update">Add</span>
-          <ng-template #update>Edit</ng-template> Vendor</h6>
+          <ng-template #update>Edit</ng-template> Vendor
+        </h6>
         <h6>Client: {{utils.currentUser.value.name}}</h6>
       </div>
       <div>
@@ -61,13 +62,13 @@
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Verified date</mat-label>
-            <input matInput formControlName="verified_date" [matDatepicker]="picker" placeholder="Verified Date">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </div>
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Verified date</mat-label>
+              <input matInput formControlName="verified_date" [matDatepicker]="picker" placeholder="Verified Date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
 
 
 
@@ -77,11 +78,16 @@
               <textarea matInput formControlName="notes" placeholder="First Name" rows="5"></textarea>
             </mat-form-field>
 
-
+            <div class="d-flex justify-content-start">
+              <mat-checkbox color="primary" class="mr-2" formControlName="is_active"><span class="text-primary">Is
+                  Active</span>
+              </mat-checkbox>
+            </div>
             <div align="right">
               <button (click)="submitForm()" type="button" class="btn btn-success">
-                  <span *ngIf="!isupdate; else update">Add</span>
-                  <ng-template #update>Update</ng-template>  Vendor</button>
+                <span *ngIf="!isupdate; else update">Add</span>
+                <ng-template #update>Update</ng-template> Vendor
+              </button>
             </div>
           </div>
         </div>

@@ -6,7 +6,8 @@
     <div [formGroup]="clientSiteForm" class="card-body">
       <div class="d-flex justify-content-between mb-4">
         <h6> <span *ngIf="!isUpdated; else update">Add</span>
-          <ng-template #update>Edit</ng-template> Client Site</h6>
+          <ng-template #update>Edit</ng-template> Client Site
+        </h6>
         <h6>Client: {{utils.currentUser.value.name}}</h6>
       </div>
       <div>
@@ -14,7 +15,7 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Name</mat-label>
-              <input matInput formControlName="name" placeholder="First Name">
+              <input matInput formControlName="name">
             </mat-form-field>
           </div>
 
@@ -28,56 +29,49 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Address line 1</mat-label>
-              <input matInput formControlName="address_line_1" placeholder="First Name">
+              <input matInput formControlName="address_line_1">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Address line 2</mat-label>
-              <input matInput formControlName="address_line_2" placeholder="Last Name">
+              <input matInput formControlName="address_line_2">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>City</mat-label>
-              <input matInput formControlName="city" placeholder="First Name">
+              <input matInput formControlName="city">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Zip code</mat-label>
-              <input matInput formControlName="zip_code" placeholder="Last Name">
+              <input matInput formControlName="zip_code">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>State</mat-label>
-              <input matInput formControlName="state" placeholder="First Name">
+              <input matInput formControlName="state">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Phone</mat-label>
-              <input matInput formControlName="phone" placeholder="Last Name">
+              <input matInput formControlName="phone">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Fax</mat-label>
-              <input matInput formControlName="fax" placeholder="First Name">
-            </mat-form-field>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <mat-form-field appearance="outline">
-              <mat-label>Website</mat-label>
-              <input matInput formControlName="website" placeholder="Last Name">
+              <input matInput formControlName="fax">
             </mat-form-field>
           </div>
 
@@ -85,16 +79,21 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Client hours</mat-label>
-              <input matInput formControlName="client_hours" placeholder="First Name">
+              <input matInput formControlName="client_hours">
             </mat-form-field>
           </div>
 
 
 
           <div class="col-12 mt-4" align="right">
+            <div class="d-flex justify-content-end mb-4">
+              <mat-checkbox color="primary" class="mr-2" formControlName="is_active"><span class="text-primary">Is
+                  Active</span>
+              </mat-checkbox>
+            </div>
+
             <button (click)="submitForm()" type="button" class="btn btn-success">
-              <span
-                *ngIf="!isUpdated; else update">Add</span>
+              <span *ngIf="!isUpdated; else update">Add</span>
               <ng-template #update>Update</ng-template> Client Site
             </button>
           </div>

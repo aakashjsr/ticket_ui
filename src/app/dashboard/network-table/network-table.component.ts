@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class NetworkTableComponent implements OnInit {
   displayedColumns: string[] =
-    ['site', 'gateway', 'wan_ip', 'dhcp_name', 'dns_server_ip', 'domain_controller_ip', 'edit'];
+    ['site', 'wan_ip', 'sub_mask', 'gateway', 'dhcp_name', 'verified_date', 'edit'];
   dataSource: MatTableDataSource<INetwork>;
   networks: INetwork[] = [];
 

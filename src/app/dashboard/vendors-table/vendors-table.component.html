@@ -31,7 +31,9 @@
     <!-- email Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.email}} </td>
+      <td mat-cell *matCellDef="let row" [style.color]="row.color">
+        <a href="mailto:{{row.email}}" target="_top">{{row.email}}</a>
+      </td>
     </ng-container>
 
     <!-- Website Column -->

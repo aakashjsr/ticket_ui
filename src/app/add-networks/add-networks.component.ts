@@ -26,19 +26,19 @@ export class AddNetworksComponent implements OnInit {
     this.networkForm = this.fb.group({
       client: [],
       client_location: [null, Validators.required],
-      dns_server_ip: [null, Validators.required],
-      dc_name: [null, Validators.required],
-      domain_controller_ip: [null, Validators.required],
-      dhcp_name: [null, Validators.required],
-      lan_gateway: [null, Validators.required],
-      lan_subnet_mask: [null, Validators.required],
+      dns_server_ip: [null,],
+      dc_name: [null,],
+      domain_controller_ip: [null,],
+      dhcp_name: [null,],
+      lan_gateway: [null,],
+      lan_subnet_mask: [null,],
       wan_ip: [null, Validators.required],
       wan_subnet_mask: [null, Validators.required],
-      wan_gateway: [],
-      wan_speed: [null, Validators.required],
-      wan_ip_2: [null, Validators.required],
-      wan_subnet_mask_2: [null, Validators.required],
-      wan_speed_2: [null, Validators.required],
+      wan_gateway: [null, Validators.required],
+      wan_speed: [null,],
+      wan_ip_2: [null,],
+      wan_subnet_mask_2: [null,],
+      wan_speed_2: [null,],
       inactive_date: [],
       verified_date: [],
       client_site: [null, Validators.required],
@@ -51,6 +51,7 @@ export class AddNetworksComponent implements OnInit {
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.networkForm.reset();
+        this.isUpdated = false;
       }
     });
     this.networkForm.patchValue({ client: this.utils.currentUser.value.id });
@@ -77,7 +78,7 @@ export class AddNetworksComponent implements OnInit {
           .post("entities/networks/", this.networkForm.value)
           .subscribe(value => {
             this.snackBar.open("Network Added", "Successfully", {
-              duration: 1000
+              duration: 3000
             });
             this.router.navigate(["/networks"]);
           });
@@ -89,7 +90,7 @@ export class AddNetworksComponent implements OnInit {
           )
           .subscribe(value => {
             this.snackBar.open("Network updated", "Successfully", {
-              duration: 1000
+              duration: 3000
             });
             this.router.navigate(["/networks"]);
           });

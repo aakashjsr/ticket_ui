@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./client-sites.component.scss']
 })
 export class ClientSitesComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'city', 'phone', 'email', 'vWeb', 'edit'];
+  displayedColumns: string[] = ['name', 'addr1', 'city', 'zip', 'state', 'phone', 'vWeb', 'hours', 'edit'];
   dataSource: MatTableDataSource<IclientSite>;
   clientSites = [];
 

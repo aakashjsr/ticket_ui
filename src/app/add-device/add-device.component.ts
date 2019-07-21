@@ -16,6 +16,9 @@ export class AddDeviceComponent implements OnInit {
   isUpdated = false;
   clientSites: IclientSite[] = [];
   id: string;
+  deviceTypes = ['Router', 'Access', 'Point', 'phone', 'IOT', 'Printer', 'Switch',
+    'firewall', 'server', 'workstation', 'mac', 'ups', 'modem', 'NAS',
+    'Camera', 'software', 'VM', 'Phone', 'system'];
   constructor(
     private fb: FormBuilder,
     private apiService: ApiIntercepterService,
@@ -24,32 +27,33 @@ export class AddDeviceComponent implements OnInit {
     private router: Router
   ) {
     this.deviceForm = this.fb.group({
-      client: [null, Validators.required],
+      client: [null,],
       user_id: [null, Validators.required],
       type: [null, Validators.required],
-      wan_ip: [null, Validators.required],
-      make: [null, Validators.required],
-      username: [null, Validators.required],
-      password: [null, Validators.required],
-      device_id: [null, Validators.required],
-      serial: [null, Validators.required],
-      warranty_exp: [null, Validators.required],
-      processor: [null, Validators.required],
-      ram: [null, Validators.required],
-      lan_ip: [null, Validators.required],
-      bit: [null, Validators.required],
+      wan_ip: [null,],
+      make: [null,],
+      username: [null,],
+      password: [null,],
+      device_id: [null,],
+      serial: [null,],
+      warranty_exp: [null,],
+      processor: [null,],
+      ram: [null,],
+      lan_ip: [null,],
+      bit: [null,],
       deactivation_date: [],
-      location: [null, Validators.required],
-      mac_address: [null, Validators.required],
-      wireless_ssid: [null, Validators.required],
-      wireless_pass: [null, Validators.required],
-      guest_ssid: [null, Validators.required],
-      guest_pass: [null, Validators.required],
-      guest_dhcp: [null, Validators.required],
-      backup: [null, Validators.required],
-      client_site: [null, Validators.required],
+      location: [null,],
+      mac_address: [null,],
+      wireless_ssid: [null,],
+      wireless_pass: [null,],
+      guest_ssid: [null,],
+      guest_pass: [null,],
+      guest_dhcp: [null,],
+      backup: [null,],
+      client_site: [null,],
       verified_date: [],
-      notes: []
+      notes: [],
+      is_active: []
     });
   }
 
@@ -58,6 +62,7 @@ export class AddDeviceComponent implements OnInit {
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.deviceForm.reset();
+        this.isUpdated = false;
       }
     });
     this.deviceForm.patchValue({ client: this.utils.currentUser.value.id });
@@ -83,7 +88,7 @@ export class AddDeviceComponent implements OnInit {
           .post("entities/devices/", this.deviceForm.value)
           .subscribe(value => {
             this.snackBar.open("Device Added", "Successfully", {
-              duration: 1000
+              duration: 3000
             });
             this.router.navigate(["/devices"]);
           });
@@ -95,7 +100,7 @@ export class AddDeviceComponent implements OnInit {
           )
           .subscribe(value => {
             this.snackBar.open("Device updated", "Successfully", {
-              duration: 1000
+              duration: 3000
             });
             this.router.navigate(["/devices"]);
           });

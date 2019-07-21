@@ -62,6 +62,14 @@ h6 {
   background: white;
 }
 
+app-add-client,
+app-add-vendor-account,
+app-add-vendors {
+  .mat-checkbox-layout {
+    display: block !important;
+  }
+}
+
 
 
 /*

@@ -31,7 +31,8 @@ export class AddVendorsComponent implements OnInit {
       website: [null, Validators.required],
       support_website: [null, Validators.required],
       verified_date: [],
-      notes: []
+      notes: [],
+      is_active: []
     });
   }
 
@@ -40,6 +41,7 @@ export class AddVendorsComponent implements OnInit {
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.vendorForm.reset();
+        this.isupdate = false;
       }
     });
     this.vendorForm.patchValue({ client: this.utils.currentUser.value.id });
@@ -59,7 +61,7 @@ export class AddVendorsComponent implements OnInit {
           .post("entities/vendors/", this.vendorForm.value)
           .subscribe(value => {
             this.snackBar.open("vendor added", "Successfully", {
-              duration: 1000
+              duration: 3000
             });
             this.router.navigate(["/vendors"]);
           });
@@ -68,7 +70,7 @@ export class AddVendorsComponent implements OnInit {
           .put(`entities/vendors/${this.id}/`, this.vendorForm.value)
           .subscribe(value => {
             this.snackBar.open("vendor updated", "Successfully", {
-              duration: 1000
+              duration: 3000
             });
             this.router.navigate(["/vendors"]);
           });

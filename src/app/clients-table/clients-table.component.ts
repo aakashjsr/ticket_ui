@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class ClientsTableComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'city', 'website', 'edit'];
+  displayedColumns: string[] = ['name', 'website', 'edit'];
   dataSource: MatTableDataSource<IclientSite>;
   clientSites = [];
 

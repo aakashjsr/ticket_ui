@@ -14,10 +14,11 @@ import { Router } from "@angular/router";
 export class VendorsAccountTableComponent implements OnInit {
   displayedColumns: string[] = [
     "name",
-    "phone",
-    "color",
-    "vService",
+    'account',
     "vWeb",
+    'password',
+    "vService",
+    "color",
     "notes", 'edit'
   ];
   dataSource: MatTableDataSource<DeviceInfo>;

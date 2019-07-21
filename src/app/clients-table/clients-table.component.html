@@ -16,18 +16,13 @@
       <td mat-cell *matCellDef="let row"> {{row.name}} </td>
     </ng-container>
 
-    name, client_id, website
-
-    <!-- city Column -->
-    <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Id </th>
-      <td mat-cell *matCellDef="let row"> {{row.client_id}} </td>
-    </ng-container>
 
     <!-- website Column -->
     <ng-container matColumnDef="website">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Website </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.website}} </td>
+      <td mat-cell *matCellDef="let row" [style.color]="row.color">
+        <a target="_blank" href="https://{{row.website}}">{{row.website}}</a>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="edit">

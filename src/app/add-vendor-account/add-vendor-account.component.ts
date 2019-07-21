@@ -29,14 +29,14 @@ export class AddVendorAccountComponent implements OnInit {
     this.vendorAccountForm = this.fb.group({
       client_location: [null, Validators.required],
       account: [null],
-      vendor: [null],
       username: [null],
       password: [null],
       client: [null, Validators.required],
       client_site: [null, Validators.required],
       notes: [],
       support_expiration: [null, Validators.required],
-      license_key: []
+      license_key: [],
+      is_active: []
     });
   }
 
@@ -74,6 +74,7 @@ export class AddVendorAccountComponent implements OnInit {
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.vendorAccountForm.reset();
+        this.isUpdated = false;
       }
     });
     this.utils.currentUser.subscribe(user => {

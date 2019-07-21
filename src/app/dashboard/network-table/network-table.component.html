@@ -9,10 +9,10 @@
 <div class="mat-elevation-z0">
   <table mat-table [dataSource]="dataSource" matSort>
 
-    <!-- Site Column -->
+    <!-- site Column -->
     <ng-container matColumnDef="site">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Site </th>
-      <td mat-cell *matCellDef="let row"> {{row.client_location}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.client_site}} </td>
     </ng-container>
 
     <!-- gateway Column -->
@@ -33,17 +33,19 @@
       <td mat-cell *matCellDef="let row"> {{row.dhcp_name}} </td>
     </ng-container>
 
-    <!--dns_server_ip Column -->
-    <ng-container matColumnDef="dns_server_ip">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> DNS Serve Ip </th>
-      <td mat-cell *matCellDef="let row"> {{row.dns_server_ip}} </td>
+
+    <!-- sub_mask Column -->
+    <ng-container matColumnDef="sub_mask">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Subnet Mask </th>
+      <td mat-cell *matCellDef="let row"> {{row.wan_subnet_mask}} </td>
     </ng-container>
 
-    <!-- domain_controller_ip Column -->
-    <ng-container matColumnDef="domain_controller_ip">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Domain Controller Ip </th>
-      <td mat-cell *matCellDef="let row"> {{row.domain_controller_ip}} </td>
+    <!--verified_date Column -->
+    <ng-container matColumnDef="verified_date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Verified Date </th>
+      <td mat-cell *matCellDef="let row"> {{row.verified_date}} </td>
     </ng-container>
+
 
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>

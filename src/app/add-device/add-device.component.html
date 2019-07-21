@@ -5,7 +5,8 @@
     <div [formGroup]="deviceForm" class="card-body">
       <div class="d-flex justify-content-between mb-4">
         <h6> <span *ngIf="!isUpdated; else update">Add</span>
-          <ng-template #update>Edit</ng-template> Device</h6>
+          <ng-template #update>Edit</ng-template> Device
+        </h6>
         <h6>Client: {{ utils.currentUser.value?.name }}</h6>
       </div>
       <div>
@@ -13,14 +14,18 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Device ID</mat-label>
-              <input matInput formControlName="device_id" placeholder="First Name" />
+              <input matInput formControlName="device_id" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Type</mat-label>
-              <input matInput formControlName="type" placeholder="Last Name" />
+              <mat-select formControlName="type">
+                <mat-option *ngFor="let div_type of deviceTypes" [value]="div_type">
+                  {{ div_type }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
 
@@ -35,137 +40,137 @@
               </mat-select>
             </mat-form-field>
           </div>
-  
+
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>User ID</mat-label>
-              <input matInput formControlName="user_id" placeholder="First Name" />
+              <input matInput formControlName="user_id" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>WAN IP</mat-label>
-              <input matInput formControlName="wan_ip" placeholder="Last Name" />
+              <input matInput formControlName="wan_ip" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Make</mat-label>
-              <input matInput formControlName="make" placeholder="First Name" />
+              <input matInput formControlName="make" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Username</mat-label>
-              <input matInput formControlName="username" placeholder="Last Name" />
+              <input matInput formControlName="username" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Password</mat-label>
-              <input matInput formControlName="password" placeholder="First Name" />
+              <input matInput formControlName="password" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Serial</mat-label>
-              <input matInput formControlName="serial" placeholder="Last Name" />
+              <input matInput formControlName="serial" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>LAN IP</mat-label>
-              <input matInput formControlName="lan_ip" placeholder="First Name" />
+              <input matInput formControlName="lan_ip" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Warranty exp</mat-label>
-              <input matInput formControlName="warranty_exp" placeholder="Last Name" />
+              <input matInput formControlName="warranty_exp" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Processor</mat-label>
-              <input matInput formControlName="processor" placeholder="First Name" />
+              <input matInput formControlName="processor" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>RAM</mat-label>
-              <input matInput formControlName="ram" placeholder="Last Name" />
+              <input matInput formControlName="ram" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Bit</mat-label>
-              <input matInput formControlName="bit" placeholder="First Name" />
+              <input matInput formControlName="bit" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Location</mat-label>
-              <input matInput formControlName="location" placeholder="Last Name" />
+              <input matInput formControlName="location" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>MAC address</mat-label>
-              <input matInput formControlName="mac_address" placeholder="First Name" />
+              <input matInput formControlName="mac_address" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Wireless SSID</mat-label>
-              <input matInput formControlName="wireless_ssid" placeholder="Last Name" />
+              <input matInput formControlName="wireless_ssid" />
             </mat-form-field>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Wireless password</mat-label>
-              <input matInput formControlName="wireless_pass" placeholder="First Name" />
+              <input matInput formControlName="wireless_pass" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Guest SSID</mat-label>
-              <input matInput formControlName="guest_ssid" placeholder="Last Name" />
+              <input matInput formControlName="guest_ssid" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Guest password</mat-label>
-              <input matInput formControlName="guest_pass" placeholder="First Name" />
+              <input matInput formControlName="guest_pass" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Guest DHCP</mat-label>
-              <input matInput formControlName="guest_dhcp" placeholder="Last Name" />
+              <input matInput formControlName="guest_dhcp" />
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Backup</mat-label>
-              <input matInput formControlName="backup" placeholder="First Name" />
+              <input matInput formControlName="backup" />
             </mat-form-field>
           </div>
 
@@ -195,8 +200,15 @@
           <div class="col-12">
             <mat-form-field appearance="outline">
               <mat-label>Notes</mat-label>
-              <textarea matInput formControlName="notes" placeholder="First Name" rows="5"></textarea>
+              <textarea matInput formControlName="notes" rows="5"></textarea>
             </mat-form-field>
+
+            <div class="d-flex justify-content-end mb-4">
+              <mat-checkbox color="primary" class="mr-2" formControlName="is_active"><span class="text-primary">Is
+                  Active</span>
+              </mat-checkbox>
+            </div>
+
 
             <div align="right">
               <button (click)="submitForm()" type="button" class="btn btn-success">

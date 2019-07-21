@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ["./users-table.component.scss"]
 })
 export class UsersTableComponent implements OnInit {
-  displayedColumns: string[] = ["name", "phone", "cell", "email", "notes", "edit"];
+  displayedColumns: string[] = ["name", 'last_name', "phone", "cell", "email", 'user_type', "notes", "edit"];
   dataSource: MatTableDataSource<IUserInfo>;
   users = [];
 
@@ -43,6 +43,7 @@ export class UsersTableComponent implements OnInit {
     this.utils.currentUser.subscribe(user => {
       if (!user) return;
       this.createNewUser(user.id).subscribe(users => {
+        users.sort((a, b) => (a.first_name.toLowerCase() < b.first_name.toLowerCase() ? -1 : 1));
         this.users = users;
         this.dataSource = new MatTableDataSource(this.users);
         this.dataSource.paginator = this.paginator;

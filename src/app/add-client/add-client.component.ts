@@ -23,8 +23,8 @@ export class AddClientComponent implements OnInit {
   ) {
     this.addClientForm = this.fb.group({
       name: [null, Validators.required],
-      client_id: [null, Validators.required],
-      website: [null, Validators.required]
+      website: [null, Validators.required],
+      is_active: [null]
     });
   }
 
@@ -64,6 +64,7 @@ export class AddClientComponent implements OnInit {
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.addClientForm.reset();
+        this.isUpdated = false;
       }
     });
     this.utils.currentUser.subscribe(user => {

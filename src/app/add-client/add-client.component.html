@@ -8,7 +8,8 @@
         <h6>
           <span *ngIf="!isUpdated; else update">Add</span>
           <ng-template #update>Edit</ng-template>
-          Client</h6>
+          Client
+        </h6>
       </div>
       <div>
         <div class="row">
@@ -19,12 +20,7 @@
             </mat-form-field>
           </div>
 
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <mat-form-field appearance="outline">
-              <mat-label>Client Id</mat-label>
-              <input matInput formControlName="client_id" placeholder="Client Id">
-            </mat-form-field>
-          </div>
+
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
@@ -34,6 +30,13 @@
           </div>
 
           <div class="col-12">
+            <mat-checkbox class="align-self-start" color="primary" formControlName="is_active"><span
+                class="text-primary">Is
+                Active</span>
+            </mat-checkbox>
+
+            <br>
+
             <button (click)="submitForm()" type="button" class="btn btn-primary">
               <span *ngIf="!isUpdated; else update">Add</span>
               <ng-template #update>Update</ng-template> Client

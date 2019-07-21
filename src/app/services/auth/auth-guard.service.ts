@@ -32,7 +32,7 @@ export class AuthGuardService implements CanActivate {
     if (
       !this.utils.getCookie('token') || !this.isAuthorized(expectedRoles)
     ) {
-      this.snackBar.open("you are not authorized for this", localStorage.getItem('role'), { duration: 1000 })
+      this.snackBar.open("you are not authorized for this", localStorage.getItem('role'), { duration: 3000 })
       this.router.navigate(['login']);
       return false;
     }

@@ -45,7 +45,8 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
       internal_notes: [null],
       description: [null, Validators.required],
       client: [null, Validators.required],
-      work_type: [null]
+      work_type: [null],
+      is_active: []
     });
   }
 
@@ -107,6 +108,9 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
           client: [
             { value: currentFromState["client"], disabled: true },
             Validators.required
+          ],
+          is_active: [
+            { value: currentFromState["is_active"], disabled: false },
           ]
         });
         this.apiService
@@ -118,8 +122,24 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
     });
   }
 
+  //need to be implemented
+  getTktById(id: any) {
+    this.apiService
+      .get("accounts/client-users", { client: id })
+      .subscribe((value: any) => {
+        this.usersList = value;
+      });
+  }
+
   ngOnInit() {
     this.getFormInfo();
+    this.ticketForm.reset();
+    this.utils.internalDataBus.subscribe(value => {
+      if (value && value.type == 'refresh_table') {
+        this.ticketForm.reset();
+        this.isUpdate = false;
+      }
+    });
 
     this.utils.currentUser.subscribe(user => {
       if (user && !this.ticketForm.value.client) {
@@ -140,7 +160,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
           .put(`entities/ticket/${this.updateTicketId}/`, this.ticketForm.value)
           .subscribe(value => {
             this.snackBar.open("Ticket updated", "SuccessFully", {
-              duration: 1000
+              duration: 3000
             });
             this.router.navigate(["/"]);
           });
@@ -149,7 +169,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
           .post("entities/tickets/", this.ticketForm.value)
           .subscribe(value => {
             this.snackBar.open("Ticket Created", "SuccessFully", {
-              duration: 1000
+              duration: 3000
             });
             this.router.navigate(["/"]);
           });

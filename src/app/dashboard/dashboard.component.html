@@ -35,37 +35,39 @@
           <mat-icon>file_copy</mat-icon>
           <span class="list-text">Tickets</span>
         </button>
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'devices'"
-          (click)="navTo('devices', 'devices')">
+        <button *ngIf="currentUserRole !== 'client_user'" mat-list-item
+          [class.active]="showCurrentUserInfoType == 'devices'" (click)="navTo('devices', 'devices')">
           <mat-icon>important_devices</mat-icon>
           <span class="list-text">Devices</span>
         </button>
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendor'" (click)="navTo('vendors', 'vendor')">
+        <button *ngIf="currentUserRole !== 'client_user'" mat-list-item
+          [class.active]="showCurrentUserInfoType == 'vendor'" (click)="navTo('vendors', 'vendor')">
           <mat-icon>supervisor_account</mat-icon>
           <span class="list-text">Vendors</span>
         </button>
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'vendors-accounts'"
+        <button *ngIf="currentUserRole !== 'client_user'" mat-list-item
+          [class.active]="showCurrentUserInfoType == 'vendors-accounts'"
           (click)="navTo('vendors-accounts', 'vendors-accounts')">
           <mat-icon>account_balance</mat-icon>
           <span class="list-text">Vendor Accounts</span>
         </button>
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'network'"
-          (click)="navTo('networks', 'network')">
+        <button *ngIf="currentUserRole !== 'client_user'" mat-list-item
+          [class.active]="showCurrentUserInfoType == 'network'" (click)="navTo('networks', 'network')">
           <mat-icon>network_wifi</mat-icon>
           <span class="list-text">Network</span>
         </button>
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'clients'"
-          (click)="navTo('clients', 'clients')">
+        <button *ngIf="currentUserRole !== 'client_user'" mat-list-item
+          [class.active]="showCurrentUserInfoType == 'clients'" (click)="navTo('clients', 'clients')">
           <mat-icon>person</mat-icon> <span class="list-text">Clients</span>
         </button>
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'client_sites'"
-          (click)="navTo('client_sites', 'client_sites')">
+        <button *ngIf="currentUserRole !== 'client_user'" mat-list-item
+          [class.active]="showCurrentUserInfoType == 'client_sites'" (click)="navTo('client_sites', 'client_sites')">
           <mat-icon>location_on</mat-icon>
           <span class="list-text">Client Sites</span>
         </button>
 
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'userinfo'"
-          (click)="navTo('/users', 'userinfo')">
+        <button *ngIf="currentUserRole !== 'client_user'" mat-list-item
+          [class.active]="showCurrentUserInfoType == 'userinfo'" (click)="navTo('/users', 'userinfo')">
           <mat-icon>accessibility</mat-icon> <span class="list-text">Users</span>
         </button>
 
@@ -87,29 +89,30 @@
               <mat-icon>keyboard_arrow_down</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button (click)="navToRoute('user')" mat-menu-item>
-                <mat-icon>accessibility</mat-icon> Users
-              </button>
-              <button (click)="navToRoute('device')" mat-menu-item>
-                <mat-icon>important_devices</mat-icon> Devices
-              </button>
-
-              <button (click)="navToRoute('network')" mat-menu-item>
-                <mat-icon>network_wifi</mat-icon> Network
-              </button>
-              <button (click)="navToRoute('client')" mat-menu-item>
-                <mat-icon>person</mat-icon> Add Client
-              </button>
-              <button (click)="navToRoute('client-site')" mat-menu-item>
-                <mat-icon>location_on</mat-icon> Client Sites
-              </button>
               <button (click)="navToRoute('ticket')" mat-menu-item>
                 <mat-icon>file_copy</mat-icon> Ticket
               </button>
-              <button (click)="navToRoute('vendor')" mat-menu-item>
+              <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('user')" mat-menu-item>
+                <mat-icon>accessibility</mat-icon> Users
+              </button>
+              <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('device')" mat-menu-item>
+                <mat-icon>important_devices</mat-icon> Devices
+              </button>
+
+              <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('network')" mat-menu-item>
+                <mat-icon>network_wifi</mat-icon> Network
+              </button>
+              <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('client')" mat-menu-item>
+                <mat-icon>person</mat-icon> Add Client
+              </button>
+              <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('client-site')" mat-menu-item>
+                <mat-icon>location_on</mat-icon> Client Sites
+              </button>
+
+              <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('vendor')" mat-menu-item>
                 <mat-icon>supervisor_account</mat-icon> Vendors
               </button>
-              <button (click)="navToRoute('vendor-account')" mat-menu-item>
+              <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('vendor-account')" mat-menu-item>
                 <mat-icon>account_balance</mat-icon> Vendor Account
               </button>
             </mat-menu>
@@ -126,42 +129,6 @@
         </div>
       </div>
 
-      <!-- <div [ngSwitch]="showCurrentUserInfoType">
-        <mat-card *ngSwitchCase="'network'">
-          <mat-card-content>
-            <network-table class="w-100"></network-table>
-          </mat-card-content>
-        </mat-card>
-        <mat-card *ngSwitchCase="'devices'">
-          <mat-card-content>
-            <devices-table class="w-100"></devices-table>
-          </mat-card-content>
-        </mat-card>
-        <mat-card *ngSwitchCase="'vendor'">
-          <mat-card-content>
-            <vendors-table class="w-100"></vendors-table>
-          </mat-card-content>
-        </mat-card>
-        <mat-card *ngSwitchCase="'userinfo'">
-          <mat-card-content>
-            <users-table class="w-100"></users-table>
-          </mat-card-content>
-        </mat-card>
-        <mat-card *ngSwitchCase="'client_sites'">
-          <mat-card-content>
-            <app-client-sites class="w-100"></app-client-sites>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card *ngSwitchCase="'ticket'">
-          <mat-card-content>
-            <tickets-table class="w-100"></tickets-table>
-          </mat-card-content>
-        </mat-card>
-
-
-        <div *ngSwitchDefault>Invlid Table Request</div>
-      </div> -->
       <router-outlet></router-outlet>
       <!-- end content here -->
     </mat-sidenav-content>

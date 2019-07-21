@@ -25,6 +25,7 @@ enum EshowUserInfoType {
 })
 export class DashboardComponent implements OnInit {
   currentUser = new FormControl();
+  currentUserRole: string = 'hello';
   filteredStates: Observable<any[]>;
   private _showCurrentUserInfoType: any = EshowUserInfoType.TICKET;
   public get showCurrentUserInfoType(): any {
@@ -100,6 +101,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getClients();
+    this.currentUserRole = this.utils.getCookie('user_type');
     this.utils.internalDataBus.subscribe((value) => {
       if (value && value.type == 'update_client') {
         this.clients.push(value.data);

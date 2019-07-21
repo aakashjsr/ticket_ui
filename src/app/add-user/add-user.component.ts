@@ -41,7 +41,7 @@ export class AddUserComponent implements OnInit {
       phone: [],
       phone_ext: [],
       cell_phone: [],
-      notes: []
+      notes: [],
     });
   }
 
@@ -87,6 +87,7 @@ export class AddUserComponent implements OnInit {
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.userForm.reset();
+        this.isUpdate = false;
       }
     });
     this.utils.currentUser.subscribe(user => {
