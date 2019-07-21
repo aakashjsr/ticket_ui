@@ -2,7 +2,7 @@
   <mat-form-field class="searchBar-alignment">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
   </mat-form-field>
-  <mat-checkbox class="mr-4" color="primary" (change)="activeFilter($event)"><span class="text-primary">Is Active</span>
+  <mat-checkbox class="mr-4" color="primary" [(ngModel)]="isActive" (ngModelChange)="activeFilter($event)"><span class="text-primary">Is Active</span>
   </mat-checkbox>
 </div>
 

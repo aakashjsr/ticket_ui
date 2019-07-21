@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
         const errMsg = value.data;
         let keys = Object.keys(errMsg);
         let key = keys.pop();
-        this.snackBar.open(errMsg[key], `${key.replace(/\_/g, " ")}`, { duration: 3000 })
+        this.snackBar.open(`${key.replace(/\_/g, " ")}`, errMsg[key], { duration: 3000 })
       }
     });
   }

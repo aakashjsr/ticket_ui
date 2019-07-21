@@ -24,7 +24,7 @@ export class AddClientComponent implements OnInit {
     this.addClientForm = this.fb.group({
       name: [null, Validators.required],
       website: [null, Validators.required],
-      is_active: [null]
+      is_active: [true]
     });
   }
 
@@ -60,10 +60,10 @@ export class AddClientComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.addClientForm.reset();
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.addClientForm.reset();
+        this.addClientForm.patchValue({ is_active: true });
         this.isUpdated = false;
       }
     });

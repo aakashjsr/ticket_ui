@@ -54,6 +54,7 @@ import { AddClientComponent } from "./add-client/add-client.component";
 import { CookieService } from "ngx-cookie-service";
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { ContactDialogueComponent } from "./tickets-table/contact-dialogue/contact-dialogue.component";
+import { Key2stringPipe } from './key2string.pipe';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { ContactDialogueComponent } from "./tickets-table/contact-dialogue/conta
     ClientsTableComponent,
     AddClientComponent,
     ForgotPasswordComponent,
-    ContactDialogueComponent
+    ContactDialogueComponent,
+    Key2stringPipe
   ],
   imports: [
     BrowserModule,
@@ -114,8 +116,8 @@ import { ContactDialogueComponent } from "./tickets-table/contact-dialogue/conta
     MatToolbarModule,
     MatListModule,
     NgxLoadingModule.forRoot({
-      animationType: ngxLoadingAnimationTypes.threeBounce,
-      backdropBackgroundColour: "rgba(0,0,0,0.1)",
+      animationType: ngxLoadingAnimationTypes.rectangleBounce,
+      backdropBackgroundColour: "rgba(0,0,0,0.3)",
       backdropBorderRadius: "4px",
       primaryColour: "purple",
       secondaryColour: "white",

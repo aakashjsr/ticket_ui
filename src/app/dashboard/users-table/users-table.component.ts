@@ -14,6 +14,7 @@ export class UsersTableComponent implements OnInit {
   displayedColumns: string[] = ["name", 'last_name', "phone", "cell", "email", 'user_type', "notes", "edit"];
   dataSource: MatTableDataSource<IUserInfo>;
   users = [];
+  isActive = true;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -30,13 +31,8 @@ export class UsersTableComponent implements OnInit {
   }
 
   activeFilter(event: MatCheckboxChange) {
-    console.log(event);
-    if (!event.checked) {
-      this.applyFilter('');
-      return;
-    }
-    this.dataSource.filterPredicate = (data: IUserInfo, filter: any) => data.is_active == filter;
-    this.dataSource.filter = event.checked.toString();
+    this.dataSource.filterPredicate = (data: IUserInfo, filter: any) => data && data.is_active.toString() == filter;
+    this.dataSource.filter = this.isActive.toString();
   }
 
   ngOnInit() {

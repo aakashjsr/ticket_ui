@@ -53,16 +53,16 @@ export class AddDeviceComponent implements OnInit {
       client_site: [null,],
       verified_date: [],
       notes: [],
-      is_active: []
+      is_active: [true]
     });
   }
 
   ngOnInit() {
-    this.deviceForm.reset();
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.deviceForm.reset();
         this.isUpdated = false;
+        this.deviceForm.patchValue({ is_active: true });
       }
     });
     this.deviceForm.patchValue({ client: this.utils.currentUser.value.id });

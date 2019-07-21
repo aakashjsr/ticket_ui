@@ -30,20 +30,19 @@ export class AddClientSiteComponent implements OnInit {
       client_location: [],
       zip_code: [null, Validators.required],
       state: [null, Validators.required],
-      phone: [null, Validators.required],
+      phone: [null, [Validators.required, Validators.pattern(/\d{10}/)]],
       fax: [],
       client_hours: [],
-      is_active: []
+      is_active: [true]
     });
   }
   // edit-client-site
   ngOnInit() {
-    this.clientSiteForm.reset();
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.clientSiteForm.reset();
         this.isUpdated = false;
-
+        this.clientSiteForm.patchValue({ is_active: true });
       }
     }); this.clientSiteForm.patchValue({ client: this.utils.currentUser.value.id });
     this.utils.internalDataBus.subscribe(deviceInfo => {

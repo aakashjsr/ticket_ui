@@ -42,16 +42,16 @@ export class AddNetworksComponent implements OnInit {
       inactive_date: [],
       verified_date: [],
       client_site: [null, Validators.required],
-      is_active: [null,]
+      is_active: [true,]
     });
   }
 
   ngOnInit() {
-    this.networkForm.reset();
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.networkForm.reset();
         this.isUpdated = false;
+        this.networkForm.patchValue({ is_active: true });
       }
     });
     this.networkForm.patchValue({ client: this.utils.currentUser.value.id });

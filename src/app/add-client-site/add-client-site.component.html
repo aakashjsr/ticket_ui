@@ -79,7 +79,7 @@
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
               <mat-label>Client hours</mat-label>
-              <input matInput formControlName="client_hours">
+              <input matInput type="number" formControlName="client_hours">
             </mat-form-field>
           </div>
 
@@ -87,7 +87,8 @@
 
           <div class="col-12 mt-4" align="right">
             <div class="d-flex justify-content-end mb-4">
-              <mat-checkbox color="primary" class="mr-2" formControlName="is_active"><span class="text-primary">Is
+              <mat-checkbox color="primary" [checked]="true" class="mr-2" formControlName="is_active"><span
+                  class="text-primary">Is
                   Active</span>
               </mat-checkbox>
             </div>

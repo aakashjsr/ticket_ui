@@ -34,6 +34,7 @@ export class TicketsTableComponent implements OnInit {
   dataSource: MatTableDataSource<ITicket> = new MatTableDataSource([]);
   networks: ITicket[] = [];
   filterForm: FormGroup;
+  isActive = true;
   clients: Array<ICleientSites> = [];
   ticketStatus: Array<{ display: string; value: string }> = [];
 
@@ -60,12 +61,10 @@ export class TicketsTableComponent implements OnInit {
 
   activeFilter(event: MatCheckboxChange) {
     console.log(event);
-    if (!event.checked) {
-      this.applyFilter('');
-      return;
-    }
-    this.dataSource.filterPredicate = (data: ITicket, filter: any) => data.is_active == filter;
-    this.dataSource.filter = event.checked.toString();
+    console.log(this.isActive);
+
+    this.dataSource.filterPredicate = (data: ITicket, filter: any) => data && data.is_active.toString() == filter;
+    this.dataSource.filter = this.isActive.toString();
   }
 
   openDialog(value: any): void {

@@ -16,6 +16,7 @@ export class VendorsTableComponent implements OnInit {
   displayedColumns: string[] = ['name', 'phone', 'service', 'email', 'vWeb', 'edit'];
   dataSource: MatTableDataSource<IVendor>;
   vendors = [];
+  isActive = true;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -35,12 +36,9 @@ export class VendorsTableComponent implements OnInit {
 
   activeFilter(event: MatCheckboxChange) {
     console.log(event);
-    if (!event.checked) {
-      this.applyFilter('');
-      return;
-    }
-    this.dataSource.filterPredicate = (data: IVendor, filter: any) => data.is_active == filter;
-    this.dataSource.filter = event.checked.toString();
+
+    this.dataSource.filterPredicate = (data: IVendor, filter: any) => data && data.is_active.toString() == filter;
+    this.dataSource.filter = this.isActive.toString();
   }
 
 

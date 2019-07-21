@@ -2,7 +2,8 @@
   <mat-form-field class="searchBar-alignment">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
   </mat-form-field>
-  <mat-checkbox class="mr-4" color="primary" (change)="activeFilter($event)"><span class="text-primary">Is Active</span>
+  <mat-checkbox class="mr-4" color="primary" [(ngModel)]="isActive" (ngModelChange)="activeFilter($event)"><span
+      class="text-primary">Is Active</span>
   </mat-checkbox>
 </div>
 
@@ -25,26 +26,26 @@
     <!-- Color Column -->
     <ng-container matColumnDef="phone">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.phone}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
     </ng-container>
 
     <!-- Color Column -->
     <ng-container matColumnDef="cell">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Cell phone </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.cell_phone}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.cell_phone}} </td>
     </ng-container>
 
 
     <!-- user_type Column -->
     <ng-container matColumnDef="user_type">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> User Type </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.user_type}} </td>
+      <td mat-cell *matCellDef="let row" class="text-capitalize"> {{row.user_type | key2string }} </td>
     </ng-container>
 
     <!-- Service Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color">
+      <td mat-cell *matCellDef="let row">
         <a href="mailto:{{row.email}}">{{row.email}}</a>
       </td>
     </ng-container>
@@ -52,7 +53,7 @@
     <!-- Website Column -->
     <ng-container matColumnDef="notes">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Notes </th>
-      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.notes}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.notes}} </td>
     </ng-container>
 
 

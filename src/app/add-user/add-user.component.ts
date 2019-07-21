@@ -30,17 +30,15 @@ export class AddUserComponent implements OnInit {
       last_name: [null, Validators.required],
       clients: [null, Validators.required],
       client: [null, Validators.required],
-      device_id: [null],
       email: [null, [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)]],
       username: [null, Validators.required],
       password: [null],
-      lan_ip: [],
       user_type: [null, Validators.required],
       is_primary_contact: [true, Validators.required],
-      is_active: [],
-      phone: [],
+      is_active: [true],
+      phone: [null, Validators.pattern(/\d{10}/)],
       phone_ext: [],
-      cell_phone: [],
+      cell_phone: [null, Validators.pattern(/\d{10}/)],
       notes: [],
     });
   }
@@ -83,11 +81,11 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userForm.reset();
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.userForm.reset();
         this.isUpdate = false;
+        this.userForm.patchValue({ is_active: true });
       }
     });
     this.utils.currentUser.subscribe(user => {

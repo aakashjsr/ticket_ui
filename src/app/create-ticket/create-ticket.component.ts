@@ -46,7 +46,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
       description: [null, Validators.required],
       client: [null, Validators.required],
       work_type: [null],
-      is_active: []
+      is_active: [true]
     });
   }
 
@@ -76,7 +76,10 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
           category: [{ value: currentFromState["category"], disabled: true }],
           status: [{ value: currentFromState["status"], disabled: false }],
           invoice_id: [
-            { value: currentFromState["invoice_id"], disabled: true }
+            { value: currentFromState["invoice_id"], disabled: true },
+          ],
+          work_type: [
+            { value: currentFromState["work_type"], disabled: true },
           ],
           parts_used: [
             { value: currentFromState["parts_used"], disabled: true }
@@ -133,11 +136,11 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getFormInfo();
-    this.ticketForm.reset();
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.ticketForm.reset();
         this.isUpdate = false;
+        this.ticketForm.patchValue({ is_active: true });
       }
     });
 

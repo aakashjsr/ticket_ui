@@ -1,9 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { UtilsService } from './utils.service';
 import { share } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 
 
@@ -14,6 +16,8 @@ export class ApiIntercepterService {
   private baseUrl = `${environment.method}${environment.baseUrl}`;
   private headers: any;
   constructor(private httpClient: HttpClient
+    , private router: Router
+    , private snackBar: MatSnackBar
     , private utils: UtilsService) {
     this.initHeaders();
   }
@@ -28,7 +32,16 @@ export class ApiIntercepterService {
 
   handleSpinner(observable: Observable<any>) {
     this.utils.showLoader.next(true);
-    observable.subscribe(_ => this.utils.showLoader.next(false), _ => this.utils.showLoader.next(false));
+    observable.subscribe(_ => this.utils.showLoader.next(false), (error: HttpErrorResponse) => {
+      this.utils.showLoader.next(false);
+      if (error.status == 401) {
+        localStorage.clear();
+        this.utils.clearCoockies();
+        this.snackBar.open("Token Expired", 'login required', { duration: 2000 })
+        this.router.navigate(["/login"]);
+      }
+    }
+    );
   }
 
   formErrorHandler(observable: Observable<any>) {

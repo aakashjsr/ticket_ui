@@ -24,7 +24,7 @@ export class AddVendorsComponent implements OnInit {
     this.vendorForm = this.fb.group({
       client: [null, Validators.required],
       name: [null, Validators.required],
-      phone: [null, Validators.required],
+      phone: [null, [Validators.required, Validators.pattern(/\d{10}/)]],
       email: [null, Validators.required],
       address: [null, Validators.required],
       service: [null, Validators.required],
@@ -32,12 +32,12 @@ export class AddVendorsComponent implements OnInit {
       support_website: [null, Validators.required],
       verified_date: [],
       notes: [],
-      is_active: []
+      is_active: [true]
     });
+    this.vendorForm.valueChanges.subscribe(console.log);
   }
 
   ngOnInit() {
-    this.vendorForm.reset();
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.vendorForm.reset();
@@ -50,6 +50,7 @@ export class AddVendorsComponent implements OnInit {
         this.vendorForm.patchValue(value.data);
         this.isupdate = true;
         this.id = value.data.id;
+        this.vendorForm.patchValue({ is_active: true });
       }
     });
   }

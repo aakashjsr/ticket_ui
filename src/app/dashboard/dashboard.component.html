@@ -93,24 +93,24 @@
                 <mat-icon>file_copy</mat-icon> Ticket
               </button>
               <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('user')" mat-menu-item>
-                <mat-icon>accessibility</mat-icon> Users
+                <mat-icon>accessibility</mat-icon> User
               </button>
               <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('device')" mat-menu-item>
-                <mat-icon>important_devices</mat-icon> Devices
+                <mat-icon>important_devices</mat-icon> Device
               </button>
 
               <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('network')" mat-menu-item>
                 <mat-icon>network_wifi</mat-icon> Network
               </button>
               <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('client')" mat-menu-item>
-                <mat-icon>person</mat-icon> Add Client
+                <mat-icon>person</mat-icon> Client
               </button>
               <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('client-site')" mat-menu-item>
-                <mat-icon>location_on</mat-icon> Client Sites
+                <mat-icon>location_on</mat-icon> Client Site
               </button>
 
               <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('vendor')" mat-menu-item>
-                <mat-icon>supervisor_account</mat-icon> Vendors
+                <mat-icon>supervisor_account</mat-icon> Vendor
               </button>
               <button *ngIf="currentUserRole !== 'client_user'" (click)="navToRoute('vendor-account')" mat-menu-item>
                 <mat-icon>account_balance</mat-icon> Vendor Account

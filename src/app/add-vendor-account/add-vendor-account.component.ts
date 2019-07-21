@@ -27,7 +27,6 @@ export class AddVendorAccountComponent implements OnInit {
     public utils: UtilsService
   ) {
     this.vendorAccountForm = this.fb.group({
-      client_location: [null, Validators.required],
       account: [null],
       username: [null],
       password: [null],
@@ -36,9 +35,11 @@ export class AddVendorAccountComponent implements OnInit {
       notes: [],
       support_expiration: [null, Validators.required],
       license_key: [],
-      is_active: []
+      is_active: [true]
     });
   }
+
+  //addvendor account
 
   submitForm() {
     if (this.vendorAccountForm.valid) {
@@ -70,10 +71,10 @@ export class AddVendorAccountComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.vendorAccountForm.reset();
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.vendorAccountForm.reset();
+        this.vendorAccountForm.patchValue({ is_active: true });
         this.isUpdated = false;
       }
     });

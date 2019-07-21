@@ -30,6 +30,10 @@ export class UtilsService implements OnDestroy {
     return this.cookieService.get(key);
   }
 
+  clearCoockies(){
+    this.cookieService.deleteAll();
+  }
+
 
   setCookie(key: string, value: any) {
     this.cookieService.set(key, value);
