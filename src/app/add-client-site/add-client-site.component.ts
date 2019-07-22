@@ -30,7 +30,7 @@ export class AddClientSiteComponent implements OnInit {
       client_location: [],
       zip_code: [null, Validators.required],
       state: [null, Validators.required],
-      phone: [null, [Validators.required, Validators.pattern(/\d{10}/)]],
+      phone: [null, [Validators.required,]],
       fax: [],
       client_hours: [],
       is_active: [true]

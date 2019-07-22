@@ -36,9 +36,9 @@ export class AddUserComponent implements OnInit {
       user_type: [null, Validators.required],
       is_primary_contact: [true, Validators.required],
       is_active: [true],
-      phone: [null, Validators.pattern(/\d{10}/)],
+      phone: [null,],
       phone_ext: [],
-      cell_phone: [null, Validators.pattern(/\d{10}/)],
+      cell_phone: [null,],
       notes: [],
     });
   }

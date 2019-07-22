@@ -27,7 +27,7 @@ export class TicketsTableComponent implements OnInit {
     "cateogry",
     "desc",
     'assignedTo',
-    'estComp',
+    // 'estComp',
     "c_p",
     "edit"
   ];
@@ -63,7 +63,8 @@ export class TicketsTableComponent implements OnInit {
     console.log(event);
     console.log(this.isActive);
 
-    this.dataSource.filterPredicate = (data: ITicket, filter: any) => data && data.is_active.toString() == filter;
+    this.dataSource.filterPredicate =
+      (data: ITicket, filter: any) => data && data.is_active && data.is_active.toString() == filter;
     this.dataSource.filter = this.isActive.toString();
   }
 
@@ -126,7 +127,7 @@ export class TicketsTableComponent implements OnInit {
         });
 
         status.forEach(value => {
-          if (data.status.toString().toLowerCase() == value.toString().toLowerCase()) {
+          if (data.status.toLowerCase() == value.toLowerCase()) {
             isStatus = true;
           }
         });
