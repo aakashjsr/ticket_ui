@@ -28,13 +28,15 @@ export class NetworkTableComponent implements OnInit {
   }
 
   editUserForm(value: any) {
-    this.utils.internalDataBus.next({ type: 'edit-network', data: value })
+    this.utils.internalDataBus.next({
+      type: 'edit-network', data:
+        { ...value, client_site: value.client_site.id }
+    })
     this.router.navigate(['network']);
   }
 
   activeFilter(event: MatCheckboxChange) {
     console.log(event);
-
     this.dataSource.filterPredicate = (data: INetwork, filter: any) => data && data.is_active.toString() == filter;
     this.dataSource.filter = this.isActive.toString();
   }

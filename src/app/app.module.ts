@@ -116,7 +116,7 @@ import { Key2stringPipe } from './key2string.pipe';
     MatToolbarModule,
     MatListModule,
     NgxLoadingModule.forRoot({
-      animationType: ngxLoadingAnimationTypes.rectangleBounce,
+      animationType: ngxLoadingAnimationTypes.circleSwish,
       backdropBackgroundColour: "rgba(0,0,0,0.3)",
       backdropBorderRadius: "4px",
       primaryColour: "purple",

@@ -26,7 +26,7 @@ export class ForgotPasswordComponent {
   submitForm() {
     if (this.emailForm.valid) {
       console.log(this.emailForm.value);
-      this.apiService.get("accounts/reset", { email: this.emailForm.value });
+      this.apiService.get("accounts/reset/", { email: this.emailForm.value });
       this.snackBar.open("reset url sent to Mail", "Successfully", { duration: 3000 });
       this.onNoClick();
     }

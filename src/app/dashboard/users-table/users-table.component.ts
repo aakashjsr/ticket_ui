@@ -58,7 +58,7 @@ export class UsersTableComponent implements OnInit {
 
   /** Builds and returns a new User. */
   createNewUser(id: any): Observable<Array<IUserInfo>> {
-    return this.apiService.get<Array<IUserInfo>>("accounts/client-users", {
+    return this.apiService.get<Array<IUserInfo>>("accounts/client-users/", {
       client: id
     });
   }

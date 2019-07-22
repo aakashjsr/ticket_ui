@@ -46,7 +46,6 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
       description: [null, Validators.required],
       client: [null, Validators.required],
       work_type: [null],
-      is_active: [true]
     });
   }
 
@@ -112,9 +111,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
             { value: currentFromState["client"], disabled: true },
             Validators.required
           ],
-          is_active: [
-            { value: currentFromState["is_active"], disabled: false },
-          ]
+
         });
         this.apiService
           .get<Array<any>>(`entities/ticket-history/${value.data.id}/`)

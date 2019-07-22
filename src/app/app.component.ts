@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     this.utils.showLoader.subscribe(value => {
       setTimeout(() => {
         this.loading = value
-      }, 0);
+      }, 500);
     });
   }
 

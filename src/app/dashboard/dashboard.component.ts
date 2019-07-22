@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
 
 
   getClients() {
-    this.apiService.get<Array<ICleientSites>>("accounts/clients").subscribe((value) => {
+    this.apiService.get<Array<ICleientSites>>("accounts/clients/").subscribe((value) => {
       this.clients.push(...value);
       this.filteredStates = this.currentUser.valueChanges
         .pipe(

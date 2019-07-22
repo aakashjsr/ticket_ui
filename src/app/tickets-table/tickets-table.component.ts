@@ -12,7 +12,7 @@ import { UtilsService } from "../services/utils.service";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
 import { ContactDialogueComponent } from "./contact-dialogue/contact-dialogue.component";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder } from "@angular/forms";
 
 @Component({
   selector: "tickets-table",
@@ -158,10 +158,16 @@ export class TicketsTableComponent implements OnInit {
 
   editTktDetails(selectedTkt: any) {
     this.router.navigate(["/ticket"]);
-    this.utils.internalDataBus.next({ type: "tkt", data: selectedTkt });
+    this.utils.internalDataBus.next({
+      type: "tkt",
+      data: {
+        ...selectedTkt,
+        client: selectedTkt.client.id, assigned_to: selectedTkt.assigned_to.id
+      },
+    });
   }
 
   createNewUser(id: any): Observable<ITicket[]> {
-    return this.apiService.get<ITicket[]>("entities/tickets", { client: id });
+    return this.apiService.get<ITicket[]>("entities/tickets/", { client: id });
   }
 }

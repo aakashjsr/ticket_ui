@@ -92,7 +92,7 @@ export class AddUserComponent implements OnInit {
       this.userForm.patchValue({ client: user.id });
     });
 
-    this.apiService.get<Array<any>>("accounts/clients").subscribe(value => {
+    this.apiService.get<Array<any>>("accounts/clients/").subscribe(value => {
       this.clients = value;
 
       this.utils.internalDataBus.subscribe(value => {
