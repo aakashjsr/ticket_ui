@@ -16,7 +16,7 @@ export class AddDeviceComponent implements OnInit {
   isUpdated = false;
   clientSites: IclientSite[] = [];
   id: string;
-  deviceTypes = ['Router', 'Access', 'Point', 'phone', 'IOT', 'Printer', 'Switch',
+  deviceTypes = ['Router', 'Access point', 'phone', 'IOT', 'Printer', 'Switch',
     'firewall', 'server', 'workstation', 'mac', 'ups', 'modem', 'NAS',
     'Camera', 'software', 'VM', 'Phone', 'system'];
   constructor(

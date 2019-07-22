@@ -82,7 +82,7 @@ export class TicketsTableComponent implements OnInit {
 
   getClients() {
     this.apiService
-      .get<Array<ICleientSites>>("accounts/clients")
+      .get<Array<ICleientSites>>("accounts/clients/")
       .subscribe(value => {
         this.clients.push(...value);
         this.filterForm.patchValue({ clients: value.map(client => client.id) });

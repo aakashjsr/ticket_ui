@@ -4,7 +4,7 @@ import { ApiIntercepterService } from "../services/api-intercepter.service";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
 import { UtilsService } from "../services/utils.service";
-import { IclientSite } from '../utils/userInfo';
+import { IclientSite, IVendor } from '../utils/userInfo';
 
 @Component({
   selector: "app-add-vendor-account",
@@ -18,6 +18,7 @@ export class AddVendorAccountComponent implements OnInit {
   isUpdated = false;
   clients = [];
   id: string;
+  vendors = [];
   clientSites: IclientSite[] = [];
   constructor(
     private fb: FormBuilder,
@@ -33,6 +34,7 @@ export class AddVendorAccountComponent implements OnInit {
       client: [null, Validators.required],
       client_site: [null, Validators.required],
       notes: [],
+      vendor: [],
       support_expiration: [null, Validators.required],
       license_key: [],
       is_active: [true]
@@ -79,7 +81,10 @@ export class AddVendorAccountComponent implements OnInit {
       }
     });
     this.utils.currentUser.subscribe(user => {
+      if (!user || !user.id) return;
       this.vendorAccountForm.patchValue({ client: user.id });
+      this.apiService.get<IVendor[]>("entities/vendors/", { client: user.id })
+        .subscribe(vendors => this.vendors.push(...vendors));
     });
 
     this.apiService.get<Array<any>>("accounts/clients/").subscribe(value => {

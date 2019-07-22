@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class UtilsService implements OnDestroy {
   internalDataBus = new BehaviorSubject<{ type: string, data: any }>(null);
   showLoader = new Subject<boolean>();
-  currentUser = new BehaviorSubject<IClient>({ client_id: '000', id: '1', name: 'sjkdsjkdsjkd', active: true, past_due_date: true, website: '', is_active: true });
+  currentUser = new BehaviorSubject<IClient>(null);
   client_sites = new BehaviorSubject<IclientSite[]>(null);
   constructor(private cookieService: CookieService) { }
 
@@ -30,7 +30,7 @@ export class UtilsService implements OnDestroy {
     return this.cookieService.get(key);
   }
 
-  clearCoockies(){
+  clearCoockies() {
     this.cookieService.deleteAll();
   }
 

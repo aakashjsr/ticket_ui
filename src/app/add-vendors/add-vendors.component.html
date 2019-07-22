@@ -7,7 +7,7 @@
         <h6> <span *ngIf="!isupdate; else update">Add</span>
           <ng-template #update>Edit</ng-template> Vendor
         </h6>
-        <h6>Client: {{utils.currentUser.value.name}}</h6>
+        <h6>Client: {{utils.currentUser?.value?.name}}</h6>
       </div>
       <div>
         <div class="row">

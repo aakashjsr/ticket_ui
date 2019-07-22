@@ -33,20 +33,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
     private router: Router,
     public utils: UtilsService
   ) {
-    this.ticketForm = this.fb.group({
-      category: [null, Validators.required],
-      status: ["new", null],
-      invoice_id: [null,],
-      parts_used: [null,],
-      requested_comp_date: [null],
-      contact_person: [null, Validators.required],
-      assigned_to: [null, Validators.required],
-      public_notes: [null],
-      internal_notes: [null],
-      description: [null, Validators.required],
-      client: [null, Validators.required],
-      work_type: [null],
-    });
+    this.intiForm();
   }
 
   ngOnDestroy(): void {
@@ -125,18 +112,36 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
   //need to be implemented
   getTktById(id: any) {
     this.apiService
-      .get("accounts/client-users", { client: id })
+      .get("accounts/client-users/", { client: id })
       .subscribe((value: any) => {
         this.usersList = value;
       });
+  }
+
+
+  intiForm() {
+    this.ticketForm = this.fb.group({
+      category: [null, Validators.required],
+      status: ["new", null],
+      invoice_id: [null,],
+      parts_used: [null,],
+      requested_comp_date: [null],
+      contact_person: [null, Validators.required],
+      assigned_to: [null, Validators.required],
+      public_notes: [null],
+      internal_notes: [null],
+      description: [null, Validators.required],
+      client: [null, Validators.required],
+      work_type: [null],
+    });
   }
 
   ngOnInit() {
     this.getFormInfo();
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
-        this.ticketForm.reset();
         this.isUpdate = false;
+        this.intiForm();
         this.ticketForm.patchValue({ is_active: true });
       }
     });
@@ -146,7 +151,7 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
         this.ticketForm.patchValue({ client: user.id });
       }
       this.apiService
-        .get("accounts/client-users", { client: user.id })
+        .get("accounts/client-users/", { client: user.id })
         .subscribe((value: any) => {
           this.usersList = value;
         });

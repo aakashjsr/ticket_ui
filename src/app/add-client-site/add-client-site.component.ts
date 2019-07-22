@@ -44,7 +44,8 @@ export class AddClientSiteComponent implements OnInit {
         this.isUpdated = false;
         this.clientSiteForm.patchValue({ is_active: true });
       }
-    }); this.clientSiteForm.patchValue({ client: this.utils.currentUser.value.id });
+    });
+    this.clientSiteForm.patchValue({ client: this.utils.currentUser.value.id });
     this.utils.internalDataBus.subscribe(deviceInfo => {
       if (deviceInfo && deviceInfo.type == "edit-client-site") {
         this.clientSiteForm.patchValue(deviceInfo.data);
