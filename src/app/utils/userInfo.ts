@@ -77,7 +77,7 @@ export interface ITicket {
   parts_used: string;
   submit_id: string;
   isBillable: boolean;
-  client: number;
+  client: any;
   is_active: boolean;
 }
 

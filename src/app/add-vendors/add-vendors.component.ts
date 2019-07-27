@@ -11,8 +11,10 @@ import { UtilsService } from "../services/utils.service";
   styleUrls: ["./add-vendors.component.scss"]
 })
 export class AddVendorsComponent implements OnInit {
+  private resolve: Function | null = null;
   vendorForm: FormGroup;
   isupdate = false;
+  clientName: Promise<string> | null = new Promise((resolve, reject) => { this.resolve = resolve; });
   id: string;
   constructor(
     private fb: FormBuilder,
@@ -44,7 +46,11 @@ export class AddVendorsComponent implements OnInit {
         this.isupdate = false;
       }
     });
-    this.vendorForm.patchValue({ client: this.utils.currentUser.value.id });
+    this.utils.currentUser.subscribe((user) => {
+      this.vendorForm.patchValue({ client: user.id });
+      this.resolve(user.name);
+      this.clientName = new Promise((resolve, reject) => { resolve(user.name) });
+    });
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == "edit-vendor") {
         this.vendorForm.patchValue(value.data);
@@ -56,6 +62,7 @@ export class AddVendorsComponent implements OnInit {
   }
 
   submitForm() {
+    this.clientName.then(console.log);
     if (this.vendorForm.valid) {
       if (!this.isupdate) {
         this.apiService

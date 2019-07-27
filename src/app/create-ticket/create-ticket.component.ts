@@ -15,7 +15,7 @@ import { UtilsService } from "../services/utils.service";
   templateUrl: "./create-ticket.component.html",
   styleUrls: ["./create-ticket.component.scss"]
 })
-export class CreateTicketComponent implements OnInit, OnDestroy {
+export class CreateTicketComponent implements OnInit {
   ticketsCat: Array<{ display: string; value: string }> = [];
   ticketForm: FormGroup;
   isUpdate = false;
@@ -36,85 +36,59 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
     this.intiForm();
   }
 
-  ngOnDestroy(): void {
-    this.utils.internalDataBus.next({ type: "jjjj", data: null });
-  }
-
   // create description not public notes
   //update internal notes public notes
   // status ,public notes, internal notes are enabled
 
-  async getFormInfo() {
-    const tktCat = await this.apiService.getTktCateogries().toPromise();
-    this.ticketsCat.push(...tktCat);
-    const tktStatus = await this.apiService.get<any[]>("entities/ticket/status/", {}, "json").toPromise();
-    this.ticketStatus = tktStatus;
+  async getFormInfo(formData: any) {
 
-    this.utils.internalDataBus.subscribe(value => {
-      if (!value) return;
-      console.log(value);
-      if (value.type == "tkt") {
-        this.isUpdate = true;
-        this.updateTicketId = value.data.id;
-        const currentFromState = value.data;
+    this.ticketForm = this.fb.group({
+      category: [{ value: formData["category"], disabled: true }],
+      status: [{ value: formData["status"], disabled: false }],
+      invoice_id: [
+        { value: formData["invoice_id"], disabled: true },
+      ],
+      work_type: [
+        { value: formData["work_type"], disabled: true },
+      ],
+      parts_used: [
+        { value: formData["parts_used"], disabled: true }
+      ],
+      requested_comp_date: [
+        { value: formData["requested_comp_date"], disabled: true }
+      ],
+      completed_time: [
+        { value: formData["completed_time"], disabled: true }
+      ],
+      submit_time: [
+        { value: formData["submit_time"], disabled: true }
+      ],
+      contact_person: [
+        { value: formData["contact_person"], disabled: true }
+      ],
+      assigned_to: [
+        { value: formData["assigned_to"], disabled: true }
+      ],
+      public_notes: [
+        { value: formData["public_notes"], disabled: false }
+      ],
+      internal_notes: [
+        { value: formData["internal_notes"], disabled: false }
+      ],
+      description: [
+        { value: formData["description"], disabled: true }
+      ],
+      client: [
+        { value: formData["client"], disabled: true },
+        Validators.required
+      ],
 
-        this.ticketForm = this.fb.group({
-          category: [{ value: currentFromState["category"], disabled: true }],
-          status: [{ value: currentFromState["status"], disabled: false }],
-          invoice_id: [
-            { value: currentFromState["invoice_id"], disabled: true },
-          ],
-          work_type: [
-            { value: currentFromState["work_type"], disabled: true },
-          ],
-          parts_used: [
-            { value: currentFromState["parts_used"], disabled: true }
-          ],
-          requested_comp_date: [
-            { value: currentFromState["requested_comp_date"], disabled: true }
-          ],
-          completed_time: [
-            { value: currentFromState["completed_time"], disabled: true }
-          ],
-          submit_time: [
-            { value: currentFromState["submit_time"], disabled: true }
-          ],
-          contact_person: [
-            { value: currentFromState["contact_person"]['id'], disabled: true }
-          ],
-          assigned_to: [
-            { value: currentFromState["assigned_to"], disabled: true }
-          ],
-          public_notes: [
-            { value: currentFromState["public_notes"], disabled: false }
-          ],
-          internal_notes: [
-            { value: currentFromState["internal_notes"], disabled: false }
-          ],
-          description: [
-            { value: currentFromState["description"], disabled: true }
-          ],
-          client: [
-            { value: currentFromState["client"], disabled: true },
-            Validators.required
-          ],
-
-        });
-        this.apiService
-          .get<Array<any>>(`entities/ticket-history/${value.data.id}/`)
-          .subscribe(history => {
-            this.currentTktHistory = history;
-          });
-      }
     });
-  }
 
-  //need to be implemented
-  getTktById(id: any) {
     this.apiService
-      .get("accounts/client-users/", { client: id })
-      .subscribe((value: any) => {
-        this.usersList = value;
+      .get<Array<any>>(`entities/ticket-history/${formData.id}/`)
+      .subscribe(history => {
+        this.currentTktHistory = history;
       });
   }
 
@@ -137,29 +111,47 @@ export class CreateTicketComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getFormInfo();
-    this.utils.internalDataBus.subscribe(value => {
-      if (value && value.type == 'refresh_table') {
-        this.isUpdate = false;
-        this.intiForm();
-        this.ticketForm.patchValue({ is_active: true });
+    this.intiForm();
+    this.ticketForm.patchValue({ is_active: true });
+    console.log(this.router.url);
+    const urlSegment = this.router.url.split('/');
+    if (urlSegment.length == 3) {
+      console.log('entering update mode', urlSegment);
+
+      this.updateTicketId = + urlSegment.pop();
+      if (this.updateTicketId) {
+        this.isUpdate = true;
+        this.apiService
+          .get(`entities/ticket/${this.updateTicketId}/`)
+          .subscribe((value: any) => {
+            console.log(value, '---------------getTkt--------------------');
+            let patchableValue = { ...value, assigned_to: value.assigned_to.id, client: value.client.id, contact_person: value.contact_person.id };
+            console.log(patchableValue);
+            this.getFormInfo(patchableValue);
+          });
       }
-    });
+    }
+    this.apiService.get<any[]>("entities/ticket/status/", {}, "json").subscribe((value) => this.ticketStatus = value);
+    this.apiService.getTktCateogries().subscribe((tktCat) => this.ticketsCat.push(...tktCat));
+
 
     this.utils.currentUser.subscribe(user => {
       if (user && !this.ticketForm.value.client) {
-        this.ticketForm.patchValue({ client: user.id });
+        console.log(user.id, '-----------uderid----------');
+        this.apiService
+          .get("accounts/client-users/", { client: user.id })
+          .subscribe((value: any) => {
+            this.usersList = value;
+          });
       }
-      this.apiService
-        .get("accounts/client-users/", { client: user.id })
-        .subscribe((value: any) => {
-          this.usersList = value;
-        });
+
     });
   }
 
   submitForm() {
+    console.log(this.ticketForm.value);
     if (this.ticketForm.valid) {
+      this.ticketForm.patchValue({ client: JSON.parse(this.utils.getCookie('client'))['id'] });
       if (this.isUpdate) {
         this.apiService
           .put(`entities/ticket/${this.updateTicketId}/`, this.ticketForm.value)

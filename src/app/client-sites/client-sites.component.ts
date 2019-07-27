@@ -35,8 +35,9 @@ export class ClientSitesComponent implements OnInit {
   ngOnInit() {
     this.utils.currentUser.subscribe(user => {
       if (!user) return;
-      this.createNewUser(user.id).subscribe(
+      this.utils.client_sites.subscribe(
         (value) => {
+          if (!value && !value.length) return;
           this.clientSites = value;
           console.log(value);
           this.dataSource = new MatTableDataSource(this.clientSites);
@@ -65,8 +66,5 @@ export class ClientSitesComponent implements OnInit {
   }
 
 
-  createNewUser(id: any): Observable<IclientSite[]> {
-    return this.apiService.get<IclientSite[]>("entities/client-sites/", { client: id })
-  }
 
 }

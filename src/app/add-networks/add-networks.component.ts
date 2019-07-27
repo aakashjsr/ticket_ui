@@ -16,6 +16,7 @@ export class AddNetworksComponent implements OnInit {
   isUpdated = false;
   id: string;
   clientSites: IclientSite[] = [];
+  clientName: Promise<string>;
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -54,7 +55,10 @@ export class AddNetworksComponent implements OnInit {
         this.networkForm.patchValue({ is_active: true });
       }
     });
-    this.networkForm.patchValue({ client: this.utils.currentUser.value.id });
+    this.utils.currentUser.subscribe(client => {
+      this.networkForm.patchValue({ client: client.id });
+      this.clientName = new Promise((resolve, reject) => { resolve(client.name) });
+    });
     this.utils.internalDataBus.subscribe(deviceInfo => {
       if (deviceInfo && deviceInfo.type == "edit-network") {
         this.networkForm.patchValue(deviceInfo.data);

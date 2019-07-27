@@ -13,6 +13,7 @@ import { Observable } from "rxjs";
 import { Router } from "@angular/router";
 import { ContactDialogueComponent } from "./contact-dialogue/contact-dialogue.component";
 import { FormGroup, FormBuilder } from "@angular/forms";
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: "tickets-table",
@@ -81,8 +82,7 @@ export class TicketsTableComponent implements OnInit {
   }
 
   getClients() {
-    this.apiService
-      .get<Array<ICleientSites>>("accounts/clients/")
+    this.utils.clients
       .subscribe(value => {
         this.clients.push(...value);
         this.filterForm.patchValue({ clients: value.map(client => client.id) });
@@ -101,51 +101,35 @@ export class TicketsTableComponent implements OnInit {
   ngOnInit() {
     this.getClients();
 
-    this.filterForm.valueChanges.subscribe(_ => {
+    this.filterForm.valueChanges.pipe(debounceTime(10)).subscribe(_ => {
       console.log(this.filterForm.value);
       let formData: { [key: string]: Array<string> } = this.filterForm.value;
 
-      this.dataSource.filterPredicate = (data: ITicket, filter: any) => {
-        console.log(data);
-        if (typeof filter == 'string' || !filter) {
-          return true;
-        }
-        const clients: Array<string> = filter.clients;
-        const status: Array<string> = filter.status;
-        if (!clients.length && !status.length) {
-          return true;
-        }
-
-        let isClient = false;
-        let isStatus = false;
-
-
-        clients.forEach(clientId => {
-          if (data.client.toString().toLowerCase() == clientId.toString().toLowerCase()) {
-            isClient = true;
-          }
+      const networks = this.networks.filter((network) => {
+        return formData['clients'].find((client) => {
+          // console.log(client, network.client);
+          return client == network.client.id
+        }) && formData['status'].find((status) => {
+          console.log(status, network.status);
+          return status == network.status
         });
-
-        status.forEach(value => {
-          if (data.status.toLowerCase() == value.toLowerCase()) {
-            isStatus = true;
-          }
-        });
-        return isClient && isStatus;
-      };
-
-      this.dataSource.filter = <any>formData;
-    });
-    this.utils.currentUser.subscribe(user => {
-      if (!user) return;
-      this.createNewUser(user.id).subscribe(networks => {
-        this.networks = networks;
-        this.dataSource = new MatTableDataSource(this.networks);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.dataSource.filterPredicate = (data: ITicket, filter: string) => data.status !== filter;
-        this.dataSource.filter = 'completed';
       });
+
+      console.log(networks, "------------------------filtered network---------------------------------------");
+
+
+      this.dataSource = new MatTableDataSource(networks);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+
+    this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe(networks => {
+      this.networks = networks;
+      this.dataSource = new MatTableDataSource(this.networks);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.dataSource.filterPredicate = (data: ITicket, filter: string) => data.status !== filter;
+      this.dataSource.filter = 'completed';
     });
   }
 
@@ -158,14 +142,7 @@ export class TicketsTableComponent implements OnInit {
   }
 
   editTktDetails(selectedTkt: any) {
-    this.router.navigate(["/ticket"]);
-    this.utils.internalDataBus.next({
-      type: "tkt",
-      data: {
-        ...selectedTkt,
-        client: selectedTkt.client.id, assigned_to: selectedTkt.assigned_to.id
-      },
-    });
+    this.router.navigate([`edit-ticket/${selectedTkt.id}`]);
   }
 
   createNewUser(id: any): Observable<ITicket[]> {

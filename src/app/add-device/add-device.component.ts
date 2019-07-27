@@ -58,31 +58,26 @@ export class AddDeviceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.utils.internalDataBus.subscribe(value => {
-      if (value && value.type == 'refresh_table') {
-        this.deviceForm.reset();
-        this.isUpdated = false;
-        this.deviceForm.patchValue({ is_active: true });
-      }
-    });
-    this.deviceForm.patchValue({ client: this.utils.currentUser.value.id });
-    this.utils.internalDataBus.subscribe(deviceInfo => {
-      if (deviceInfo && deviceInfo.type == "edit-device") {
-        this.deviceForm.patchValue(deviceInfo.data);
+    let paths = this.router.url.split("/");
+    console.log(paths);
+    if (paths.length == 3) {
+      this.apiService.get<any>(`entities/devices/${paths.pop()}/`).subscribe((deviceInfo) => {
+        console.log(deviceInfo);
+        let info = { ...deviceInfo, client: deviceInfo.client.id, };
+        this.deviceForm.patchValue(info);
+        console.log(info);
+
         this.isUpdated = true;
-        this.id = deviceInfo.data.id;
-      }
-    });
-    this.utils.client_sites.subscribe((c_sites) => {
-      if (c_sites) {
-        console.log(c_sites);
-        this.clientSites.push(...c_sites);
-      }
-    });
+        this.id = deviceInfo.id;
+      });
+    }
+
+    this.utils.client_sites.subscribe((c_sites) => this.clientSites = c_sites);
   }
 
   submitForm() {
     if (this.deviceForm.valid) {
+      this.deviceForm.patchValue({ client: JSON.parse(this.utils.getCookie('client'))['id'] })
       if (!this.isUpdated) {
         this.apiService
           .post("entities/devices/", this.deviceForm.value)

@@ -15,6 +15,7 @@ export class AddVendorAccountComponent implements OnInit {
   vendorAccountForm: FormGroup;
   IsPrimaryContact: boolean;
   IsActive: boolean;
+  clientName: Promise<string>;
   isUpdated = false;
   clients = [];
   id: string;
@@ -78,26 +79,25 @@ export class AddVendorAccountComponent implements OnInit {
         this.vendorAccountForm.reset();
         this.vendorAccountForm.patchValue({ is_active: true });
         this.isUpdated = false;
-      }
-    });
-    this.utils.currentUser.subscribe(user => {
-      if (!user || !user.id) return;
-      this.vendorAccountForm.patchValue({ client: user.id });
-      this.apiService.get<IVendor[]>("entities/vendors/", { client: user.id })
-        .subscribe(vendors => this.vendors.push(...vendors));
-    });
-
-    this.apiService.get<Array<any>>("accounts/clients/").subscribe(value => {
-      this.clients = value;
-    });
-
-    this.utils.internalDataBus.subscribe(value => {
-      if (value && value.type == "edit-vac") {
+      } else if (value && value.type == "edit-vac") {
         this.vendorAccountForm.patchValue(value.data);
         this.isUpdated = true;
         this.id = value.data.id;
       }
     });
+    this.utils.currentUser.subscribe(user => {
+      if (!user || !user.id) return;
+      this.clientName = new Promise((resolve, reject) => resolve(user.name));
+      this.vendorAccountForm.patchValue({ client: user.id });
+      this.apiService.get<IVendor[]>("entities/vendors/", { client: user.id })
+        .subscribe(vendors => this.vendors.push(...vendors));
+    });
+
+    this.utils.clients.subscribe(value => {
+      this.clients = value;
+    });
+
+
     this.utils.client_sites.subscribe((c_sites) => {
       if (c_sites) {
         console.log(c_sites);

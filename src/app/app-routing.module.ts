@@ -57,6 +57,9 @@ const routes: Routes = [
         path: "device", component: AddDeviceComponent
       },
       {
+        path: "edit-device/:id", component: AddDeviceComponent
+      },
+      {
         path: "vendor", component: AddVendorsComponent
       },
       {
@@ -73,6 +76,9 @@ const routes: Routes = [
       },
       {
         path: "vendor-account", component: AddVendorAccountComponent
+      },
+      {
+        path: "edit-ticket/:id", component: CreateTicketComponent
       },
       {
         path: "ticket", component: CreateTicketComponent,

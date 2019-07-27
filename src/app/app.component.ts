@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UtilsService } from './services/utils.service';
 import { timer } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -19,10 +20,14 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router, private utils: UtilsService, private snackBar: MatSnackBar) {
 
-    this.utils.showLoader.subscribe(value => {
-      setTimeout(() => {
-        this.loading = value
-      }, 500);
+    this.utils.showLoader.pipe(debounceTime(400)).subscribe(value => {
+      if (value) {
+        this.loading = value;
+      } else {
+        setTimeout(() => {
+          this.loading = value
+        }, 500);
+      }
     });
   }
 

@@ -36,16 +36,15 @@ export class UsersTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.utils.currentUser.subscribe(user => {
-      if (!user) return;
-      this.createNewUser(user.id).subscribe(users => {
-        users.sort((a, b) => (a.first_name.toLowerCase() < b.first_name.toLowerCase() ? -1 : 1));
-        this.users = users;
-        this.dataSource = new MatTableDataSource(this.users);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+
+    this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe(users => {
+      users.sort((a, b) => (a.first_name.toLowerCase() < b.first_name.toLowerCase() ? -1 : 1));
+      this.users = users;
+      this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
+
   }
 
   applyFilter(filterValue: string) {

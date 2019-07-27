@@ -1,16 +1,17 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
-import { IClient, IclientSite } from '../utils/userInfo';
+import { Subject, Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { IClient, IclientSite, ICleientSites } from '../utils/userInfo';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService implements OnDestroy {
-  internalDataBus = new BehaviorSubject<{ type: string, data: any }>(null);
+  internalDataBus = new Subject<{ type: string, data: any }>();
   showLoader = new Subject<boolean>();
   currentUser = new BehaviorSubject<IClient>(null);
-  client_sites = new BehaviorSubject<IclientSite[]>(null);
+  client_sites = new ReplaySubject<IclientSite[]>(0);
+  clients = new Subject<ICleientSites[]>();
   constructor(private cookieService: CookieService) { }
 
   ngOnDestroy(): void {

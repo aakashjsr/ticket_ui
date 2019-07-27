@@ -45,14 +45,11 @@ export class DevicesTableComponent implements OnInit {
 
 
   ngOnInit() {
-    this.utils.currentUser.subscribe(user => {
-      if (!user) return;
-      this.createNewUser(user.id).subscribe(value => {
-        this.users = value;
-        this.dataSource = new MatTableDataSource(this.users);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+    this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe(value => {
+      this.users = value;
+      this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 
@@ -65,8 +62,7 @@ export class DevicesTableComponent implements OnInit {
   }
 
   editUserForm(deviceInfo: DeviceInfo) {
-    this.utils.internalDataBus.next({ type: "edit-device", data: deviceInfo });
-    this.router.navigate(["/device"]);
+    this.router.navigate([`/edit-device/${deviceInfo.id}`]);
   }
 
   createNewUser(id: any): Observable<DeviceInfo[]> {

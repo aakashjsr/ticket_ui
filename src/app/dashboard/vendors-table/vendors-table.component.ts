@@ -43,18 +43,17 @@ export class VendorsTableComponent implements OnInit {
 
 
   ngOnInit() {
-    this.utils.currentUser.subscribe(user => {
-      if (!user) return;
-      this.createNewUser(user.id).subscribe(
-        (value) => {
-          this.vendors = value;
-          console.log(value);
-          this.dataSource = new MatTableDataSource(this.vendors);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        }
-      );
-    })
+
+    this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe(
+      (value) => {
+        this.vendors = value;
+        console.log(value);
+        this.dataSource = new MatTableDataSource(this.vendors);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    );
+
   }
 
   applyFilter(filterValue: string) {

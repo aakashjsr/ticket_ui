@@ -64,20 +64,30 @@ export class DashboardComponent implements OnInit {
 
 
   getClients() {
-    this.apiService.get<Array<ICleientSites>>("accounts/clients/").subscribe((value) => {
-      this.clients.push(...value);
-      this.filteredStates = this.currentUser.valueChanges
-        .pipe(
-          startWith(''),
-          map(state => state ? this._filterStates(state) : this.clients.slice())
-        );
-      if (this.clients && this.clients.length) {
-        this.currentUser.patchValue(this.clients[0].name);
-        this.utils.currentUser.next(this.clients[0]);
-        this.apiService.get<IclientSite[]>("entities/client-sites/", { client: this.clients[0].id })
-          .subscribe(client_ites => this.utils.client_sites.next(client_ites));
-      }
-    });
+    this.apiService
+      .get<Array<ICleientSites>>("accounts/clients/").subscribe((value) => {
+        this.clients.push(...value);
+        this.utils.clients.next(value);
+        if (this.clients && this.clients.length) {
+          if (!this.utils.getCookie('client')) {
+            this.utils.setCookie('client', JSON.stringify(this.clients[0]));
+            console.log(this.utils.getCookie('client'));
+            this.currentUser.patchValue(this.clients[0].name);
+            this.utils.currentUser.next(this.clients[0]);
+          } else {
+            const currentClint = JSON.parse(this.utils.getCookie('client'));
+            console.log(currentClint);
+            this.currentUser.patchValue(currentClint['name']);
+            this.utils.currentUser.next(currentClint);
+          }
+        }
+
+        this.apiService.get<IclientSite[]>(`entities/client-sites/`, { client: JSON.parse(this.utils.getCookie('client'))['id'] })
+          .subscribe(client_ites => {
+            this.utils.client_sites.next(client_ites);
+          });
+      });
+
   }
 
   logout() {
@@ -94,6 +104,7 @@ export class DashboardComponent implements OnInit {
 
   onClientSelect(value: IClient) {
     this.utils.currentUser.next(value);
+    this.utils.setCookie('client', JSON.stringify(value));
     console.log(value);
     this.apiService.get<IclientSite[]>("entities/client-sites/", { client: value.id })
       .subscribe(client_ites => this.utils.client_sites.next(client_ites));

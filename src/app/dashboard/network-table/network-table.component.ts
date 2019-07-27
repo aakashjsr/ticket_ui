@@ -43,15 +43,14 @@ export class NetworkTableComponent implements OnInit {
 
 
   ngOnInit() {
-    this.utils.currentUser.subscribe(user => {
-      if (!user) return;
-      this.createNewUser(user.id).subscribe((networks) => {
-        this.networks = networks;
-        this.dataSource = new MatTableDataSource(this.networks);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+
+    this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe((networks) => {
+      this.networks = networks;
+      this.dataSource = new MatTableDataSource(this.networks);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
+
   }
 
   applyFilter(filterValue: string) {
