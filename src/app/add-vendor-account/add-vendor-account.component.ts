@@ -29,14 +29,14 @@ export class AddVendorAccountComponent implements OnInit {
     public utils: UtilsService
   ) {
     this.vendorAccountForm = this.fb.group({
-      account: [null],
+      account: [null, Validators.required],
       username: [null],
       password: [null],
-      client: [null, Validators.required],
+      client: [null],
       client_site: [null, Validators.required],
       notes: [],
-      vendor: [],
-      support_expiration: [null, Validators.required],
+      vendor: [null, Validators.required],
+      support_expiration: [null],
       license_key: [],
       is_active: [true]
     });
@@ -74,17 +74,19 @@ export class AddVendorAccountComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.utils.internalDataBus.subscribe(value => {
-      if (value && value.type == 'refresh_table') {
-        this.vendorAccountForm.reset();
-        this.vendorAccountForm.patchValue({ is_active: true });
-        this.isUpdated = false;
-      } else if (value && value.type == "edit-vac") {
-        this.vendorAccountForm.patchValue(value.data);
-        this.isUpdated = true;
-        this.id = value.data.id;
-      }
-    });
+
+    const urlParams = this.router.url.split("/");
+    console.log(urlParams);
+
+    if (urlParams.length == 3) {
+      this.id = urlParams.pop();
+      this.isUpdated = true;
+      this.apiService.get(`entities/vendor-accounts/${this.id}/`).subscribe((v_acc: any) => {
+        this.vendorAccountForm.patchValue({ ...v_acc, client: v_acc.client.id, client_site: v_acc.client_site.id, vendor: v_acc.vendor.id });
+      });
+    } else {
+      this.vendorAccountForm.patchValue({ is_active: true });
+    }
     this.utils.currentUser.subscribe(user => {
       if (!user || !user.id) return;
       this.clientName = new Promise((resolve, reject) => resolve(user.name));
@@ -96,13 +98,7 @@ export class AddVendorAccountComponent implements OnInit {
     this.utils.clients.subscribe(value => {
       this.clients = value;
     });
-
-
-    this.utils.client_sites.subscribe((c_sites) => {
-      if (c_sites) {
-        console.log(c_sites);
-        this.clientSites.push(...c_sites);
-      }
-    });
+    this.apiService.get<IclientSite[]>("entities/client-sites/", { client: JSON.parse(this.utils.getCookie('client')).id })
+      .subscribe(client_ites => this.clientSites = client_ites);
   }
 }

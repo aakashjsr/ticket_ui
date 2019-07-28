@@ -63,7 +63,13 @@ const routes: Routes = [
         path: "vendor", component: AddVendorsComponent
       },
       {
+        path: "edit-vendor/:id", component: AddVendorsComponent
+      },
+      {
         path: "client", component: AddClientComponent
+      },
+      {
+        path: "edit-client/:id", component: AddClientComponent
       },
       {
         path: "clients", component: ClientsTableComponent
@@ -72,13 +78,25 @@ const routes: Routes = [
         path: "network", component: AddNetworksComponent
       },
       {
+        path: "edit-network/:id", component: AddNetworksComponent
+      },
+      {
         path: "client-site", component: AddClientSiteComponent
+      },
+      {
+        path: "edit-client-site/:id", component: AddClientSiteComponent
       },
       {
         path: "vendor-account", component: AddVendorAccountComponent
       },
       {
+        path: "edit-vendor-account/:id", component: AddVendorAccountComponent
+      },
+      {
         path: "edit-ticket/:id", component: CreateTicketComponent
+      },
+      {
+        path: "edit-user/:id", component: AddUserComponent
       },
       {
         path: "ticket", component: CreateTicketComponent,

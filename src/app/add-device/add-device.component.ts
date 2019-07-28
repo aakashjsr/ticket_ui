@@ -28,7 +28,7 @@ export class AddDeviceComponent implements OnInit {
   ) {
     this.deviceForm = this.fb.group({
       client: [null,],
-      user_id: [null, Validators.required],
+      user_id: [null],
       type: [null, Validators.required],
       wan_ip: [null,],
       make: [null,],
@@ -50,7 +50,7 @@ export class AddDeviceComponent implements OnInit {
       guest_pass: [null,],
       guest_dhcp: [null,],
       backup: [null,],
-      client_site: [null,],
+      client_site: [null, Validators.required],
       verified_date: [],
       notes: [],
       is_active: [true]
@@ -63,7 +63,7 @@ export class AddDeviceComponent implements OnInit {
     if (paths.length == 3) {
       this.apiService.get<any>(`entities/devices/${paths.pop()}/`).subscribe((deviceInfo) => {
         console.log(deviceInfo);
-        let info = { ...deviceInfo, client: deviceInfo.client.id, };
+        let info = { ...deviceInfo, client: deviceInfo.client.id, client_site: deviceInfo.client_site.id };
         this.deviceForm.patchValue(info);
         console.log(info);
 
@@ -71,8 +71,10 @@ export class AddDeviceComponent implements OnInit {
         this.id = deviceInfo.id;
       });
     }
-
-    this.utils.client_sites.subscribe((c_sites) => this.clientSites = c_sites);
+    this.apiService.get<IclientSite[]>("entities/client-sites/", { client: JSON.parse(this.utils.getCookie('client')).id })
+      .subscribe(client_ites => {
+        this.clientSites = client_ites;
+      });
   }
 
   submitForm() {

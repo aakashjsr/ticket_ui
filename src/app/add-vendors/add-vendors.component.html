@@ -14,14 +14,14 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>Name</mat-label>
+              <mat-label>* Name</mat-label>
               <input matInput formControlName="name" placeholder="First Name">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>Phone</mat-label>
+              <mat-label>* Phone</mat-label>
               <input matInput formControlName="phone" placeholder="First Name">
             </mat-form-field>
           </div>
@@ -42,14 +42,14 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>Service</mat-label>
+              <mat-label>* Service</mat-label>
               <input matInput formControlName="service" placeholder="First Name">
             </mat-form-field>
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>Website</mat-label>
+              <mat-label>* Website</mat-label>
               <input matInput formControlName="website" placeholder="First Name">
             </mat-form-field>
           </div>
@@ -73,10 +73,7 @@
 
 
           <div class="col-12">
-            <mat-form-field appearance="outline">
-              <mat-label>Notes</mat-label>
-              <textarea matInput formControlName="notes" placeholder="First Name" rows="5"></textarea>
-            </mat-form-field>
+
 
             <div class="d-flex justify-content-start">
               <mat-checkbox [checked]='true' color="primary" class="mr-2" formControlName="is_active"><span

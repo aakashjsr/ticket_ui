@@ -26,7 +26,7 @@ export class AddNetworksComponent implements OnInit {
   ) {
     this.networkForm = this.fb.group({
       client: [],
-      client_location: [null, Validators.required],
+      client_location: [null,],
       dns_server_ip: [null,],
       dc_name: [null,],
       domain_controller_ip: [null,],
@@ -48,35 +48,28 @@ export class AddNetworksComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.utils.internalDataBus.subscribe(value => {
-      if (value && value.type == 'refresh_table') {
-        this.networkForm.reset();
-        this.isUpdated = false;
-        this.networkForm.patchValue({ is_active: true });
-      }
-    });
+    let pathParams = this.router.url.split("/");
+    console.log(pathParams);
+    if (pathParams.length == 3) {
+      this.id = pathParams.pop();
+      this.isUpdated = true;
+      this.apiService.get(`entities/networks/${this.id}/`).subscribe((networks: any) => {
+        this.networkForm.patchValue({ ...networks, client_site: networks.client_site.id });
+        console.log(networks);
+      });
+    }
     this.utils.currentUser.subscribe(client => {
-      this.networkForm.patchValue({ client: client.id });
+      if (!client) return;
       this.clientName = new Promise((resolve, reject) => { resolve(client.name) });
     });
-    this.utils.internalDataBus.subscribe(deviceInfo => {
-      if (deviceInfo && deviceInfo.type == "edit-network") {
-        this.networkForm.patchValue(deviceInfo.data);
-        this.id = deviceInfo.data.id;
-        this.isUpdated = true;
-      }
-    });
 
-    this.utils.client_sites.subscribe((c_sites) => {
-      if (c_sites) {
-        console.log(c_sites);
-        this.clientSites.push(...c_sites);
-      }
-    });
+    this.apiService.get<IclientSite[]>("entities/client-sites/", { client: JSON.parse(this.utils.getCookie('client')).id })
+      .subscribe(client_ites => this.clientSites = client_ites);
   }
 
   submitForm() {
     if (this.networkForm.valid) {
+      this.networkForm.patchValue({ client: JSON.parse(this.utils.getCookie('client'))['id'] });
       if (!this.isUpdated) {
         this.apiService
           .post("entities/networks/", this.networkForm.value)

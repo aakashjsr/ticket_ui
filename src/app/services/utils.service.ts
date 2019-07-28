@@ -10,8 +10,8 @@ export class UtilsService implements OnDestroy {
   internalDataBus = new Subject<{ type: string, data: any }>();
   showLoader = new Subject<boolean>();
   currentUser = new BehaviorSubject<IClient>(null);
-  client_sites = new ReplaySubject<IclientSite[]>(0);
-  clients = new Subject<ICleientSites[]>();
+  // client_sites = new ReplaySubject<IclientSite[]>(0);
+  clients = new ReplaySubject<ICleientSites[]>(0);
   constructor(private cookieService: CookieService) { }
 
   ngOnDestroy(): void {
@@ -39,4 +39,5 @@ export class UtilsService implements OnDestroy {
   setCookie(key: string, value: any) {
     this.cookieService.set(key, value);
   }
+
 }

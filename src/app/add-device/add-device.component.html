@@ -20,7 +20,7 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>Type</mat-label>
+              <mat-label>* Type</mat-label>
               <mat-select formControlName="type">
                 <mat-option *ngFor="let div_type of deviceTypes" [value]="div_type">
                   {{ div_type }}
@@ -32,7 +32,7 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>Client Site</mat-label>
+              <mat-label>* Client Site</mat-label>
               <mat-select formControlName="client_site">
                 <mat-option *ngFor="let site of clientSites" [value]="site.id">
                   {{ site.name }}

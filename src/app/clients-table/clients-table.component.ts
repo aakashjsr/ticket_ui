@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatCheckboxChange } from '@angular/material';
-import { IclientSite } from '../utils/userInfo';
-import { ApiIntercepterService } from '../services/api-intercepter.service';
+import { IClient } from '../utils/userInfo';
 import { UtilsService } from '../services/utils.service';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,31 +12,28 @@ import { Router } from '@angular/router';
 export class ClientsTableComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'website', 'edit'];
-  dataSource: MatTableDataSource<IclientSite>;
-  clientSites = [];
+  dataSource: MatTableDataSource<IClient>;
+  clients = [];
   isActive = true;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
-    private apiService: ApiIntercepterService
-    , private utils: UtilsService
-    , private cdref: ChangeDetectorRef
+    private utils: UtilsService
     , private router: Router
   ) {
 
   }
 
-  editUserForm(value) {
-    this.utils.internalDataBus.next({ type: 'edit-client', data: value })
-    this.router.navigate(['client']);
+  editUserForm(value: IClient) {
+    this.router.navigate([`edit-client/${value.id}`]);
   }
 
   activeFilter(event: MatCheckboxChange) {
     console.log(event);
 
-    this.dataSource.filterPredicate = (data: IclientSite, filter: any) => data && data.is_active.toString() == filter;
+    this.dataSource.filterPredicate = (data: IClient, filter: any) => data && data.is_active.toString() == filter;
     this.dataSource.filter = this.isActive.toString();
   }
 
@@ -48,9 +43,10 @@ export class ClientsTableComponent implements OnInit {
       if (!user) return;
       this.utils.clients.subscribe(
         (value) => {
-          this.clientSites = value;
-          this.dataSource = new MatTableDataSource(this.clientSites);
-          this.cdref.detectChanges();
+          if (!value) return;
+          console.log(value);
+          this.clients = value;
+          this.dataSource = new MatTableDataSource(this.clients);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         }
@@ -64,8 +60,6 @@ export class ClientsTableComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
-
 
 
 }

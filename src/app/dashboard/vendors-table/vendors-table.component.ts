@@ -30,8 +30,7 @@ export class VendorsTableComponent implements OnInit {
   }
 
   editUserForm(value: IVendor) {
-    this.utils.internalDataBus.next({ type: 'edit-vendor', data: value });
-    this.router.navigate(['vendor']);
+    this.router.navigate([`edit-vendor/${value.id}`]);
   }
 
   activeFilter(event: MatCheckboxChange) {

@@ -27,25 +27,20 @@ export class ClientSitesComponent implements OnInit {
   }
 
   editUserForm(value: any) {
-    this.utils.internalDataBus.next({ type: 'edit-client-site', data: value })
-    this.router.navigate(['client-site']);
+    this.router.navigate([`edit-client-site/${value.id}`]);
   }
 
 
   ngOnInit() {
-    this.utils.currentUser.subscribe(user => {
-      if (!user) return;
-      this.utils.client_sites.subscribe(
-        (value) => {
-          if (!value && !value.length) return;
-          this.clientSites = value;
-          console.log(value);
-          this.dataSource = new MatTableDataSource(this.clientSites);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        }
-      );
-    });
+    this.apiService.get<IclientSite[]>("entities/client-sites/", { client: JSON.parse(this.utils.getCookie('client')).id })
+      .subscribe(client_ites => {
+        this.clientSites = client_ites
+        console.log(client_ites);
+        this.dataSource = new MatTableDataSource(this.clientSites);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+
   }
 
 

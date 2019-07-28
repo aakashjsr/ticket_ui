@@ -14,6 +14,7 @@ export class AddUserComponent implements OnInit {
   userForm: FormGroup;
   IsPrimaryContact: boolean;
   IsActive: boolean;
+  isSuperAdmin = false;
   isUpdate = false;
   clientsList = [];
   id: string;
@@ -29,10 +30,10 @@ export class AddUserComponent implements OnInit {
       first_name: [null, Validators.required],
       last_name: [null, Validators.required],
       clients: [[], [Validators.required]],
-      client: [null, Validators.required],
+      client: [null],
       email: [null, [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)]],
       username: [null, Validators.required],
-      password: [null],
+      password: [null, Validators.required],
       user_type: [null, Validators.required],
       is_primary_contact: [true, Validators.required],
       is_active: [true],
@@ -45,6 +46,7 @@ export class AddUserComponent implements OnInit {
 
   submitForm() {
     if (this.userForm.valid) {
+      this.userForm.patchValue({ client: JSON.parse(this.utils.getCookie('client'))['id'] });
       if (!this.isUpdate) {
         this.apiService.post("accounts/users/", this.userForm.value).subscribe(
           value => {
@@ -83,26 +85,29 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userForm.patchValue({ is_active: true });
+    let urlParams = this.router.url.split("/");
+    if (urlParams.length == 3) {
+      this.id = urlParams.pop();
+      this.isUpdate = true;
+      this.apiService.get(`accounts/users/${this.id}/`).subscribe((user) => {
+        this.userForm.patchValue(user);
+      });
+    }
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.userForm.reset();
         this.isUpdate = false;
-        this.userForm.patchValue({ is_active: true });
       } else if (value && value.type == "edit-user") {
         console.log(value.data);
-        this.isUpdate = true;
         this.id = value.data.id;
         this.userForm.patchValue(value.data);
         // this.userForm.controls['password'].disable();
       }
     });
-    this.utils.currentUser.subscribe(user => {
-      if (user) this.userForm.patchValue({ client: user.id });
-    });
-
     this.utils.clients.subscribe(clients => {
       this.clientsList = clients;
     });
-
+    this.isSuperAdmin = this.utils.getCookie('user_type') == 'global_admin';
   }
 }

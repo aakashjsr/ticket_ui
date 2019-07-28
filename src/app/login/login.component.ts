@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
 
   submitForm() {
     if (this.loginForm.valid) {
+      this.utils.clearCoockies();
       this.apiService.post("accounts/login/", this.loginForm.value).subscribe((value: IAdminInfo) => {
         this.utils.setCookies(value);
         this.apiService.initHeaders();

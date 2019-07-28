@@ -1,7 +1,7 @@
 <!-- Responsive table starts here -->
 <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
 
-<h6 class="text-info mt-4">Ticket History</h6>
+<h6 class="text-info ml-4 mt-4">Ticket History</h6>
 
 <div class="table-responsive-vertical shadow-z-1">
   <!-- Table starts here -->
@@ -9,7 +9,7 @@
     <thead>
       <tr>
         <th>Work Type</th>
-        <th>Support Type</th>
+        <!-- <th>Support Type</th> -->
         <th>Status</th>
         <th>Start Date</th>
         <th>End Date</th>
@@ -20,8 +20,8 @@
     <tbody>
       <tr *ngFor="let tktHist of tktHistories">
         <td data-title="ID">{{tktHist.work_type}}</td>
-        <td data-title="Name">{{tktHist.support_type}}</td>
-        <td data-title="Name">{{tktHist.status}}</td>
+        <!-- <td data-title="Name">{{tktHist.support_type}}</td> -->
+        <td class="text-capitalize" data-title="Name">{{tktHist.status | key2string}}</td>
         <td data-title="Name">{{tktHist.start_datetime}}</td>
         <td data-title="Name">{{tktHist.end_datetime}}</td>
         <td data-title="Name">{{tktHist.public_notes}}</td>

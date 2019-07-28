@@ -24,46 +24,43 @@ export class AddVendorsComponent implements OnInit {
     public utils: UtilsService
   ) {
     this.vendorForm = this.fb.group({
-      client: [null, Validators.required],
+      client: [null],
       name: [null, Validators.required],
       phone: [null, [Validators.required,]],
-      email: [null, Validators.required],
-      address: [null, Validators.required],
+      email: [null,],
+      address: [null,],
       service: [null, Validators.required],
       website: [null, Validators.required],
-      support_website: [null, Validators.required],
+      support_website: [null],
       verified_date: [],
-      notes: [],
       is_active: [true]
     });
     this.vendorForm.valueChanges.subscribe(console.log);
   }
 
   ngOnInit() {
-    this.utils.internalDataBus.subscribe(value => {
-      if (value && value.type == 'refresh_table') {
-        this.vendorForm.reset();
-        this.isupdate = false;
-      }
-    });
+    let currentPathParams = this.router.url.split("/");
+    console.log(currentPathParams);
+    if (currentPathParams.length == 3) {
+      this.id = currentPathParams.pop();
+      this.isupdate = true;
+      this.apiService.get(`entities/vendors/${this.id}/`).subscribe((vendors) => {
+        console.log(vendors, '--------------vendors------------------');
+        this.vendorForm.patchValue(vendors);
+        this.vendorForm.patchValue({ is_active: true });
+      });
+    }
+
     this.utils.currentUser.subscribe((user) => {
-      this.vendorForm.patchValue({ client: user.id });
+      if (!user) return;
       this.resolve(user.name);
       this.clientName = new Promise((resolve, reject) => { resolve(user.name) });
-    });
-    this.utils.internalDataBus.subscribe(value => {
-      if (value && value.type == "edit-vendor") {
-        this.vendorForm.patchValue(value.data);
-        this.isupdate = true;
-        this.id = value.data.id;
-        this.vendorForm.patchValue({ is_active: true });
-      }
     });
   }
 
   submitForm() {
-    this.clientName.then(console.log);
     if (this.vendorForm.valid) {
+      this.vendorForm.patchValue({ client: JSON.parse(this.utils.getCookie('client'))['id'] });
       if (!this.isupdate) {
         this.apiService
           .post("entities/vendors/", this.vendorForm.value)

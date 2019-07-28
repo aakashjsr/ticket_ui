@@ -71,21 +71,15 @@ export class DashboardComponent implements OnInit {
         if (this.clients && this.clients.length) {
           if (!this.utils.getCookie('client')) {
             this.utils.setCookie('client', JSON.stringify(this.clients[0]));
-            console.log(this.utils.getCookie('client'));
             this.currentUser.patchValue(this.clients[0].name);
             this.utils.currentUser.next(this.clients[0]);
           } else {
             const currentClint = JSON.parse(this.utils.getCookie('client'));
-            console.log(currentClint);
             this.currentUser.patchValue(currentClint['name']);
             this.utils.currentUser.next(currentClint);
           }
         }
 
-        this.apiService.get<IclientSite[]>(`entities/client-sites/`, { client: JSON.parse(this.utils.getCookie('client'))['id'] })
-          .subscribe(client_ites => {
-            this.utils.client_sites.next(client_ites);
-          });
       });
 
   }
@@ -105,17 +99,16 @@ export class DashboardComponent implements OnInit {
   onClientSelect(value: IClient) {
     this.utils.currentUser.next(value);
     this.utils.setCookie('client', JSON.stringify(value));
-    console.log(value);
-    this.apiService.get<IclientSite[]>("entities/client-sites/", { client: value.id })
-      .subscribe(client_ites => this.utils.client_sites.next(client_ites));
+
   }
+
 
   ngOnInit() {
     this.getClients();
     this.currentUserRole = this.utils.getCookie('user_type');
     this.utils.internalDataBus.subscribe((value) => {
-      if (value && value.type == 'update_client') {
-        this.clients.push(value.data);
+      if (value && value.type == 'get_client') {
+        this.getClients();
       }
     });
   }

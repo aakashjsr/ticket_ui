@@ -34,48 +34,39 @@ export class AddClientComponent implements OnInit {
         this.apiService
           .post("accounts/clients/", this.addClientForm.value)
           .subscribe(value => {
+            this.utils.internalDataBus.next({ type: 'get_client', data: null });
+            this.router.navigate(["/clients"]);
             this.snackBar.open("Client Added", "successfully", {
               duration: 800
             });
-            this.utils.internalDataBus.next({
-              type: "update_client",
-              data: this.addClientForm.value
-            });
-            this.router.navigate(["/clients"]);
           });
       } else {
         this.apiService
           .put(`accounts/clients/${this.id}/`, this.addClientForm.value)
           .subscribe(value => {
+            this.utils.internalDataBus.next({ type: 'get_client', data: null });
+            this.router.navigate(["/clients"]);
             this.snackBar.open("Client updated", "successfully", {
               duration: 800
             });
-            this.router.navigate(["/clients"]);
           });
       }
     } else {
       this.addClientForm.markAllAsTouched();
-
     }
   }
 
   ngOnInit() {
-    this.utils.internalDataBus.subscribe(value => {
-      if (value && value.type == 'refresh_table') {
-        this.addClientForm.reset();
-        this.addClientForm.patchValue({ is_active: true });
-        this.isUpdated = false;
-      }
-    });
-    this.utils.currentUser.subscribe(user => {
-      this.addClientForm.patchValue({ client: user.id });
-    });
-    this.utils.internalDataBus.subscribe(deviceInfo => {
-      if (deviceInfo && deviceInfo.type == "edit-client") {
-        this.addClientForm.patchValue(deviceInfo.data);
-        this.isUpdated = true;
-        this.id = deviceInfo.data.id;
-      }
-    });
+    this.addClientForm.patchValue({ is_active: true });
+    let urlParams = this.router.url.split("/");
+    if (urlParams.length == 3) {
+      this.id = urlParams.pop();
+      console.log(this.id);
+      this.isUpdated = true;
+      this.apiService.get(`accounts/clients/${this.id}/`).subscribe((client => {
+        console.log(client);
+        this.addClientForm.patchValue(client)
+      }));
+    }
   }
 }

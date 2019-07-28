@@ -15,12 +15,34 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>Client Sites</mat-label>
+              <mat-label>* Client Sites</mat-label>
               <mat-select formControlName="client_site">
                 <mat-option *ngFor="let site of clientSites" [value]="site.id">
                   {{ site.name }}
                 </mat-option>
               </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field appearance="outline">
+              <mat-label>* WAN IP</mat-label>
+              <input matInput formControlName="wan_ip" placeholder="Client Location">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field appearance="outline">
+              <mat-label>* WAN subnet mask</mat-label>
+              <input matInput formControlName="wan_subnet_mask" placeholder="Client Location">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <mat-form-field appearance="outline">
+              <mat-label>* WAN gateway</mat-label>
+              <input matInput formControlName="wan_gateway" placeholder="Client Location">
             </mat-form-field>
           </div>
 
@@ -75,26 +97,6 @@
             </mat-form-field>
           </div>
 
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <mat-form-field appearance="outline">
-              <mat-label>WAN IP</mat-label>
-              <input matInput formControlName="wan_ip" placeholder="Client Location">
-            </mat-form-field>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <mat-form-field appearance="outline">
-              <mat-label>WAN subnet mask</mat-label>
-              <input matInput formControlName="wan_subnet_mask" placeholder="Client Location">
-            </mat-form-field>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <mat-form-field appearance="outline">
-              <mat-label>WAN gateway</mat-label>
-              <input matInput formControlName="wan_gateway" placeholder="Client Location">
-            </mat-form-field>
-          </div>
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">

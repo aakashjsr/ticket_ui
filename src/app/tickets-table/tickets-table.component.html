@@ -41,8 +41,8 @@
           <mat-label>Status</mat-label>
 
           <mat-select formControlName="status" multiple>
-            <mat-select-trigger>
-              {{filterForm.value.status ? filterForm.value.status[0] : ''}}
+            <mat-select-trigger class="text-capitalize">
+              {{firststatus }}
               <span *ngIf="filterForm.value.status?.length > 1" class="example-additional-selection">
                 (+{{filterForm.value.status.length - 1}}
                 {{filterForm.value.status?.length === 2 ? 'other' : 'others'}})

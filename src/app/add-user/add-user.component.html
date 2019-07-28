@@ -14,7 +14,7 @@
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>First name</mat-label>
+              <mat-label>* First name</mat-label>
               <input matInput formControlName="first_name" placeholder="First Name" />
               <mat-error *ngIf="userForm.controls['first_name'].invalid">
                 This field is <strong>requird</strong>
@@ -24,7 +24,7 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>Last name</mat-label>
+              <mat-label>* Last name</mat-label>
               <input matInput formControlName="last_name" placeholder="Last Name" />
               <mat-error *ngIf="userForm.controls['last_name'].invalid">
                 This field is <strong>requird</strong>
@@ -34,7 +34,7 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>Email</mat-label>
+              <mat-label>* Email</mat-label>
               <input matInput formControlName="email" placeholder="Email" />
               <mat-error *ngIf="userForm.controls['email'].invalid">
                 This field is <strong>invalid</strong>
@@ -44,7 +44,7 @@
 
           <div *ngIf="!isUpdate" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>Password</mat-label>
+              <mat-label>* Password</mat-label>
               <input matInput type="password" formControlName="password" placeholder="Password" />
               <mat-error *ngIf="userForm.controls['password'].invalid">
                 This field is <strong>requird</strong>
@@ -54,7 +54,7 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>Clients</mat-label>
+              <mat-label>* Clients</mat-label>
               <mat-select formControlName="clients" multiple>
                 <mat-option *ngFor="let client of clientsList" [value]="client.id">{{ client.name }}</mat-option>
               </mat-select>
@@ -63,18 +63,17 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
-              <mat-label>User Type</mat-label>
+              <mat-label>* User Type</mat-label>
               <mat-select formControlName="user_type">
                 <mat-option value="admin">
                   Admin
                 </mat-option>
-                <mat-option value="global_admin">
+                <mat-option *ngIf="isSuperAdmin" value="global_admin">
                   Global Admin
                 </mat-option>
                 <mat-option value="client_admin">
                   Client Admin
                 </mat-option>
-
                 <mat-option value="client_user">
                   Client User
                 </mat-option>
@@ -84,6 +83,7 @@
 
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <mat-form-field appearance="outline">
+              <mat-label>* Username</mat-label>
               <input matInput type="text" formControlName="username" placeholder="Username" />
               <mat-error *ngIf="userForm.controls['username'].invalid">
                 This field is <strong>requird</strong>

@@ -50,14 +50,22 @@ export class TicketsTableComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.filterForm = this.fb.group({
-      clients: [null],
-      status: [null],
+      clients: [[]],
+      status: [[]],
     });
   }
 
   getTicketById(id: any) {
     const clientName = this.clients.find((tkt => tkt.id == id));
-    return clientName ? clientName.name : '';
+    return clientName ? clientName.name.split('_').join(' ') : '';
+  }
+
+  get firststatus() {
+    let firsttkt = this.ticketStatus.find((tkt) => tkt.value == this.filterForm.value.status[0]);
+    if (firsttkt) {
+      return firsttkt.value.split('_').join(' ');
+    }
+    return '';
   }
 
   activeFilter(event: MatCheckboxChange) {
@@ -104,19 +112,13 @@ export class TicketsTableComponent implements OnInit {
     this.filterForm.valueChanges.pipe(debounceTime(10)).subscribe(_ => {
       console.log(this.filterForm.value);
       let formData: { [key: string]: Array<string> } = this.filterForm.value;
-
       const networks = this.networks.filter((network) => {
         return formData['clients'].find((client) => {
-          // console.log(client, network.client);
           return client == network.client.id
         }) && formData['status'].find((status) => {
-          console.log(status, network.status);
           return status == network.status
         });
       });
-
-      console.log(networks, "------------------------filtered network---------------------------------------");
-
 
       this.dataSource = new MatTableDataSource(networks);
       this.dataSource.paginator = this.paginator;

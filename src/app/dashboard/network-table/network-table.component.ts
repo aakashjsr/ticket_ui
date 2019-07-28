@@ -27,12 +27,8 @@ export class NetworkTableComponent implements OnInit {
     , private router: Router) {
   }
 
-  editUserForm(value: any) {
-    this.utils.internalDataBus.next({
-      type: 'edit-network', data:
-        { ...value, client_site: value.client_site.id }
-    })
-    this.router.navigate(['network']);
+  editUserForm(value: INetwork) {
+    this.router.navigate([`edit-network/${value.id}`]);
   }
 
   activeFilter(event: MatCheckboxChange) {

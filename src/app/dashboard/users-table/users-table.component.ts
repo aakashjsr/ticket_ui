@@ -26,8 +26,7 @@ export class UsersTableComponent implements OnInit {
   ) { }
 
   editUserForm(userInfo: any) {
-    this.utils.internalDataBus.next({ type: "edit-user", data: userInfo });
-    this.router.navigate(["/user"]);
+    this.router.navigate([`edit-user/${userInfo.id}`]);
   }
 
   activeFilter(event: MatCheckboxChange) {
