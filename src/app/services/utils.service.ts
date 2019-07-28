@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class UtilsService implements OnDestroy {
   internalDataBus = new Subject<{ type: string, data: any }>();
   showLoader = new Subject<boolean>();
-  currentUser = new BehaviorSubject<IClient>(null);
+  currentUser = new ReplaySubject<IClient>(0);
   // client_sites = new ReplaySubject<IclientSite[]>(0);
   clients = new ReplaySubject<ICleientSites[]>(0);
   constructor(private cookieService: CookieService) { }

@@ -98,7 +98,13 @@ export class AddVendorAccountComponent implements OnInit {
     this.utils.clients.subscribe(value => {
       this.clients = value;
     });
-    this.apiService.get<IclientSite[]>("entities/client-sites/", { client: JSON.parse(this.utils.getCookie('client')).id })
-      .subscribe(client_ites => this.clientSites = client_ites);
+
+
+    this.utils.currentUser.subscribe(client => {
+      if (!client) return;
+      this.apiService.get<IclientSite[]>("entities/client-sites/", { client: client.id })
+        .subscribe(client_ites => this.clientSites = client_ites);
+    });
+
   }
 }

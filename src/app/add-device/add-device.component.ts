@@ -71,10 +71,13 @@ export class AddDeviceComponent implements OnInit {
         this.id = deviceInfo.id;
       });
     }
-    this.apiService.get<IclientSite[]>("entities/client-sites/", { client: JSON.parse(this.utils.getCookie('client')).id })
-      .subscribe(client_ites => {
-        this.clientSites = client_ites;
-      });
+    this.utils.currentUser.subscribe(user => {
+      if (!user) return;
+      this.apiService.get<IclientSite[]>("entities/client-sites/", { client: user.id })
+        .subscribe(client_ites => {
+          this.clientSites = client_ites;
+        });
+    });
   }
 
   submitForm() {
