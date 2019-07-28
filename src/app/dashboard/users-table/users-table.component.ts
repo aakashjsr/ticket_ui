@@ -29,19 +29,22 @@ export class UsersTableComponent implements OnInit {
     this.router.navigate([`edit-user/${userInfo.id}`]);
   }
 
-  activeFilter(event: MatCheckboxChange) {
+  activeFilter(event?: MatCheckboxChange) {
     this.dataSource.filterPredicate = (data: IUserInfo, filter: any) => data && data.is_active.toString() == filter;
     this.dataSource.filter = this.isActive.toString();
   }
 
   ngOnInit() {
-
-    this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe(users => {
-      users.sort((a, b) => (a.first_name.toLowerCase() < b.first_name.toLowerCase() ? -1 : 1));
-      this.users = users;
-      this.dataSource = new MatTableDataSource(this.users);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+    this.utils.currentUser.subscribe(user => {
+      if (!user) return;
+      this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe(users => {
+        users.sort((a, b) => (a.first_name.toLowerCase() < b.first_name.toLowerCase() ? -1 : 1));
+        this.users = users;
+        this.dataSource = new MatTableDataSource(this.users);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.activeFilter();
+      });
     });
 
   }

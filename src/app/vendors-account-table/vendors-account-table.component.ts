@@ -40,6 +40,7 @@ export class VendorsAccountTableComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.utils.currentUser.subscribe(user => {
       if (!user) return;
       this.createNewUser(user.id).subscribe(value => {
@@ -47,11 +48,13 @@ export class VendorsAccountTableComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.users);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.activeFilter();
+
       });
     });
   }
 
-  activeFilter(event: MatCheckboxChange) {
+  activeFilter(event?: MatCheckboxChange) {
     console.log(event);
 
     this.dataSource.filterPredicate = (data: DeviceInfo, filter: any) => data && data.is_active.toString() == filter;

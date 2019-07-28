@@ -31,43 +31,43 @@
         </mat-form-field> -->
       </div>
       <mat-action-list>
-        <button mat-list-item [class.active]="showCurrentUserInfoType == 'ticket'" (click)="navTo('/', 'ticket')">
+        <button mat-list-item [class.active]="showCurrentUserInfoType == '/'" (click)="navTo('/', 'ticket')">
           <mat-icon>file_copy</mat-icon>
           <span class="list-text">Tickets</span>
         </button>
         <button *ngIf="currentUserRole !== 'client_user' && currentUserRole !== 'client_admin'" mat-list-item
-          [class.active]="showCurrentUserInfoType == 'devices'" (click)="navTo('devices', 'devices')">
+          [class.active]="showCurrentUserInfoType == '/devices'" (click)="navTo('devices', 'devices')">
           <mat-icon>important_devices</mat-icon>
           <span class="list-text">Devices</span>
         </button>
         <button *ngIf="currentUserRole !== 'client_user' && currentUserRole !== 'client_admin'" mat-list-item
-          [class.active]="showCurrentUserInfoType == 'vendor'" (click)="navTo('vendors', 'vendor')">
+          [class.active]="showCurrentUserInfoType == '/vendors'" (click)="navTo('vendors', 'vendor')">
           <mat-icon>supervisor_account</mat-icon>
           <span class="list-text">Vendors</span>
         </button>
         <button *ngIf="currentUserRole !== 'client_user' && currentUserRole !== 'client_admin'" mat-list-item
-          [class.active]="showCurrentUserInfoType == 'vendors-accounts'"
+          [class.active]="showCurrentUserInfoType == '/vendors-accounts'"
           (click)="navTo('vendors-accounts', 'vendors-accounts')">
           <mat-icon>account_balance</mat-icon>
           <span class="list-text">Vendor Accounts</span>
         </button>
         <button *ngIf="currentUserRole !== 'client_user' && currentUserRole !== 'client_admin'" mat-list-item
-          [class.active]="showCurrentUserInfoType == 'network'" (click)="navTo('networks', 'network')">
+          [class.active]="showCurrentUserInfoType == '/networks'" (click)="navTo('networks', 'network')">
           <mat-icon>network_wifi</mat-icon>
           <span class="list-text">Network</span>
         </button>
         <button *ngIf="currentUserRole !== 'client_user' && currentUserRole !== 'client_admin'" mat-list-item
-          [class.active]="showCurrentUserInfoType == 'clients'" (click)="navTo('clients', 'clients')">
+          [class.active]="showCurrentUserInfoType == '/clients'" (click)="navTo('clients', 'clients')">
           <mat-icon>person</mat-icon> <span class="list-text">Clients</span>
         </button>
         <button *ngIf="currentUserRole !== 'client_user' && currentUserRole !== 'client_admin'" mat-list-item
-          [class.active]="showCurrentUserInfoType == 'client_sites'" (click)="navTo('client_sites', 'client_sites')">
+          [class.active]="showCurrentUserInfoType == '/client_sites'" (click)="navTo('client_sites', 'client_sites')">
           <mat-icon>location_on</mat-icon>
           <span class="list-text">Client Sites</span>
         </button>
 
         <button *ngIf="currentUserRole !== 'client_user' && currentUserRole !== 'client_admin'" mat-list-item
-          [class.active]="showCurrentUserInfoType == 'userinfo'" (click)="navTo('/users', 'userinfo')">
+          [class.active]="showCurrentUserInfoType == '/users'" (click)="navTo('/users', 'userinfo')">
           <mat-icon>accessibility</mat-icon> <span class="list-text">Users</span>
         </button>
 

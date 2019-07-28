@@ -68,7 +68,7 @@ export class TicketsTableComponent implements OnInit {
     return '';
   }
 
-  activeFilter(event: MatCheckboxChange) {
+  activeFilter(event?: MatCheckboxChange) {
     console.log(event);
     console.log(this.isActive);
 
@@ -125,7 +125,7 @@ export class TicketsTableComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
 
-    this.utils.currentUser.subscribe((user) => {
+    this.utils.currentUser.pipe(debounceTime(600)).subscribe((user) => {
       if (!user) return;
       this.createNewUser(user.id).subscribe(networks => {
         this.networks = networks;
@@ -134,6 +134,8 @@ export class TicketsTableComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.dataSource.filterPredicate = (data: ITicket, filter: string) => data.status !== filter;
         this.dataSource.filter = 'completed';
+        this.activeFilter();
+
       });
     });
 

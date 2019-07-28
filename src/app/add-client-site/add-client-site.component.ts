@@ -13,6 +13,7 @@ import { UtilsService } from "../services/utils.service";
 export class AddClientSiteComponent implements OnInit {
   clientSiteForm: FormGroup;
   isUpdated = false;
+  client_name = '';
   id: string;
   constructor(
     private fb: FormBuilder,
@@ -49,6 +50,11 @@ export class AddClientSiteComponent implements OnInit {
     } else {
       this.isUpdated = false;
     }
+
+    this.utils.currentUser.subscribe(user => {
+      if (!user) return;
+      this.client_name = user.name;
+    });
   }
 
   submitForm() {

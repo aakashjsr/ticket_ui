@@ -33,7 +33,7 @@ export class VendorsTableComponent implements OnInit {
     this.router.navigate([`edit-vendor/${value.id}`]);
   }
 
-  activeFilter(event: MatCheckboxChange) {
+  activeFilter(event?: MatCheckboxChange) {
     console.log(event);
 
     this.dataSource.filterPredicate = (data: IVendor, filter: any) => data && data.is_active.toString() == filter;
@@ -43,15 +43,20 @@ export class VendorsTableComponent implements OnInit {
 
   ngOnInit() {
 
-    this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe(
-      (value) => {
-        this.vendors = value;
-        console.log(value);
-        this.dataSource = new MatTableDataSource(this.vendors);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      }
-    );
+    this.utils.currentUser.subscribe(user => {
+      if (!user) return;
+      this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe(
+        (value) => {
+          this.vendors = value;
+          console.log(value);
+          this.dataSource = new MatTableDataSource(this.vendors);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.activeFilter();
+        }
+      );
+
+    });
 
   }
 

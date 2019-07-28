@@ -19,6 +19,7 @@ export class CreateTicketComponent implements OnInit {
   ticketsCat: Array<{ display: string; value: string }> = [];
   ticketForm: FormGroup;
   isUpdate = false;
+  client_name = '';
   stateCtrl = new FormControl();
   ticketStatus: Array<{ display: string; value: string }> = [];
   usersList: any[];
@@ -41,7 +42,7 @@ export class CreateTicketComponent implements OnInit {
     this.ticketForm.controls['invoice_id'].disable();
     this.ticketForm.controls['work_type'].disable();
     this.ticketForm.controls['parts_used'].disable();
-    this.ticketForm.controls['requested_comp_date'].disable();
+    // this.ticketForm.controls['requested_comp_date'].disable();
     this.ticketForm.controls['description'].disable();
     this.ticketForm.controls['category'].disable();
     let currentRole = this.utils.getCookie('user_type');
@@ -71,40 +72,44 @@ export class CreateTicketComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.router.url);
-    const urlSegment = this.router.url.split('/');
-    if (urlSegment.length == 3) {
-      console.log('entering update mode', urlSegment);
 
-      this.updateTicketId = + urlSegment.pop();
-      if (this.updateTicketId) {
-        this.isUpdate = true;
-        this.apiService
-          .get(`entities/ticket/${this.updateTicketId}/`)
-          .subscribe((value: any) => {
-            console.log(value, '---------------getTkt--------------------');
-            let patchableValue = { ...value, assigned_to: value.assigned_to.id, client: value.client.id, contact_person: value.contact_person.id };
-            console.log(patchableValue);
-            this.ticketForm.patchValue(patchableValue);
-            this.disableFields();
-            this.apiService
-              .get<Array<any>>(`entities/ticket-history/${patchableValue.id}/`)
-              .subscribe(history => {
-                this.currentTktHistory = history;
-              });
-          });
-      }
-    }
     this.apiService.get<any[]>("entities/ticket/status/", {}, "json").subscribe((value) => this.ticketStatus = value);
     this.apiService.getTktCateogries().subscribe((tktCat) => this.ticketsCat.push(...tktCat));
 
 
     this.utils.currentUser.subscribe(user => {
       if (user && !this.ticketForm.value.client) {
+        this.client_name = user.name;
+        debugger;
         this.apiService
           .get("accounts/client-users/", { client: user.id })
           .subscribe((value: any) => {
             this.usersList = value;
           });
+
+        const urlSegment = this.router.url.split('/');
+        if (urlSegment.length == 3) {
+          console.log('entering update mode', urlSegment);
+
+          this.updateTicketId = + urlSegment.pop();
+          if (this.updateTicketId) {
+            this.isUpdate = true;
+            this.apiService
+              .get(`entities/ticket/${this.updateTicketId}/`)
+              .subscribe((value: any) => {
+                console.log(value, '---------------getTkt--------------------');
+                let patchableValue = { ...value, assigned_to: value.assigned_to.id, client: value.client.id, contact_person: value.contact_person.id };
+                console.log(patchableValue);
+                this.ticketForm.patchValue(patchableValue);
+                this.disableFields();
+                this.apiService
+                  .get<Array<any>>(`entities/ticket-history/${patchableValue.id}/`)
+                  .subscribe(history => {
+                    this.currentTktHistory = history;
+                  });
+              });
+          }
+        }
       }
 
     });

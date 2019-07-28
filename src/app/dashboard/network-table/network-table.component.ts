@@ -31,7 +31,7 @@ export class NetworkTableComponent implements OnInit {
     this.router.navigate([`edit-network/${value.id}`]);
   }
 
-  activeFilter(event: MatCheckboxChange) {
+  activeFilter(event?: MatCheckboxChange) {
     console.log(event);
     this.dataSource.filterPredicate = (data: INetwork, filter: any) => data && data.is_active.toString() == filter;
     this.dataSource.filter = this.isActive.toString();
@@ -39,13 +39,18 @@ export class NetworkTableComponent implements OnInit {
 
 
   ngOnInit() {
+    this.utils.currentUser.subscribe(user => {
+      if (!user) return;
+      this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe((networks) => {
+        this.networks = networks;
+        this.dataSource = new MatTableDataSource(this.networks);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.activeFilter();
 
-    this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe((networks) => {
-      this.networks = networks;
-      this.dataSource = new MatTableDataSource(this.networks);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      });
     });
+
 
   }
 

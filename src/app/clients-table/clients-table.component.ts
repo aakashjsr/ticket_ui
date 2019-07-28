@@ -30,7 +30,7 @@ export class ClientsTableComponent implements OnInit {
     this.router.navigate([`edit-client/${value.id}`]);
   }
 
-  activeFilter(event: MatCheckboxChange) {
+  activeFilter(event?: MatCheckboxChange) {
     console.log(event);
 
     this.dataSource.filterPredicate = (data: IClient, filter: any) => data && data.is_active.toString() == filter;
@@ -49,6 +49,8 @@ export class ClientsTableComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.clients);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+          this.activeFilter();
+
         }
       );
     });

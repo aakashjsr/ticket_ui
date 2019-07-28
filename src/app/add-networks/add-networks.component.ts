@@ -16,7 +16,7 @@ export class AddNetworksComponent implements OnInit {
   isUpdated = false;
   id: string;
   clientSites: IclientSite[] = [];
-  clientName: Promise<string>;
+  client_name = '';
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -58,13 +58,10 @@ export class AddNetworksComponent implements OnInit {
         console.log(networks);
       });
     }
-    this.utils.currentUser.subscribe(client => {
-      if (!client) return;
-      this.clientName = new Promise((resolve, reject) => { resolve(client.name) });
-    });
 
     this.utils.currentUser.subscribe(user => {
       if (!user) return;
+      this.client_name = user.name;
       this.apiService.get<IclientSite[]>("entities/client-sites/", { client: user.id })
         .subscribe(client_ites => this.clientSites = client_ites);
     });

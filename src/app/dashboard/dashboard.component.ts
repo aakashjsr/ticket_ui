@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, debounceTime } from 'rxjs/operators';
 import { IUserInfo, IClient, ICleientSites, IclientSite } from '../utils/userInfo';
 import { ApiIntercepterService } from '../services/api-intercepter.service';
 import { FormControl } from '@angular/forms';
 import { UtilsService } from '../services/utils.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, GuardsCheckEnd, NavigationEnd } from '@angular/router';
+import { Location } from "@angular/common";
 
 enum EshowUserInfoType {
   USERINFO = 'userinfo',
@@ -40,6 +41,8 @@ export class DashboardComponent implements OnInit {
     , private apiService: ApiIntercepterService
     , private utils: UtilsService
     , private router: Router
+    , private route: ActivatedRoute
+    , location: Location
   ) { }
 
   navToRoute(path: string) {
@@ -93,7 +96,6 @@ export class DashboardComponent implements OnInit {
 
   navTo(path: string, selectionType: string) {
     this.router.navigate([path]);
-    this.showCurrentUserInfoType = selectionType;
   }
 
   onClientSelect(value: IClient) {
@@ -104,6 +106,24 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit() {
+    this.showCurrentUserInfoType = this.router.url;
+    this.router.events.pipe(debounceTime(600)).subscribe(event => {
+      console.log(event instanceof NavigationEnd);
+      if (typeof GuardsCheckEnd) {
+        console.log(event);
+        switch ((<NavigationEnd>event).url) {
+          case '/':
+          case "/devices":
+          case "/vendors":
+          case "/vendors-accounts":
+          case "/networks":
+          case "/clients":
+          case "/client_sites":
+          case "/users":
+            break;
+        }
+      }
+    });
     this.getClients();
     this.currentUserRole = this.utils.getCookie('user_type');
     this.utils.internalDataBus.subscribe((value) => {

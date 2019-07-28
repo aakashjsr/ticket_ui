@@ -36,7 +36,7 @@ export class DevicesTableComponent implements OnInit {
   }
 
 
-  activeFilter(event: MatCheckboxChange) {
+  activeFilter(event?: MatCheckboxChange) {
     console.log(event);
 
     this.dataSource.filterPredicate = (data: DeviceInfo, filter: any) => data && data.is_active.toString() == filter;
@@ -45,12 +45,17 @@ export class DevicesTableComponent implements OnInit {
 
 
   ngOnInit() {
-    this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe(value => {
-      this.users = value;
-      this.dataSource = new MatTableDataSource(this.users);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+    this.utils.currentUser.subscribe(user => {
+      if (!user) return;
+      this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe(value => {
+        this.users = value;
+        this.dataSource = new MatTableDataSource(this.users);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.activeFilter();
+      });
     });
+
   }
 
   applyFilter(filterValue: string) {

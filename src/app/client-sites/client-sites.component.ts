@@ -32,19 +32,23 @@ export class ClientSitesComponent implements OnInit {
 
 
   ngOnInit() {
-    this.apiService.get<IclientSite[]>("entities/client-sites/", { client: JSON.parse(this.utils.getCookie('client')).id })
-      .subscribe(client_ites => {
-        this.clientSites = client_ites
-        console.log(client_ites);
-        this.dataSource = new MatTableDataSource(this.clientSites);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+    this.utils.currentUser.subscribe(user => {
+      this.apiService.get<IclientSite[]>("entities/client-sites/", { client: JSON.parse(this.utils.getCookie('client')).id })
+        .subscribe(client_ites => {
+          this.clientSites = client_ites
+          console.log(client_ites);
+          this.dataSource = new MatTableDataSource(this.clientSites);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.activeFilter();
+        });
+    });
+
 
   }
 
 
-  activeFilter(event: MatCheckboxChange) {
+  activeFilter(event?: MatCheckboxChange) {
     console.log(event);
 
     this.dataSource.filterPredicate = (data: IclientSite, filter: any) => data && data.is_active.toString() == filter;

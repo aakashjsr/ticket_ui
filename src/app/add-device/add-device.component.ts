@@ -15,6 +15,7 @@ export class AddDeviceComponent implements OnInit {
   deviceForm: FormGroup;
   isUpdated = false;
   clientSites: IclientSite[] = [];
+  client_name = '';
   id: string;
   deviceTypes = ['Router', 'Access point', 'phone', 'IOT', 'Printer', 'Switch',
     'firewall', 'server', 'workstation', 'mac', 'ups', 'modem', 'NAS',
@@ -73,6 +74,8 @@ export class AddDeviceComponent implements OnInit {
     }
     this.utils.currentUser.subscribe(user => {
       if (!user) return;
+      this.client_name = user.name;
+
       this.apiService.get<IclientSite[]>("entities/client-sites/", { client: user.id })
         .subscribe(client_ites => {
           this.clientSites = client_ites;
