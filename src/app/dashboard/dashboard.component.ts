@@ -101,7 +101,7 @@ export class DashboardComponent implements OnInit {
   onClientSelect(value: IClient) {
     this.utils.currentUser.next(value);
     this.utils.setCookie('client', JSON.stringify(value));
-
+    window.location.reload();
   }
 
 
