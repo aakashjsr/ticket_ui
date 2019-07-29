@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
   getClients() {
     this.apiService
       .get<Array<ICleientSites>>("accounts/clients/").subscribe((value) => {
-        this.clients.push(...value);
+        this.clients = value;
         this.utils.clients.next(value);
         if (this.clients && this.clients.length) {
           if (!this.utils.getCookie('client')) {
@@ -107,7 +107,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.showCurrentUserInfoType = this.router.url;
-    this.router.events.pipe(debounceTime(600)).subscribe(event => {
+    this.router.events.pipe(debounceTime(60)).subscribe(event => {
       console.log(event instanceof NavigationEnd);
       if (typeof GuardsCheckEnd) {
         console.log(event);
@@ -120,6 +120,7 @@ export class DashboardComponent implements OnInit {
           case "/clients":
           case "/client_sites":
           case "/users":
+            this.showCurrentUserInfoType = (<any>event).url;
             break;
         }
       }

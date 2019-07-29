@@ -68,14 +68,6 @@ export class TicketsTableComponent implements OnInit {
     return '';
   }
 
-  activeFilter(event?: MatCheckboxChange) {
-    console.log(event);
-    console.log(this.isActive);
-
-    this.dataSource.filterPredicate =
-      (data: ITicket, filter: any) => data && data.is_active && data.is_active.toString() == filter;
-    this.dataSource.filter = this.isActive.toString();
-  }
 
   openDialog(value: any): void {
     const dialogRef = this.dialog.open(ContactDialogueComponent, {
@@ -125,20 +117,14 @@ export class TicketsTableComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
 
-    this.utils.currentUser.pipe(debounceTime(600)).subscribe((user) => {
-      if (!user) return;
-      this.createNewUser(user.id).subscribe(networks => {
-        this.networks = networks;
-        this.dataSource = new MatTableDataSource(this.networks);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.dataSource.filterPredicate = (data: ITicket, filter: string) => data.status !== filter;
-        this.dataSource.filter = 'completed';
-        this.activeFilter();
-
-      });
+    this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe(networks => {
+      this.networks = networks;
+      this.dataSource = new MatTableDataSource(this.networks);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.dataSource.filterPredicate = (data: ITicket, filter: string) => data.status !== filter;
+      this.dataSource.filter = 'completed';
     });
-
   }
 
   applyFilter(filterValue: string) {

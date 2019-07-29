@@ -46,7 +46,7 @@ export class CreateTicketComponent implements OnInit {
     this.ticketForm.controls['description'].disable();
     this.ticketForm.controls['category'].disable();
     let currentRole = this.utils.getCookie('user_type');
-    if (currentRole == 'admin' || currentRole == 'global_admin') {
+    if (currentRole !== 'admin' && currentRole !== 'global_admin') {
       this.ticketForm.controls['assigned_to'].disable();
       this.ticketForm.controls['contact_person'].disable();
     }
@@ -80,7 +80,6 @@ export class CreateTicketComponent implements OnInit {
     this.utils.currentUser.subscribe(user => {
       if (user && !this.ticketForm.value.client) {
         this.client_name = user.name;
-        debugger;
         this.apiService
           .get("accounts/client-users/", { client: user.id })
           .subscribe((value: any) => {
