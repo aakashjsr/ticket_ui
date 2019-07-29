@@ -92,17 +92,14 @@ export class AddUserComponent implements OnInit {
       this.isUpdate = true;
       this.apiService.get(`accounts/users/${this.id}/`).subscribe((user) => {
         this.userForm.patchValue(user);
+        this.userForm.controls.password.setValidators(null);
+        this.userForm.controls['password'].disable();
       });
     }
     this.utils.internalDataBus.subscribe(value => {
       if (value && value.type == 'refresh_table') {
         this.userForm.reset();
         this.isUpdate = false;
-      } else if (value && value.type == "edit-user") {
-        console.log(value.data);
-        this.id = value.data.id;
-        this.userForm.patchValue(value.data);
-        // this.userForm.controls['password'].disable();
       }
     });
     this.utils.clients.subscribe(clients => {
