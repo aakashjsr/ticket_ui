@@ -1,0 +1,38 @@
+[debug] [2019-07-29T16:28:37.028Z] ----------------------------------------------------------------------
+[debug] [2019-07-29T16:28:37.030Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\vivitha\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-07-29T16:28:37.030Z] CLI Version:   7.1.1
+[debug] [2019-07-29T16:28:37.030Z] Platform:      win32
+[debug] [2019-07-29T16:28:37.030Z] Node Version:  v10.16.0
+[debug] [2019-07-29T16:28:37.031Z] Time:          Mon Jul 29 2019 21:58:37 GMT+0530 (India Standard Time)
+[debug] [2019-07-29T16:28:37.031Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-07-29T16:28:37.040Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-07-29T16:28:37.040Z] > authorizing via signed-in user
+[debug] [2019-07-29T16:28:37.040Z] [iam] checking project company-profile-7813e for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-07-29T16:28:37.042Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-07-29T16:28:37.042Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-07-29T16:28:37.540Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-29T16:28:37.590Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/company-profile-7813e:testIamPermissions  
+
+[debug] [2019-07-29T16:28:39.898Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-29T16:28:39.905Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/company-profile-7813e  
+ 
+[debug] [2019-07-29T16:28:40.857Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'company-profile-7813e'...
+[info] 
+[info] i  deploying hosting
+[debug] [2019-07-29T16:28:40.873Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/company-profile-7813e/versions  
+
+[debug] [2019-07-29T16:28:43.733Z] <<< HTTP RESPONSE 200
+[info] i  hosting[company-profile-7813e]: beginning deploy...
+[info] i  hosting[company-profile-7813e]: found 10 files in dist/ticket-management
+[debug] [2019-07-29T16:28:43.751Z] [hosting] hash cache [ZGlzdFx0aWNrZXQtbWFuYWdlbWVudA] load error: lines is not defined
+[debug] [2019-07-29T16:28:43.864Z] [hosting] hash cache [ZGlzdFx0aWNrZXQtbWFuYWdlbWVudA] stored for 10 files
+[debug] [2019-07-29T16:28:43.864Z] [hosting][hash queue][FINAL]
+[debug] [2019-07-29T16:28:43.864Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/company-profile-7813e/versions/ff8634bb471fbe44:populateFiles  
+ <request body omitted>
+[debug] [2019-07-29T16:28:46.939Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-29T16:28:46.952Z] [hosting][populate queue][FINAL]
+[debug] [2019-07-29T16:28:46.953Z] [hosting] uploads queued: 3

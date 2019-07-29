@@ -35,7 +35,7 @@ export class AddDeviceComponent implements OnInit {
       make: [null,],
       username: [null,],
       password: [null,],
-      device_id: [null,],
+      device_id: [null, Validators.required],
       serial: [null,],
       warranty_exp: [null,],
       processor: [null,],

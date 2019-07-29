@@ -4,7 +4,7 @@ import { MatSnackBar } from "@angular/material";
 import { ApiIntercepterService } from "../services/api-intercepter.service";
 import { Router } from "@angular/router";
 import { UtilsService } from "../services/utils.service";
-
+//show email validation error;
 @Component({
   selector: "app-add-vendors",
   templateUrl: "./add-vendors.component.html",
@@ -27,7 +27,7 @@ export class AddVendorsComponent implements OnInit {
       client: [null],
       name: [null, Validators.required],
       phone: [null, [Validators.required,]],
-      email: [null,],
+      email: [null, Validators.pattern(/^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/)],
       address: [null,],
       service: [null, Validators.required],
       website: [null, Validators.required],
@@ -35,7 +35,6 @@ export class AddVendorsComponent implements OnInit {
       verified_date: [],
       is_active: [true]
     });
-    this.vendorForm.valueChanges.subscribe(console.log);
   }
 
   ngOnInit() {

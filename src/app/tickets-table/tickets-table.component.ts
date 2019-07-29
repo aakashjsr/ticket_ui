@@ -84,14 +84,14 @@ export class TicketsTableComponent implements OnInit {
   getClients() {
     this.utils.clients
       .subscribe(value => {
-        this.clients.push(...value);
+        this.clients = value;
         this.filterForm.patchValue({ clients: value.map(client => client.id) });
       });
 
     this.apiService
       .get<any[]>("entities/ticket/status/", {}, "json")
       .subscribe(value => {
-        this.ticketStatus.push(...value);
+        this.ticketStatus = value;
         let tempTkt = [...value];
         tempTkt = tempTkt.filter(tickt => tickt.value !== 'completed')
         this.filterForm.patchValue({ status: tempTkt.map(status => status.value) });
@@ -99,8 +99,6 @@ export class TicketsTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getClients();
-
     this.filterForm.valueChanges.pipe(debounceTime(10)).subscribe(_ => {
       console.log(this.filterForm.value);
       let formData: { [key: string]: Array<string> } = this.filterForm.value;
@@ -117,14 +115,20 @@ export class TicketsTableComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
 
-    this.createNewUser(JSON.parse(this.utils.getCookie('client'))['id']).subscribe(networks => {
-      this.networks = networks;
-      this.dataSource = new MatTableDataSource(this.networks);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.dataSource.filterPredicate = (data: ITicket, filter: string) => data.status !== filter;
-      this.dataSource.filter = 'completed';
-    });
+    this.utils.currentUser.subscribe(user => {
+      if (!user) return;
+      this.getClients();
+      this.createNewUser(user.id).subscribe(networks => {
+        this.networks = networks;
+        this.dataSource = new MatTableDataSource(this.networks);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.dataSource.filterPredicate = (data: ITicket, filter: string) => data.status !== filter;
+        this.dataSource.filter = 'completed';
+      });
+    })
+
+
   }
 
   applyFilter(filterValue: string) {
