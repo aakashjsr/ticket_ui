@@ -90,6 +90,7 @@ export class DashboardComponent implements OnInit {
   logout() {
     this.apiService.post("accounts/logout/").subscribe((value) => {
       localStorage.clear();
+      this.utils.clearCoockies();
       this.router.navigate(["/login"]);
     });
   }
