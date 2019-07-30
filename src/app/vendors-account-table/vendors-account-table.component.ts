@@ -13,11 +13,11 @@ import { Router } from "@angular/router";
 })
 export class VendorsAccountTableComponent implements OnInit {
   displayedColumns: string[] = [
+    "site",
     "name",
     'account',
     "vWeb",
     'password',
-    "vService",
     "color",
     "notes", 'edit'
   ];

@@ -5,7 +5,7 @@
           <h6 class="text-primary ml-3 pb-2 border-bottom">Contact Info</h6>
         <div class="card-body">
 
-          <div class="row">
+          <div class="row modal-row">
             <div class="col-4">
               <h6 class="text-danger">Name:</h6>
             </div>
@@ -14,7 +14,7 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="row modal-row">
             <div class="col-4">
               <h6 class="text-danger">Email:</h6>
             </div>
@@ -23,21 +23,23 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="row modal-row">
             <div class="col-4">
               <h6 class="text-danger">Phone:</h6>
             </div>
             <div class="col-8">
-              <p>{{contactDetail.Phone}} ext {{contactDetail.phone_ext}}</p>
+              <p *ngIf="contactDetail.phone_ext && contactDetail.phone">
+                ({{contactDetail.phone_ext}}) {{contactDetail.phone}}
+              </p>
             </div>
           </div>
 
-          <div class="row">
+          <div class="row modal-row">
             <div class="col-4">
               <h6 class="text-danger">Cell:</h6>
             </div>
             <div class="col-8">
-              <p>{{contactDetail.cell_phone}} ext {{contactDetail.phone_ext}}</p>
+              <p>{{contactDetail.cell_phone}}</p>
             </div>
           </div>
 

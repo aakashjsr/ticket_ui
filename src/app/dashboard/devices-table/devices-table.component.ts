@@ -13,6 +13,7 @@ import { Router } from "@angular/router";
 })
 export class DevicesTableComponent implements OnInit {
   displayedColumns: string[] = [
+    "site",
     "name",
     "phone",
     "color",
