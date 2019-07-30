@@ -56,7 +56,13 @@ export class AddUserComponent implements OnInit {
             this.router.navigate(["/users"]);
           },
           err => {
-            console.log(err.error);
+
+            if (err.error.email) {
+              this.snackBar.open("Email Error:", err.error.email, {
+                duration: 1500
+              });
+            }
+            console.log(err);
           }
         );
       } else {
@@ -68,13 +74,19 @@ export class AddUserComponent implements OnInit {
           .patch(`accounts/users/${this.id}/`, formData)
           .subscribe(
             value => {
-              this.snackBar.open("user Details updated", "successfully", {
+              this.snackBar.open("User Details updated", "successfully!", {
                 duration: 1500
               });
               this.router.navigate(["/users"]);
             },
             err => {
-              console.log(err.error);
+
+              if (err.error.email) {
+                this.snackBar.open("Email Error:", err.error.email, {
+                  duration: 1500
+                });
+              }
+              console.log(err);
             }
           );
       }
